@@ -14,10 +14,18 @@ WA_PATH = open(os.path.join(AQUI, "wa_path.txt")).read().strip()
 E = html.escape
 
 
-def css_en_linea(prefijo_fuentes):
-    """pro.css va dentro del HTML (menos pedidos, portada mas rapida). Las rutas de letras se ajustan a la pagina."""
+LETRAS = {  # familias que usa cada pagina: solo se declaran (y se bajan) esas
+    "restaurante": ("Bricolage Grotesque", "Figtree"), "selector": ("Bricolage Grotesque", "Figtree"), "salon": ("Bricolage Grotesque", "Figtree"),
+    "odontologia": ("Figtree",), "panaderia": ("Young Serif", "Work Sans"), "carnes": ("Anton", "Archivo"),
+    "materiales": ("Barlow Semi Condensed", "Barlow"), "taller": ("Barlow Semi Condensed", "Barlow"), "ropa": ("Outfit",),
+}
+
+
+def css_en_linea(prefijo_fuentes, tema):
+    """pro.css va dentro del HTML (menos pedidos, portada mas rapida). Las rutas de letras se ajustan a la pagina y solo van las de su rubro."""
     c = open(os.path.join(RAIZ, "css", "pro.css"), encoding="utf-8").read()
     c = re.sub(r"/\*.*?\*/", "", c, flags=re.S)
+    c = "\n".join(l for l in c.split("\n") if not l.startswith("@font-face") or any('"%s"' % f in l for f in LETRAS[tema]))
     c = re.sub(r"\s+", " ", c)
     c = re.sub(r" ?([{};,>]) ?", lambda m: m.group(1), c).replace(": ", ":")
     return "<style>" + c.replace("../fonts/", prefijo_fuentes) + "</style>"
@@ -102,7 +110,7 @@ def ubicacion(P, filas, cierre_wa_txt):
 
 
 def acciones(r, wa_url):
-    boton_wa = '<a class="btn btn-grande%s" id="wa-portada" href="%s" rel="noopener">%s<span>Escribinos por WhatsApp</span></a>' % (" btn-borde" if r.get("carta_primero") else "", wa_url, ico())
+    boton_wa = '<a class="btn btn-grande%s" id="wa-portada" href="%s" rel="noopener">%s<span>%s</span></a>' % (" btn-borde" if r.get("carta_primero") else "", wa_url, ico(), E(r.get("wa_label", "Escribinos por WhatsApp")))
     if r.get("carta_primero"):
         return '<a class="btn btn-grande" href="#carta">Ver la carta y pedir</a>' + boton_wa
     return boton_wa + r.get("sec_link", "")
@@ -150,7 +158,7 @@ def pagina(r):
 <header class="cab"><div class="ancho cab-in">
 <a class="marca" href="#contenido">%(nombre_demo)s</a>
 <div class="cab-der"><span class="estado" id="estado" aria-live="polite"></span>
-<a class="btn btn-chico cab-wa" href="%(wa)s" rel="noopener">%(ico)s<span>Escribinos por WhatsApp</span></a></div>
+<a class="btn btn-chico cab-wa" href="%(wa)s" rel="noopener">%(ico)s<span>%(wal)s</span></a></div>
 </div></header>
 <main id="contenido">
 <section class="portada ancho" aria-labelledby="h-portada">
@@ -159,14 +167,14 @@ def pagina(r):
 <p class="rubro">%(rubro)s</p>
 <h1 id="h-portada">%(h1)s</h1>
 <p class="sub">%(sub)s</p>
-<div class="acciones">%(acc)s</div>
+<div class="acciones%(acc_cls)s">%(acc)s</div>
 <p class="nota-demo">En esta demo, el botón te comunica con Multitec.</p>
 </div>
 </section>
 %(cuerpo)s
 %(ubic)s
 <section class="cierre"><div class="ancho"><h2 class="cierre-titulo">%(cierre)s</h2>
-<a class="btn btn-grande" id="wa-cierre" href="%(wa)s" rel="noopener">%(ico)s<span>Escribinos por WhatsApp</span></a>
+<a class="btn btn-grande" id="wa-cierre" href="%(wa)s" rel="noopener">%(ico)s<span>%(wal)s</span></a>
 <p class="nota-demo" style="color:inherit;opacity:.8">En esta demo, el botón te comunica con Multitec.</p></div></section>
 </main>
 <footer class="pie"><div class="ancho">
@@ -176,16 +184,16 @@ def pagina(r):
 <p>Web hecha con Presencia Multitec</p>
 <div class="enlaces"><a href="../privacidad.html">Privacidad</a><a href="../">Ver otros rubros</a></div>
 </div></footer>
-<div class="barra-wa"><a class="btn btn-grande" href="%(wa)s" rel="noopener">%(ico)s<span>Escribinos por WhatsApp</span></a><small>En esta demo, el botón te comunica con Multitec.</small></div>
+<div class="barra-wa"><a class="btn btn-grande" href="%(wa)s" rel="noopener">%(ico)s<span>%(wal)s</span></a><small>En esta demo, el botón te comunica con Multitec.</small></div>
 %(extra)s
 <script src="../js/pro.js" defer></script>
 %(chatjs)s</body>
 </html>
 """ % dict(
         tema=slug, titulo=E(titulo), desc=E(r["desc"]), tc=r["theme_color"], url=url, og=og, heroalt=E(r["hero_alt"]), fp=fp, srcset=srcset,
-        nombre_demo=E(nombre_demo), wa=wa_url, ico=ico(), hero=img(P, slug, "portada", r["hero_alt"], "(min-width: 900px) 520px, 100vw", eager=True),
+        nombre_demo=E(nombre_demo), wa=wa_url, wal=E(r.get("wa_label", "Escribinos por WhatsApp")), acc_cls=" acciones-par" if r.get("carta_primero") else "", ico=ico(), hero=img(P, slug, "portada", r["hero_alt"], "(min-width: 900px) 520px, 100vw", eager=True),
         rubro=E(r["rubro"]), h1=E(r["h1"]), sub=E(r["sub"]), acc=acciones(r, wa_url), cuerpo=r["cuerpo"],
-        ubic=ubicacion(P, r["horarios"], ""), css=css_en_linea("../fonts/"), iconos=iconos("../"), chatjs=CHAT_JS % "../" if r.get("chat_js") else "", cierre=E(r["cierre"]), creditos=creditos(slug), letras=E(r["letras"]), extra=r.get("extra", ""))
+        ubic=ubicacion(P, r["horarios"], ""), css=css_en_linea("../fonts/", slug), iconos=iconos("../"), chatjs=CHAT_JS % "../" if r.get("chat_js") else "", cierre=E(r["cierre"]), creditos=creditos(slug), letras=E(r["letras"]), extra=r.get("extra", ""))
 
 
 HOJA = ('<dialog id="hoja" aria-labelledby="hoja-t"><h2 id="hoja-t" style="font-size:1.25rem">Así le llega a tu WhatsApp</h2>'
@@ -380,9 +388,10 @@ cuerpo = ('<section class="sec" aria-labelledby="h-hor-pan"><div class="ancho ba
           '<ul class="horneadas"><li><span>Pan casero</span><b>06:30</b></li><li><span>Chipa</span><b>10:00</b></li><li><span>Pancitos</span><b>16:00</b></li></ul></div></section>')
 cuerpo += ('<section class="sec sec-alt" id="vitrina" aria-labelledby="h-vit"><div class="ancho"><h2 class="sec-titulo" id="h-vit">La vitrina</h2>'
            '<p class="sec-sub">Pan, tortas y café, todos los días. Los precios los confirmamos por WhatsApp.</p><ul class="tarjetas tarjetas-2">%s</ul></div></section>') % cards
+cuerpo += chat_html("panaderia", P, "Panadería Horno Viejo")
 cuerpo += ('<section class="sec" aria-labelledby="h-enc"><div class="ancho banda"><div class="duo"><div class="banda-foto">%s</div><div class="banda-foto">%s</div></div>'
            '<div class="banda-txt"><h2 class="sec-titulo" id="h-enc">Encargá tu torta</h2><p>Contanos para cuándo la necesitás y cuántas personas son. Te respondemos por WhatsApp.</p>'
-           '<a class="btn" href="%s" rel="noopener">%s<span>Encargar por WhatsApp</span></a></div></div></section>') % (
+           '<a class="btn" data-oculta-barra href="%s" rel="noopener">%s<span>Encargar por WhatsApp</span></a></div></div></section>') % (
     img(P, "panaderia", "horno", "Panes dorados dentro del horno", "(min-width: 900px) 260px, 50vw"),
     img(P, "panaderia", "vitrina", "Vitrina con panes y masas dulces", "(min-width: 900px) 260px, 50vw"), wa("panadería"), ico())
 cuerpo += opiniones("", "4,7", "96", [
@@ -391,7 +400,7 @@ cuerpo += opiniones("", "4,7", "96", [
     ("Patricia M.", "P", "Siempre me atienden con una sonrisa. Lo recomiendo."),
 ])
 paginas.append(dict(
-    slug="panaderia", nombre="Panadería Horno Viejo", rubro="Panadería y café", titulo_corto="Ejemplo de web para panadería y café",
+    slug="panaderia", nombre="Panadería Horno Viejo", chat_js=True, rubro="Panadería y café", titulo_corto="Ejemplo de web para panadería y café",
     desc="Demo de página web para una panadería y café: horneadas del día, vitrina, tortas por encargo y WhatsApp. Es un ejemplo de Presencia Multitec.",
     h1="Pan caliente desde las 6:30, de lunes a sábado.", sub="Pan casero, chipa y café. Encargá tu torta por WhatsApp.",
     hero_alt="Panes rústicos en estantes de madera", wa_rubro="panadería", theme_color="#ffffff",
@@ -412,17 +421,18 @@ cards = ""
 for f, n, d, alt in carne_items:
     pie = '<div class="tarjeta-pie"><span class="precio">Precio por kg: consultá</span>%s</div>' % boton_consulta("quiero consultar por %s" % n)
     cards += tarjeta(P, "carnes", f, alt, n, d, pie)
-cuerpo = ('<section class="sec" id="cortes" aria-labelledby="h-cortes"><div class="ancho"><h2 class="sec-titulo" id="h-cortes">Cortes para tu asado</h2>'
-          '<p class="sec-sub">Elegí el corte y consultá el precio por kilo.</p><ul class="tarjetas">%s</ul></div></section>') % cards
+cuerpo = ('<section class="sec" id="cortes" aria-labelledby="h-cortes"><div class="ancho"><h2 class="sec-titulo" id="h-cortes">Los cortes de la casa</h2>'
+          '<p class="sec-sub">Fotos de ejemplo. El precio por kilo lo confirmamos por WhatsApp.</p><ul class="tarjetas">%s</ul></div></section>') % cards
+cuerpo += chat_html("carnes", P, "Cortes del Este")
 cuerpo += ('<section class="sec sec-alt" aria-labelledby="h-ped"><div class="ancho banda"><div class="banda-foto">%s</div>'
-           '<div class="banda-txt"><h2 class="sec-titulo" id="h-ped">Armá tu pedido para el finde</h2>'
-           '<ol class="pasos"><li><strong>Contanos cuántos son</strong> y qué cortes querés.</li><li><strong>Te confirmamos</strong> disponibilidad y precio por kilo.</li><li><strong>Pasás a retirar</strong> o lo coordinamos.</li></ol>'
-           '<a class="btn" href="%s" rel="noopener">%s<span>Armar pedido por WhatsApp</span></a></div></div></section>') % (
+           '<div class="banda-txt"><h2 class="sec-titulo" id="h-ped">Consultá por tu asado del finde</h2>'
+           '<ol class="pasos"><li><strong>Contanos cuántos son</strong> y qué cortes querés.</li><li><strong>Te confirmamos</strong> disponibilidad y precio por kilo.</li><li><strong>Coordinamos</strong> cómo lo retirás.</li></ol>'
+           '<a class="btn" data-oculta-barra href="%s" rel="noopener">%s<span>Consultar por WhatsApp</span></a></div></div></section>') % (
     img(P, "carnes", "cortes", "Cortes de carne cruda sobre fondo oscuro", "(min-width: 900px) 520px, 100vw"), wa("carnicería"), ico())
 paginas.append(dict(
-    slug="carnes", nombre="Cortes del Este", rubro="Carnicería boutique", titulo_corto="Ejemplo de web para carnicería",
-    desc="Demo de página web para una carnicería: cortes con foto, pedido para el fin de semana y WhatsApp. Es un ejemplo de Presencia Multitec.",
-    h1="Cortes para tu asado, listos para llevar.", sub="Elegí el corte, consultá el precio por kilo y armá tu pedido para el finde.",
+    slug="carnes", nombre="Cortes del Este", chat_js=True, rubro="Carnicería boutique", titulo_corto="Ejemplo de web para carnicería",
+    desc="Demo de página web para una carnicería: cortes con foto, consulta de precio por kilo y WhatsApp. Es un ejemplo de Presencia Multitec.",
+    h1="Cortes para tu asado, listos para llevar.", sub="Elegí el corte y consultá el precio por kilo por WhatsApp.",
     hero_alt="Corte de carne cruda con sal gruesa y romero sobre fondo oscuro", wa_rubro="carnicería", theme_color="#141414",
     fuente_h="anton-400.woff2", letras="Anton y Archivo", cuerpo=cuerpo,
     sec_link='<a class="enlace" href="#cortes">Ver los cortes</a>', cierre="¿Qué asado armamos este finde?", extra=HOJA % wa("carnicería"),
@@ -458,8 +468,9 @@ cuerpo = ('<section class="sec" id="catalogo" aria-labelledby="h-cat"><div class
           '<ul class="fichas" data-filtrable>%s</ul>'
           '<div class="vacio" id="sin-resultados" hidden><p><strong>No lo encontramos.</strong> Mandanos la lista por WhatsApp y te respondemos.</p>'
           '<a class="btn" href="%s" rel="noopener">%s<span>Mandanos tu lista por WhatsApp</span></a></div></div></section>') % (fichas, wa("materiales"), ico())
+cuerpo += chat_html("materiales", P, "Materiales Monday")
 paginas.append(dict(
-    slug="materiales", nombre="Materiales Monday", rubro="Materiales y ferretería", titulo_corto="Ejemplo de web para materiales de construcción",
+    slug="materiales", nombre="Materiales Monday", chat_js=True, rubro="Materiales y ferretería", titulo_corto="Ejemplo de web para materiales de construcción",
     desc="Demo de página web para un corralón y ferretería: catálogo con buscador, pedido de precio por WhatsApp y horarios. Es un ejemplo de Presencia Multitec.",
     h1="Pedí tu presupuesto por WhatsApp.", sub="Buscá en el catálogo y consultá el precio de lo que necesitás para tu obra.",
     hero_alt="Bloques de hormigón apilados sobre un pallet de madera", wa_rubro="materiales de construcción", theme_color="#f4f4f5",
@@ -479,25 +490,136 @@ ropa_items = [
     ("abrigos", "Abrigos livianos", "Para entretiempo", "Abrigos claros en un perchero", False),
 ]
 prendas = ""
-for f, n, d, alt, nuevo in ropa_items:
-    prendas += ('<li class="prenda" data-rv><div class="prenda-foto">%s%s</div><h3>%s</h3><p>%s. %s</p>%s</li>') % (
-        img(P, "ropa", f, alt, "(min-width: 900px) 260px, (min-width: 640px) 30vw, 50vw"), '<span class="etiqueta">Nuevo</span>' if nuevo else "", E(n), E(d),
+for f, n, d, alt, _nuevo in ropa_items:
+    prendas += ('<li class="prenda" data-rv><div class="prenda-foto">%s</div><h3>%s</h3><p>%s. %s</p>%s</li>') % (
+        img(P, "ropa", f, alt, "(min-width: 900px) 260px, (min-width: 640px) 30vw, 50vw"), E(n), E(d),
         "Colores: consultá." if f in ("lino", "regalo-en-caja") else "Talles: consultá.",
         boton_consulta("quiero consultar disponibilidad de %s" % n, "Consultar"))
 cuerpo = ('<section class="sec" id="vidriera" aria-labelledby="h-vid"><div class="ancho"><h2 class="sec-titulo" id="h-vid">La vidriera</h2>'
-          '<p class="sec-sub">Lo nuevo de la semana. Consultá talle, color y disponibilidad por WhatsApp.</p><ul class="vidriera">%s</ul></div></section>') % prendas
+          '<p class="sec-sub">Prendas de ejemplo. Consultá talle, color y disponibilidad por WhatsApp.</p><ul class="vidriera">%s</ul></div></section>') % prendas
+cuerpo += chat_html("ropa", P, "Casa Jazmín")
 cuerpo += ('<section class="sec sec-alt" aria-labelledby="h-vis"><div class="ancho banda"><div class="banda-foto">%s</div>'
-           '<div class="banda-txt"><h2 class="sec-titulo" id="h-vis">Pasá a probártelo</h2><p>Mostramos solo lo que hay en el local. Escribinos y te guardamos tu talle.</p>'
-           '<a class="btn" href="%s" rel="noopener">%s<span>Escribinos por WhatsApp</span></a></div></div></section>') % (
+           '<div class="banda-txt"><h2 class="sec-titulo" id="h-vis">Pasá a probártelo</h2><p>Consultá talles por WhatsApp.</p>'
+           '<a class="btn" data-oculta-barra href="%s" rel="noopener">%s<span>Escribinos por WhatsApp</span></a></div></div></section>') % (
     img(P, "ropa", "perchero", "Perchero con prendas de colores suaves", "(min-width: 900px) 520px, 100vw"), wa("tienda de ropa"), ico())
 paginas.append(dict(
-    slug="ropa", nombre="Casa Jazmín", rubro="Ropa y regalos", titulo_corto="Ejemplo de web para tienda de ropa y regalos",
+    slug="ropa", nombre="Casa Jazmín", chat_js=True, rubro="Ropa y regalos", titulo_corto="Ejemplo de web para tienda de ropa y regalos",
     desc="Demo de página web para una tienda de ropa y regalos: vidriera con fotos, consulta de talles y WhatsApp. Es un ejemplo de Presencia Multitec.",
-    h1="Lo nuevo de la semana, en tu talle.", sub="Mirá la vidriera y consultá disponibilidad por WhatsApp.",
+    h1="Mirá la vidriera, consultá tu talle.", sub="Prendas de ejemplo. Consultá disponibilidad por WhatsApp.",
     hero_alt="Local de ropa con prendas colgadas y plantas", wa_rubro="tienda de ropa", theme_color="#ffffff",
     fuente_h="outfit-600.woff2", letras="Outfit", cuerpo=cuerpo,
-    sec_link='<a class="enlace" href="#vidriera">Ver la vidriera</a>', cierre="¿Te guardamos tu talle?", extra=HOJA % wa("tienda de ropa"),
+    sec_link='<a class="enlace" href="#vidriera">Ver la vidriera</a>', cierre="¿Qué talle buscás?", extra=HOJA % wa("tienda de ropa"),
     horarios=[("Lunes a sábado", [1, 2, 3, 4, 5, 6], "09:00", "19:00"), ("Domingo", [0], None, None)]))
+
+# ================= RUBROS NUEVOS (tanda 4): salon, odontologia, taller =================
+# Textos: estructura y tono de las demos existentes, sin precios, sin opiniones, sin cifras ni claims.
+def fila_servicio(nombre, desc, cat=""):
+    return ('<li class="servicio"%s><div><h3>%s</h3><p>%s</p></div>%s</li>') % (
+        ' data-cat="%s"' % cat if cat else "", E(nombre), E(desc), boton_consulta("quiero pedir turno para %s" % nombre.lower(), "Pedir turno"))
+
+
+def banda_pasos(carpeta, foto, alt, titulo, pasos, boton, wa_url):
+    lis = "".join("<li><strong>%s</strong>%s</li>" % (E(a), E(b)) for a, b in pasos)
+    return ('<section class="sec sec-alt" aria-labelledby="h-pasos"><div class="ancho banda"><div class="banda-foto">%s</div>'
+            '<div class="banda-txt"><h2 class="sec-titulo" id="h-pasos">%s</h2><ol class="pasos">%s</ol>'
+            '<a class="btn" data-oculta-barra href="%s" rel="noopener">%s<span>%s</span></a></div></div></section>') % (
+        img(P, carpeta, foto, alt, "(min-width: 900px) 520px, 100vw"), E(titulo), lis, wa_url, ico(), E(boton))
+
+
+# ---- SALON DE BELLEZA (peluqueria + unas) ----
+NOM_SALON = "Estudio Cobalto"
+salon_items = [
+    ("peluqueria", "Corte", "Corte de pelo para mujer, hombre y chicos."),
+    ("peluqueria", "Color", "Cambio de color y retoque de raíz."),
+    ("peluqueria", "Peinado", "Peinado para el día a día o para una ocasión."),
+    ("peluqueria", "Lavado y brushing", "Lavado y secado con brushing."),
+    ("unas", "Manicura", "Cuidado y esmaltado de manos."),
+    ("unas", "Pedicura", "Cuidado y esmaltado de pies."),
+    ("unas", "Esmaltado", "Esmaltado de manos o pies, en el color que elijas."),
+    ("unas", "Uñas decoradas", "Diseños para elegir."),
+]
+filas_salon = "".join(fila_servicio(n, d, c) for c, n, d in salon_items)
+galeria = ""
+for f, alt in [
+    ("unas-rojo", "Manicura aplicando esmalte rojo en las uñas de una clienta"),
+    ("corte-lateral", "Peluquero cortando con peine y tijera el pelo corto de un cliente"),
+    ("unas-esmalte", "Manicura con guantes aplicando esmalte sobre las uñas de una clienta"),
+    ("alisado", "Estilista alisando con plancha el pelo largo de una clienta"),
+    ("corte-tijera", "Tijera cortando el pelo mojado de un cliente"),
+]:
+    galeria += "<li>%s</li>" % img(P, "salon", f, alt, "(min-width: 900px) 360px, (min-width: 640px) 30vw, 50vw")
+cuerpo = ('<section class="sec" id="servicios" aria-labelledby="h-serv"><div class="ancho"><h2 class="sec-titulo" id="h-serv">Nuestros servicios</h2>'
+          '<p class="sec-sub">Elegí el servicio y pedí tu turno por WhatsApp. El precio lo confirmamos por ahí.</p>'
+          '<div class="chips chips-fijos" role="group" aria-label="Tipo de servicio">'
+          '<button class="chip" type="button" data-chip="todo" aria-pressed="true">Todo</button>'
+          '<button class="chip" type="button" data-chip="peluqueria" aria-pressed="false">Peluquería</button>'
+          '<button class="chip" type="button" data-chip="unas" aria-pressed="false">Uñas</button></div>'
+          '<ul class="servicios" data-filtrable>%s</ul></div></section>') % filas_salon
+cuerpo += ('<section class="sec sec-alt" aria-labelledby="h-gal"><div class="ancho"><h2 class="sec-titulo" id="h-gal">Algunos trabajos</h2>'
+           '<p class="sec-sub">Fotos de ejemplo. Acá se mostrarían los trabajos del salón.</p><ul class="galeria">%s</ul></div></section>') % galeria
+cuerpo += chat_html("salon", P, NOM_SALON)
+paginas.append(dict(
+    slug="salon", nombre=NOM_SALON, chat_js=True, rubro="Salón de belleza", titulo_corto="Ejemplo de web para salón de belleza",
+    desc="Demo de página web para un salón de belleza (peluquería y uñas): servicios, fotos de ejemplo, turnos por WhatsApp y horarios. Es un ejemplo de Presencia Multitec.",
+    h1="Corte, color y uñas, con turno por WhatsApp.", sub="Elegí el servicio y pedí tu turno. El salón te confirma por el chat.",
+    hero_alt="Peluquera cortando un mechón de pelo oscuro con tijera y peine", wa_rubro="salón de belleza", theme_color="#ffffff",
+    fuente_h="bricolage-700.woff2", letras="Bricolage Grotesque y Figtree", cuerpo=cuerpo,
+    sec_link='<a class="enlace" href="#servicios">Ver los servicios</a>', wa_label="Pedir turno por WhatsApp",
+    cierre="¿Qué día te queda bien?", extra=HOJA % wa("salón de belleza"),
+    horarios=[("Martes a sábado", [2, 3, 4, 5, 6], "09:00", "19:00"), ("Domingo y lunes", [0, 1], None, None)]))
+
+# ---- ODONTOLOGIA ----
+NOM_ODONTO = "Consultorio Dental Arandú"
+odonto_items = [
+    ("Primera consulta", "Para conocer al profesional y contar qué necesitás."),
+    ("Control y revisión", "Revisión general de rutina."),
+    ("Limpieza", "Limpieza dental de rutina."),
+    ("Ortodoncia", "Consulta de ortodoncia con el profesional."),
+    ("Otra consulta", "Contanos qué necesitás y el consultorio te responde."),
+]
+cuerpo = ('<section class="sec" id="consultas" aria-labelledby="h-cons"><div class="ancho"><h2 class="sec-titulo" id="h-cons">Consultas y turnos</h2>'
+          '<p class="sec-sub">Elegí el motivo y pedí tu turno por WhatsApp. Lo que corresponda a cada caso lo ve el profesional en la consulta.</p>'
+          '<ul class="servicios servicios-uno">%s</ul></div></section>') % "".join(fila_servicio(n, d) for n, d in odonto_items)
+cuerpo += banda_pasos("odontologia", "consulta", "Consultorio odontológico con sillón, lámpara y escritorio", "Cómo pedir tu turno",
+                      [("Elegí el motivo ", "de la consulta."), ("Escribinos por WhatsApp ", "y te tomamos los datos."), ("El consultorio te confirma ", "el turno.")],
+                      "Pedir turno por WhatsApp", wa("odontología"))
+cuerpo += chat_html("odontologia", P, NOM_ODONTO)
+paginas.append(dict(
+    slug="odontologia", nombre=NOM_ODONTO, chat_js=True, rubro="Odontología", titulo_corto="Ejemplo de web para consultorio odontológico",
+    desc="Demo de página web para un consultorio odontológico: motivos de consulta, turnos por WhatsApp y horarios. Es un ejemplo de Presencia Multitec.",
+    h1="Tu consulta, con turno por WhatsApp.", sub="Control, limpieza y más. Elegí el motivo y escribinos.",
+    hero_alt="Instrumental y equipo de un consultorio odontológico", wa_rubro="odontología", theme_color="#ffffff",
+    fuente_h="figtree-600.woff2", letras="Figtree", cuerpo=cuerpo,
+    sec_link='<a class="enlace" href="#consultas">Ver los motivos de consulta</a>', wa_label="Pedir turno por WhatsApp",
+    cierre="¿Para qué día querés tu turno?", extra=HOJA % wa("odontología"),
+    horarios=[("Lunes a viernes", [1, 2, 3, 4, 5], "08:00", "17:00"), ("Sábado", [6], "08:00", "12:00"), ("Domingo", [0], None, None)]))
+
+# ---- TALLER ----
+NOM_TALLER = "Taller Los Tres Ejes"
+taller_items = [
+    ("Frenos", "Revisión del sistema de frenos."),
+    ("Aceite y filtros", "Cambio de aceite y de filtros."),
+    ("Suspensión", "Revisión de la suspensión."),
+    ("Batería", "Revisión de la batería y de la carga."),
+    ("Neumáticos", "Revisión del estado y de la presión de los neumáticos."),
+    ("Revisión general", "Revisión general del auto."),
+]
+cuerpo = ('<section class="sec" id="revisamos" aria-labelledby="h-rev"><div class="ancho"><h2 class="sec-titulo" id="h-rev">Qué revisamos</h2>'
+          '<p class="sec-sub">Elegí el servicio y pedí tu turno por WhatsApp. El diagnóstico lo da el taller cuando ve el auto.</p>'
+          '<ul class="servicios">%s</ul></div></section>') % "".join(fila_servicio(n, d) for n, d in taller_items)
+cuerpo += banda_pasos("taller", "frenos", "Mano con una herramienta sobre el disco y la pinza de freno de un auto", "Cómo pedir tu turno",
+                      [("Contanos qué le pasa ", "al auto."), ("Te tomamos los datos ", "por WhatsApp."), ("El taller te confirma ", "el turno.")],
+                      "Pedir turno por WhatsApp", wa("taller mecánico"))
+cuerpo += chat_html("taller", P, NOM_TALLER)
+paginas.append(dict(
+    slug="taller", nombre=NOM_TALLER, chat_js=True, rubro="Taller mecánico", titulo_corto="Ejemplo de web para taller mecánico",
+    desc="Demo de página web para un taller mecánico: servicios, turnos de revisión por WhatsApp y horarios. Es un ejemplo de Presencia Multitec.",
+    h1="Tu auto, con turno por WhatsApp.", sub="Frenos, aceite, suspensión y más. Contanos qué necesita y pedí tu turno.",
+    hero_alt="Mecánico revisando los frenos de un auto levantado en el taller", wa_rubro="taller mecánico", theme_color="#17181a",
+    fuente_h="barlowsc-700.woff2", letras="Barlow y Barlow Semi Condensed", cuerpo=cuerpo,
+    sec_link='<a class="enlace" href="#revisamos">Ver qué revisamos</a>', wa_label="Pedir turno por WhatsApp",
+    cierre="¿Cuándo traés el auto?", extra=HOJA % wa("taller mecánico"),
+    horarios=[("Lunes a viernes", [1, 2, 3, 4, 5], "07:30", "17:30"), ("Sábado", [6], "07:30", "12:00"), ("Domingo", [0], None, None)]))
 
 for r in paginas:
     d = os.path.join(RAIZ, r["slug"])
@@ -506,11 +628,16 @@ for r in paginas:
     print("ok", r["slug"])
 
 # ================= PORTADA "ELEGI TU RUBRO" =================
-SEL = [("restaurante", "Restaurante"), ("panaderia", "Panadería y café"), ("carnes", "Carnicería"), ("materiales", "Materiales y ferretería"), ("ropa", "Ropa y regalos")]
+# Solo rubros publicados (con foto real y licencia). Orden: alterna oscuras y claras. Linea de cada tarjeta: que muestra la demo (no es promesa del negocio)
+SEL = [("restaurante", "Restaurante", "Carta y pedido de prueba"), ("panaderia", "Panadería y café", "Horneadas y encargos"),
+       ("carnes", "Carnicería", "Cortes y consultas"), ("salon", "Salón de belleza", "Turnos y fotos de ejemplo"),
+       ("ropa", "Ropa y regalos", "Vidriera y talles"), ("taller", "Taller mecánico", "Servicios y turnos"),
+       ("materiales", "Materiales y ferretería", "Catálogo y presupuesto"), ("odontologia", "Odontología", "Motivos y turnos")]
+COLS = {8: " rubros-4", 6: " rubros-3", 9: " rubros-3", 12: " rubros-4"}.get(len(SEL), "")
 tarj = ""
-for k, (slug, nom) in enumerate(SEL):
-    tarj += '<li><a class="rubro-card" href="%s/"><div class="tarjeta-foto">%s</div><span>%s</span></a></li>' % (
-        slug, img("", "selector", slug, "Ejemplo de la web de %s" % nom.lower(), "(min-width: 900px) 200px, (min-width: 640px) 30vw, 50vw", eager=(k == 0), alta=(k < 4)), E(nom))
+for k, (slug, nom, linea) in enumerate(SEL):
+    tarj += '<li><a class="rubro-card" href="%s/"><div class="tarjeta-foto">%s</div><span class="rc-nom">%s</span><small>%s</small></a></li>' % (
+        slug, img("", "selector", slug, "Ejemplo de la web de %s" % nom.lower(), "(min-width: 900px) 260px, (min-width: 640px) 22vw, 50vw", eager=(k == 0), alta=(k < 4)), E(nom), E(linea))
 ids = []
 for c, n, i, *_ in SALIDAS:
     if c == "selector" and i not in ids:
@@ -537,7 +664,7 @@ indice = """<!doctype html>
 <meta property="og:image" content="%(b)sfotos/selector/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Fotos de cinco rubros: restaurante, panadería, carnicería, materiales y ropa">
+<meta property="og:image:alt" content="%(ogalt)s">
 <meta name="twitter:card" content="summary_large_image">
 <script>
 /* Links viejos: ?tema=comida va al restaurante y ?tema=comercio a la tienda. Cualquier otro valor muestra esta portada. */
@@ -561,7 +688,7 @@ indice = """<!doctype html>
 <p class="sub">Elegí tu rubro y mirala como la vería un cliente desde el celular.</p>
 <a class="enlace" href="#chat">Ver cómo te atiende el agente</a>
 </div>
-<section class="ancho" aria-label="Rubros"><ul class="rubros">%(tarj)s</ul></section>
+<section class="ancho" aria-label="Rubros"><ul class="rubros%(cols)s">%(tarj)s</ul></section>
 %(chat)s
 <section class="sec"><div class="ancho banda"><div class="banda-txt"><h2 class="sec-titulo">¿Tu rubro no está?</h2>
 <p>Escribinos y armamos una demo para tu negocio.</p>
@@ -575,6 +702,6 @@ indice = """<!doctype html>
 </div></footer>
 %(chatjs)s</body>
 </html>
-""" % dict(css=css_en_linea("fonts/"), iconos=iconos(""), chat=chat_html("portada", "", "Multitec", [(sl + "/", nm) for sl, nm in SEL]), chatjs=CHAT_JS % "", t=E(titulo), d=E(desc), b=BASE, tarj=tarj, wa=wa_gen, ico=ico(), cred=cred)
+""" % dict(css=css_en_linea("fonts/", "selector"), iconos=iconos(""), chat=chat_html("portada", "", "Multitec", [(sl + "/", nm) for sl, nm, _l in SEL]), chatjs=CHAT_JS % "", t=E(titulo), d=E(desc), b=BASE, tarj=tarj, cols=COLS, ogalt=E("Fotos de %d rubros: %s" % (len(SEL), ", ".join(nm.lower() for _s, nm, _l in SEL))), wa=wa_gen, ico=ico(), cred=cred)
 open(os.path.join(RAIZ, "index.html"), "w", encoding="utf-8", newline="\n").write(indice)
 print("ok index")

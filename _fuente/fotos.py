@@ -1,5 +1,6 @@
 """Lista de fotos de la demo (Pexels, licencia Pexels: uso comercial libre) y preparador de imagenes.
-Uso (desde publicar/):  python -I _fuente/fotos.py
+Uso (desde publicar/):  python -I _fuente/fotos.py            (todo)
+                        python -I _fuente/fotos.py salon taller selector/materiales   (solo esas carpetas o carpeta/nombre)
 Baja cada foto del CDN de Pexels, la recorta a su proporcion y guarda WebP en varios tamanos en fotos/<rubro>/.
 Las fotos ya estan en el repo: solo hace falta correr esto para sumar o cambiar fotos."""
 import os, urllib.request
@@ -60,6 +61,19 @@ FOTOS = {
  35741388: ("himanshu lanjekar", "colorful-dresses-on-display-in-boutique-35741388"),
  5418892: ("Arina Krasnikova", "beige-trench-coat-hanging-on-clothes-rack-5418892"),
  8386654: ("Ron Lach", "pink-and-white-long-sleeve-shirt-hanging-on-gold-and-white-clothing-rack-8386654"),
+ # salon de belleza
+ 7755222: ("RDNE Stock project", "a-person-getting-a-haircut-7755222"),
+ 6135686: ("Gabriel Puyén", "a-person-applying-nail-polish-6135686"),
+ 17784004: ("Alex Ozerov-Meyer", "a-person-getting-their-hair-cut-17784004"),
+ 18227812: ("Letícia Mellos", "close-up-of-applying-nail-polish-at-beautician-18227812"),
+ 8467969: ("Nataliya Vaitkevich", "a-person-styling-a-woman-s-hair-8467969"),
+ 15659486: ("Jari Lobo", "close-up-of-person-with-short-hair-getting-a-haircut-15659486"),
+ # odontologia
+ 305566: ("Daniel Frank", "dental-tool-set-305566"),
+ 6812453: ("Pavel Danilyuk", "a-dental-equipment-in-the-clinic-6812453"),
+ # taller
+ 6870319: ("Gustavo Fring", "man-checking-on-the-brakes-of-a-vehicle-6870319"),
+ 6870299: ("Gustavo Fring", "a-close-up-shot-of-a-vehicle-disc-brake-6870299"),
 }
 
 # salida: (carpeta, nombre, id, proporcion (ancho, alto), anchos, calidad, foco (x, y) de 0 a 1)
@@ -111,13 +125,45 @@ SALIDAS = [
  ("ropa", "vestidos", 35741388, (4, 5), (360, 640), 74, (.5, .5)),
  ("ropa", "abrigos", 5418892, (4, 5), (360, 640), 74, (.5, .5)),
  ("ropa", "perchero", 8386654, (4, 3), (480, 800), 74, (.5, .45)),
+ # salon de belleza (galeria: la primera es apaisada 4:3, el resto 4:5)
+ ("salon", "portada", 7755222, (4, 3), (480, 720, 960, 1600), 70, (.5, .5)),
+ ("salon", "unas-rojo", 6135686, (4, 3), (480, 800), 74, (.5, .5)),
+ ("salon", "corte-lateral", 17784004, (4, 5), (360, 640), 74, (.5, .5)),
+ ("salon", "unas-esmalte", 18227812, (4, 5), (360, 640), 74, (.62, .5)),
+ ("salon", "alisado", 8467969, (4, 5), (360, 640), 74, (.5, .45)),
+ ("salon", "corte-tijera", 15659486, (4, 5), (360, 640), 74, (.45, .5)),
+ # odontologia
+ ("odontologia", "portada", 305566, (4, 3), (480, 720, 960, 1600), 70, (.5, .5)),
+ ("odontologia", "consulta", 6812453, (4, 3), (480, 800), 74, (.5, .5)),
+ # taller
+ ("taller", "portada", 6870319, (4, 3), (480, 720, 960, 1600), 70, (.55, .5)),
+ ("taller", "frenos", 6870299, (4, 3), (480, 800), 74, (.5, .5)),
  # portada "elegi tu rubro" (4:5)
  ("selector", "restaurante", 31917730, (4, 5), (360, 640), 72, (.5, .5)),
  ("selector", "panaderia", 8633662, (4, 5), (360, 640), 72, (.45, .5)),
  ("selector", "carnes", 15814251, (4, 5), (360, 640), 72, (.5, .5)),
- ("selector", "materiales", 40264854, (4, 5), (360, 640), 72, (.5, .5)),
+ ("selector", "materiales", 37528609, (4, 5), (360, 640), 72, (.45, .5)),
  ("selector", "ropa", 35741388, (4, 5), (360, 640), 72, (.5, .5)),
+ ("selector", "salon", 7755222, (4, 5), (360, 640), 72, (.5, .5)),
+ ("selector", "odontologia", 305566, (4, 5), (360, 640), 72, (.3, .5)),
+ ("selector", "taller", 6870319, (4, 5), (360, 640), 72, (1.0, .5)),
 ]
+
+# tiras del collage para compartir la portada (en el orden de la portada)
+TIRAS = [31917730, 8633662, 15814251, 7755222, 35741388, 6870319, 37528609, 305566]
+
+
+# recortes previos por foto (fracciones x0, y0, x1, y1): 305566 se recorta para dejar afuera la marca del panel del equipo
+CAJAS = {305566: (0, 0, .72, .82), 6812453: (.12, 0, 1, 1)}
+
+
+def abrir(i):
+    im = bajar(i)
+    if i in CAJAS:
+        w, h = im.size
+        x0, y0, x1, y1 = CAJAS[i]
+        im = im.crop((int(w * x0), int(h * y0), int(w * x1), int(h * y1)))
+    return im
 
 
 def bajar(i):
@@ -143,10 +189,16 @@ def recortar(im, prop, foco):
     return im.crop((0, y, w, y + nh))
 
 
-def main():
+def elegido(filtro, carpeta, nombre):
+    return not filtro or carpeta in filtro or ("%s/%s" % (carpeta, nombre)) in filtro
+
+
+def main(filtro=()):
     mapa = {}
     for carpeta, nombre, i, prop, anchos, cal, foco in SALIDAS:
-        im = recortar(bajar(i), prop, foco)
+        if not elegido(filtro, carpeta, nombre):
+            continue
+        im = recortar(abrir(i), prop, foco)
         os.makedirs(os.path.join(RAIZ, "fotos", carpeta), exist_ok=True)
         for a in anchos:
             if a > im.size[0]:
@@ -160,22 +212,24 @@ def main():
         print(k, v)
     # imagenes para compartir (1200x630, JPG liviano)
     for carpeta, nombre, i, prop, anchos, cal, foco in SALIDAS:
-        if nombre == "portada":
-            im = bajar(i)
+        if nombre == "portada" and elegido(filtro, carpeta, nombre):
+            im = abrir(i)
             w, h = im.size
             nh = int(w * 630 / 1200)
             y = int((h - nh) * .5) if nh < h else 0
             og = im.crop((0, y, w, y + min(nh, h))).resize((1200, 630), Image.LANCZOS)
             og.save(os.path.join(RAIZ, "fotos", carpeta, "og.jpg"), "JPEG", quality=78, optimize=True, progressive=True)
-    # collage de la portada selectora
-    tiras = [31917730, 8633662, 15814251, 40264854, 35741388]
-    col = Image.new("RGB", (1200, 630))
-    for k, i in enumerate(tiras):
-        t = recortar(bajar(i), (240, 630), (.5, .5)).resize((240, 630), Image.LANCZOS)
-        col.paste(t, (k * 240, 0))
-    os.makedirs(os.path.join(RAIZ, "fotos", "selector"), exist_ok=True)
-    col.save(os.path.join(RAIZ, "fotos", "selector", "og.jpg"), "JPEG", quality=78, optimize=True, progressive=True)
+    # collage de la portada selectora (solo si se pidio todo o "selector")
+    if not filtro or "selector" in filtro or "selector/og" in filtro:
+        ancho = 1200 // len(TIRAS)
+        col = Image.new("RGB", (ancho * len(TIRAS), 630))
+        for k, i in enumerate(TIRAS):
+            t = recortar(abrir(i), (ancho, 630), (.5, .5)).resize((ancho, 630), Image.LANCZOS)
+            col.paste(t, (k * ancho, 0))
+        os.makedirs(os.path.join(RAIZ, "fotos", "selector"), exist_ok=True)
+        col.save(os.path.join(RAIZ, "fotos", "selector", "og.jpg"), "JPEG", quality=78, optimize=True, progressive=True)
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    main(tuple(sys.argv[1:]))

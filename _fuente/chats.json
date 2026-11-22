@@ -23,7 +23,7 @@
     "boton": "Probá el agente de Multitec",
     "wa_texto": "Hola, vi la demo de restaurante y quiero probar el agente",
     "mensajes": [
-      {"de": "c", "texto": "Hola, ¿hasta qué hora están hoy?", "cartel": "Fuera del horario del negocio"},
+      {"de": "c", "texto": "Hola, ¿hasta qué hora están hoy?"},
       {"de": "a", "texto": "¡Hola! Soy el asistente de {negocio} y hoy atendemos hasta las 23:00. ¿Qué te gustaría saber del menú?", "chip": "Contesta a cualquier hora"},
       {"de": "c", "texto": "¿Tienen algo sin gluten?"},
       {"de": "a", "texto": "Eso lo confirma una persona del local. Se lo paso."},
@@ -34,6 +34,10 @@
   "panaderia": {
     "rotulo": "Asistente de {negocio}",
     "inicial": "P",
+    "titulo": "Probalo con tu propio mensaje",
+    "bajada": "Así contestaría el asistente de una panadería. Para probarlo, escribile a Multitec por WhatsApp.",
+    "boton": "Probá el agente de Multitec",
+    "wa_texto": "Hola, vi la demo de panadería y quiero probar el agente",
     "mensajes": [
       {"de": "c", "texto": "Buenas, ¿hacen tortas por encargo?"},
       {"de": "a", "texto": "¡Buenas! Soy el asistente de {negocio}. ¿Qué torta tenés en mente?"},
@@ -46,6 +50,10 @@
   "carnes": {
     "rotulo": "Asistente de {negocio}",
     "inicial": "C",
+    "titulo": "Probalo con tu propio mensaje",
+    "bajada": "Así contestaría el asistente de una carnicería. Para probarlo, escribile a Multitec por WhatsApp.",
+    "boton": "Probá el agente de Multitec",
+    "wa_texto": "Hola, vi la demo de carnicería y quiero probar el agente",
     "mensajes": [
       {"de": "c", "texto": "Hola, ¿a cuánto está el asado?"},
       {"de": "a", "texto": "¡Hola! Soy el asistente de {negocio}. Los precios del día los pasa una persona del local, ¿qué cortes buscás?"},
@@ -56,6 +64,10 @@
   "materiales": {
     "rotulo": "Asistente de {negocio}",
     "inicial": "M",
+    "titulo": "Probalo con tu propio mensaje",
+    "bajada": "Así contestaría el asistente de una casa de materiales. Para probarlo, escribile a Multitec por WhatsApp.",
+    "boton": "Probá el agente de Multitec",
+    "wa_texto": "Hola, vi la demo de materiales de construcción y quiero probar el agente",
     "mensajes": [
       {"de": "c", "texto": "Necesito presupuesto para una obra chica"},
       {"de": "a", "texto": "¡Hola! Soy el asistente de {negocio}. ¿Qué materiales necesitás?"},
@@ -68,8 +80,12 @@
   "ropa": {
     "rotulo": "Asistente de {negocio}",
     "inicial": "C",
+    "titulo": "Probalo con tu propio mensaje",
+    "bajada": "Así contestaría el asistente de una tienda de ropa. Para probarlo, escribile a Multitec por WhatsApp.",
+    "boton": "Probá el agente de Multitec",
+    "wa_texto": "Hola, vi la demo de tienda de ropa y quiero probar el agente",
     "mensajes": [
-      {"de": "c", "texto": "Hola, ¿se puede cambiar una prenda?", "cartel": "Fuera del horario del negocio"},
+      {"de": "c", "texto": "Hola, ¿se puede cambiar una prenda?"},
       {"de": "a", "texto": "¡Hola! Soy el asistente de {negocio}. Contame qué te pasó con la prenda y te ayudo.", "chip": "Contesta a cualquier hora"},
       {"de": "c", "texto": "Me quedó chica"},
       {"de": "a", "texto": "Entiendo. Las condiciones de cambio las confirma una persona de {negocio}. Se lo paso."},
@@ -80,6 +96,10 @@
   "salon": {
     "rotulo": "Asistente de {negocio}",
     "inicial": "S",
+    "titulo": "Probalo con tu propio mensaje",
+    "bajada": "Así contestaría el asistente de un salón de belleza. Para probarlo, escribile a Multitec por WhatsApp.",
+    "boton": "Probá el agente de Multitec",
+    "wa_texto": "Hola, vi la demo de salón de belleza y quiero probar el agente",
     "mensajes": [
       {"de": "c", "texto": "Hola, quiero turno para cortarme el pelo y hacerme las uñas"},
       {"de": "a", "texto": "¡Hola! Soy el asistente de {negocio}. ¿Para qué día te queda bien?"},
@@ -92,6 +112,10 @@
   "odontologia": {
     "rotulo": "Asistente de {negocio}",
     "inicial": "C",
+    "titulo": "Probalo con tu propio mensaje",
+    "bajada": "Así contestaría el asistente de un consultorio odontológico. Para probarlo, escribile a Multitec por WhatsApp.",
+    "boton": "Probá el agente de Multitec",
+    "wa_texto": "Hola, vi la demo de odontología y quiero probar el agente",
     "mensajes": [
       {"de": "c", "texto": "Hola, ¿sos un bot? Quiero consultar por una limpieza"},
       {"de": "a", "texto": "Sí, soy el asistente automático de {negocio}. ¿Para qué día te gustaría el turno?"},
@@ -104,6 +128,10 @@
   "taller": {
     "rotulo": "Asistente de {negocio}",
     "inicial": "T",
+    "titulo": "Probalo con tu propio mensaje",
+    "bajada": "Así contestaría el asistente de un taller mecánico. Para probarlo, escribile a Multitec por WhatsApp.",
+    "boton": "Probá el agente de Multitec",
+    "wa_texto": "Hola, vi la demo de taller mecánico y quiero probar el agente",
     "mensajes": [
       {"de": "c", "texto": "Hola, el auto hace un ruido raro al frenar"},
       {"de": "a", "texto": "¡Hola! Soy el asistente de {negocio}. ¿Qué auto es?"},

@@ -31,10 +31,10 @@ Todas de Pexels, licencia Pexels (uso comercial libre, sin atribución obligator
 | 4661802 | Marina Utrabo | https://www.pexels.com/photo/sliced-meat-on-wooden-tray-4661802/ | carnes/medallones |
 | 28881685 | Domenico Scaglione | https://www.pexels.com/photo/assorted-cuts-of-raw-meat-on-dark-background-28881685/ | carnes/cortes |
 | 38561974 | David Antonio Cruz Naira | https://www.pexels.com/photo/worker-handling-bricks-on-construction-site-38561974/ | materiales/ladrillo-hueco |
-| 37528609 | SHOX ART | https://www.pexels.com/photo/concrete-blocks-on-wooden-pallet-at-construction-site-37528609/ | materiales/portada, materiales/bloques |
+| 37528609 | SHOX ART | https://www.pexels.com/photo/concrete-blocks-on-wooden-pallet-at-construction-site-37528609/ | materiales/portada, materiales/bloques, selector/materiales |
 | 17940311 | Steve A Johnson | https://www.pexels.com/photo/close-up-photo-of-a-red-brick-wall-17940311/ | materiales/ladrillos |
 | 39998305 | Vikesh zen | https://www.pexels.com/photo/close-up-of-cement-being-mixed-with-shovel-39998305/ | materiales/cemento |
-| 40264854 | Burak Akmanoglu | https://www.pexels.com/photo/assorted-tools-on-a-wooden-workbench-40264854/ | materiales/martillos, selector/materiales |
+| 40264854 | Burak Akmanoglu | https://www.pexels.com/photo/assorted-tools-on-a-wooden-workbench-40264854/ | materiales/martillos |
 | 8985610 | Artem Podrez | https://www.pexels.com/photo/tools-in-a-box-in-black-and-white-8985610/ | materiales/llaves |
 | 30738887 | Ali Salman Rizvi | https://www.pexels.com/photo/close-up-of-assorted-screwdriver-bits-30738887/ | materiales/puntas |
 | 28867253 | John Triwinata | https://www.pexels.com/photo/assorted-metal-bolts-in-storage-bins-28867253/ | materiales/bulones |
@@ -50,3 +50,15 @@ Todas de Pexels, licencia Pexels (uso comercial libre, sin atribución obligator
 | 35741388 | himanshu lanjekar | https://www.pexels.com/photo/colorful-dresses-on-display-in-boutique-35741388/ | ropa/vestidos, selector/ropa |
 | 5418892 | Arina Krasnikova | https://www.pexels.com/photo/beige-trench-coat-hanging-on-clothes-rack-5418892/ | ropa/abrigos |
 | 8386654 | Ron Lach | https://www.pexels.com/photo/pink-and-white-long-sleeve-shirt-hanging-on-gold-and-white-clothing-rack-8386654/ | ropa/perchero |
+| 7755222 | RDNE Stock project | https://www.pexels.com/photo/a-person-getting-a-haircut-7755222/ | salon/portada, selector/salon |
+| 6135686 | Gabriel Puyén | https://www.pexels.com/photo/a-person-applying-nail-polish-6135686/ | salon/unas-rojo |
+| 17784004 | Alex Ozerov-Meyer | https://www.pexels.com/photo/a-person-getting-their-hair-cut-17784004/ | salon/corte-lateral |
+| 18227812 | Letícia Mellos | https://www.pexels.com/photo/close-up-of-applying-nail-polish-at-beautician-18227812/ | salon/unas-esmalte |
+| 8467969 | Nataliya Vaitkevich | https://www.pexels.com/photo/a-person-styling-a-woman-s-hair-8467969/ | salon/alisado |
+| 15659486 | Jari Lobo | https://www.pexels.com/photo/close-up-of-person-with-short-hair-getting-a-haircut-15659486/ | salon/corte-tijera |
+| 305566 | Daniel Frank | https://www.pexels.com/photo/dental-tool-set-305566/ | odontologia/portada (recortada para dejar afuera una marca), selector/odontologia |
+| 6812453 | Pavel Danilyuk | https://www.pexels.com/photo/a-dental-equipment-in-the-clinic-6812453/ | odontologia/consulta |
+| 6870319 | Gustavo Fring | https://www.pexels.com/photo/man-checking-on-the-brakes-of-a-vehicle-6870319/ | taller/portada, selector/taller |
+| 6870299 | Gustavo Fring | https://www.pexels.com/photo/a-close-up-shot-of-a-vehicle-disc-brake-6870299/ | taller/frenos |
+
+Tanda 4 (salón, odontología, taller): título, autor y etiqueta "Free" leídos en la página de cada foto de Pexels el 2026-11-22 (Tomás); sin marcas ni logos visibles a simple vista (Ramiro verifica). La foto 17471373 (uñas) se descartó porque la remera del fondo lleva un personaje con marca.

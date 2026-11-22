@@ -66,7 +66,7 @@
     if (items[0]) { items[0].classList.add("in"); }
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); empezar(); } });
-    }, { rootMargin: "0px 0px -20% 0px", threshold: 0 });
+    }, { rootMargin: "0px", threshold: 0 });
     io.observe(fig.querySelector(".chat-lista"));
 
     fig.addEventListener("click", function (e) {

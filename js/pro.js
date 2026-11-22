@@ -53,9 +53,9 @@
   /* ---------- Barra fija de WhatsApp (celular) ---------- */
   var barra = $(".barra-wa"), bPortada = $("#wa-portada"), bCierre = $("#wa-cierre");
   if (barra && bPortada && "IntersectionObserver" in window) {
-    var pv = true, cv = false, chv = false;
+    var pv = true, cv = false, chv = 0;   // chv: cuantos botones de WhatsApp de la pagina (chat, "como pedir turno") estan a la vista
     var pintar = function () {
-      var mostrar = !pv && !cv && !chv;
+      var mostrar = !pv && !cv && chv === 0;
       barra.classList.toggle("visible", mostrar);
       barra.setAttribute("aria-hidden", mostrar ? "false" : "true");
       if ("inert" in barra) { barra.inert = !mostrar; }
@@ -67,10 +67,13 @@
     if (bCierre) {
       new IntersectionObserver(function (it) { cv = it[it.length - 1].isIntersecting; pintar(); }).observe(bCierre);
     }
-    var bChat = $(".chat-cta .btn");
-    if (bChat) {
-      new IntersectionObserver(function (it) { chv = it[it.length - 1].isIntersecting; pintar(); }).observe(bChat);
-    }
+    $$(".chat-cta .btn, [data-oculta-barra]").forEach(function (b) {
+      var antes = false;
+      new IntersectionObserver(function (it) {
+        var ahora = it[it.length - 1].isIntersecting;
+        if (ahora !== antes) { chv += ahora ? 1 : -1; antes = ahora; pintar(); }
+      }).observe(b);
+    });
     pintar();
   }
 
@@ -79,7 +82,7 @@
   if (!quieto && "IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (items) {
       items.forEach(function (it) { if (it.isIntersecting) { it.target.classList.add("in"); io.unobserve(it.target); } });
-    }, { rootMargin: "0px 0px 20% 0px" });
+    }, { rootMargin: "0px 0px 20% 0px", threshold: 0 });
     var alto = window.innerHeight;
     $$("[data-rv]").forEach(function (nodo, i) {
       if (nodo.getBoundingClientRect().top > alto) {
@@ -87,6 +90,11 @@
         nodo.classList.add("rv"); io.observe(nodo);
       }
     });
+    // respaldo: si el observador no llega a avisar (pestana en segundo plano, captura de pagina entera), a los 3 s todo se ve
+    var mostrarTodo = function () { $$(".rv").forEach(function (n) { n.classList.add("in"); }); };
+    setTimeout(mostrarTodo, 3000);
+    document.addEventListener("visibilitychange", function () { if (document.hidden) { mostrarTodo(); } });
+    window.addEventListener("beforeprint", mostrarTodo);
   }
 
   /* ---------- Filtro por categoria y buscador (menu y catalogo) ---------- */
