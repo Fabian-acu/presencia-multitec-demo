@@ -1,0 +1,116 @@
+{
+  "portada": {
+    "rotulo": "Asistente de Multitec",
+    "inicial": "M",
+    "avatar": "fotos/marca/avatar-m-64.png",
+    "titulo": "Probalo con tu propio mensaje",
+    "bajada": "Así contesta el asistente de Multitec. Probalo vos por WhatsApp.",
+    "boton": "Probá el agente de Multitec",
+    "wa_texto": "Hola, vi las demos de Presencia Multitec y quiero probar el agente",
+    "mensajes": [
+      {"de": "c", "texto": "Hola"},
+      {"de": "a", "texto": "¡Buenas! 👋 Soy el asistente de Multitec. Contame, ¿qué andás buscando?"},
+      {"de": "c", "texto": "Quiero que mi negocio se vea más en internet"},
+      {"de": "a", "texto": "Dale. ¿Qué rubro es el tuyo?"},
+      {"de": "chips"}
+    ]
+  },
+  "restaurante": {
+    "rotulo": "Asistente de {negocio}",
+    "inicial": "C",
+    "titulo": "Probalo con tu propio mensaje",
+    "bajada": "Así contestaría el asistente de un restaurante. Para probarlo, escribile a Multitec por WhatsApp.",
+    "boton": "Probá el agente de Multitec",
+    "wa_texto": "Hola, vi la demo de restaurante y quiero probar el agente",
+    "mensajes": [
+      {"de": "c", "texto": "Hola, ¿hasta qué hora están hoy?", "cartel": "Fuera del horario del negocio"},
+      {"de": "a", "texto": "¡Hola! Soy el asistente de {negocio} y hoy atendemos hasta las 23:00. ¿Qué te gustaría saber del menú?", "chip": "Contesta a cualquier hora"},
+      {"de": "c", "texto": "¿Tienen algo sin gluten?"},
+      {"de": "a", "texto": "Eso lo confirma una persona del local. Se lo paso."},
+      {"de": "sep", "texto": "unos minutos después"},
+      {"de": "a", "texto": "Ahora hay mucho movimiento, en breve te atienden. Mientras, si tenés alguna consulta, contame."}
+    ]
+  },
+  "panaderia": {
+    "rotulo": "Asistente de {negocio}",
+    "inicial": "P",
+    "mensajes": [
+      {"de": "c", "texto": "Buenas, ¿hacen tortas por encargo?"},
+      {"de": "a", "texto": "¡Buenas! Soy el asistente de {negocio}. ¿Qué torta tenés en mente?"},
+      {"de": "c", "texto": "Una de cumpleaños, para el sábado"},
+      {"de": "a", "texto": "Genial. El precio y si llegamos para esa fecha lo confirma una persona de {negocio}. Se lo paso. 🙂"},
+      {"de": "sep", "texto": "unos minutos después"},
+      {"de": "a", "texto": "Ahora hay mucho movimiento, en breve te atienden. Mientras, si tenés alguna consulta, contame."}
+    ]
+  },
+  "carnes": {
+    "rotulo": "Asistente de {negocio}",
+    "inicial": "C",
+    "mensajes": [
+      {"de": "c", "texto": "Hola, ¿a cuánto está el asado?"},
+      {"de": "a", "texto": "¡Hola! Soy el asistente de {negocio}. Los precios del día los pasa una persona del local, ¿qué cortes buscás?"},
+      {"de": "c", "texto": "Asado y vacío, para 10 personas"},
+      {"de": "a", "texto": "Anotado: asado y vacío, para 10. Se lo paso a una persona del local para el precio y la disponibilidad."}
+    ]
+  },
+  "materiales": {
+    "rotulo": "Asistente de {negocio}",
+    "inicial": "M",
+    "mensajes": [
+      {"de": "c", "texto": "Necesito presupuesto para una obra chica"},
+      {"de": "a", "texto": "¡Hola! Soy el asistente de {negocio}. ¿Qué materiales necesitás?"},
+      {"de": "c", "texto": "Cemento, hierro y ladrillos"},
+      {"de": "a", "texto": "Perfecto. El presupuesto lo arma una persona del local. ¿En qué zona es la obra?"},
+      {"de": "c", "texto": "Por la zona de [barrio]"},
+      {"de": "a", "texto": "Gracias. Se lo paso a una persona del local y te escribe por acá."}
+    ]
+  },
+  "ropa": {
+    "rotulo": "Asistente de {negocio}",
+    "inicial": "C",
+    "mensajes": [
+      {"de": "c", "texto": "Hola, ¿se puede cambiar una prenda?", "cartel": "Fuera del horario del negocio"},
+      {"de": "a", "texto": "¡Hola! Soy el asistente de {negocio}. Contame qué te pasó con la prenda y te ayudo.", "chip": "Contesta a cualquier hora"},
+      {"de": "c", "texto": "Me quedó chica"},
+      {"de": "a", "texto": "Entiendo. Las condiciones de cambio las confirma una persona de {negocio}. Se lo paso."},
+      {"de": "sep", "texto": "unos minutos después"},
+      {"de": "a", "texto": "Ahora hay mucho movimiento, en breve te atienden. Mientras, si tenés alguna consulta, contame."}
+    ]
+  },
+  "salon": {
+    "rotulo": "Asistente de {negocio}",
+    "inicial": "S",
+    "mensajes": [
+      {"de": "c", "texto": "Hola, quiero turno para cortarme el pelo y hacerme las uñas"},
+      {"de": "a", "texto": "¡Hola! Soy el asistente de {negocio}. ¿Para qué día te queda bien?"},
+      {"de": "c", "texto": "El viernes a la tarde"},
+      {"de": "a", "texto": "Dale. Te tomo los datos y el salón te confirma el turno. ¿Me pasás tu nombre?"},
+      {"de": "c", "texto": "Soy [nombre]"},
+      {"de": "a", "texto": "Gracias, [nombre]. Se lo paso al salón y te confirman por acá."}
+    ]
+  },
+  "odontologia": {
+    "rotulo": "Asistente de {negocio}",
+    "inicial": "C",
+    "mensajes": [
+      {"de": "c", "texto": "Hola, ¿sos un bot? Quiero consultar por una limpieza"},
+      {"de": "a", "texto": "Sí, soy el asistente automático de {negocio}. ¿Para qué día te gustaría el turno?"},
+      {"de": "c", "texto": "¿Cuánto sale?"},
+      {"de": "a", "texto": "Te tomo los datos y el consultorio te confirma el turno y el valor. ¿Me pasás tu nombre?"},
+      {"de": "c", "texto": "Soy [nombre]"},
+      {"de": "a", "texto": "Gracias, [nombre]. Se lo paso a una persona del consultorio y te confirman por acá."}
+    ]
+  },
+  "taller": {
+    "rotulo": "Asistente de {negocio}",
+    "inicial": "T",
+    "mensajes": [
+      {"de": "c", "texto": "Hola, el auto hace un ruido raro al frenar"},
+      {"de": "a", "texto": "¡Hola! Soy el asistente de {negocio}. ¿Qué auto es?"},
+      {"de": "c", "texto": "Un [modelo]"},
+      {"de": "a", "texto": "El diagnóstico y el costo los da el taller cuando lo ven. ¿Me pasás tu nombre para que te escriban?"},
+      {"de": "sep", "texto": "unos minutos después"},
+      {"de": "a", "texto": "Ahora hay mucho movimiento, en breve te atienden."}
+    ]
+  }
+}

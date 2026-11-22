@@ -23,13 +23,18 @@
   --r: 12px; --rb: 12px;
   --font: "Figtree", system-ui, "Segoe UI", Arial, sans-serif; --font-h: "Bricolage Grotesque", var(--font);
   --h-peso: 700; --h-caso: none; --h-track: -0.02em; --btn-peso: 600;
+  /* WhatsApp: un solo verde para toda la capa (5,1:1 con blanco). Nunca como texto chico sobre fondo oscuro (3,6:1 sobre #141414). */
+  --wa: #0A7D5E; --wa-ink: #ffffff; --wa-fondo-chat: #eaf0ed;
+  --chat-burbuja: #ffffff; --chat-txt: #18181b; --chat-txt-2: #52525b; --chat-linea: #d3dcd8; --chat-hueco: #e4e8e6; --ico-anillo: transparent;
+  /* Movimiento */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1); --dur-micro: 160ms; --dur-ui: 240ms; --dur-hero: 600ms; --dur-globo: 220ms;
 }
 [data-tema="restaurante"] {
   --acento: #c2410c; --acento-ink: #ffffff; --acento-txt: #c2410c;
 }
 [data-tema="panaderia"] {
   --bg: #ffffff; --surface: #ffffff; --surface-2: #f5f5f4; --ink: #1f1f1f; --ink-2: #555555; --line: #e5e5e3;
-  --acento: #f2b705; --acento-ink: #1f1f1f; --acento-txt: #8a5a00;
+  --acento: #f2b705; --acento-ink: #1f1f1f; --acento-txt: #8a5a00; --ico-anillo: var(--ink);
   --r: 16px; --rb: 16px;
   --font: "Work Sans", system-ui, "Segoe UI", Arial, sans-serif; --font-h: "Young Serif", Georgia, serif;
   --h-peso: 400; --h-track: -0.01em;
@@ -43,7 +48,7 @@
 }
 [data-tema="materiales"] {
   --bg: #f4f4f5; --surface: #ffffff; --surface-2: #e8e8ea; --ink: #111111; --ink-2: #4b4b52; --line: #d4d4d8;
-  --acento: #ffcc00; --acento-ink: #111111; --acento-txt: #111111;
+  --acento: #ffcc00; --acento-ink: #111111; --acento-txt: #111111; --ico-anillo: var(--ink);
   --r: 4px; --rb: 4px;
   --font: "Barlow", system-ui, "Segoe UI", Arial, sans-serif; --font-h: "Barlow Semi Condensed", "Arial Narrow", var(--font);
   --h-peso: 700; --h-track: -0.005em;
@@ -79,7 +84,8 @@ h1, h2, h3, .marca { font-family: var(--font-h); font-weight: var(--h-peso); let
 }
 .btn:hover { filter: brightness(1.07); }
 .btn:active { transform: scale(.98); }
-.btn .ico { width: 22px; height: 22px; flex: none; }
+/* Glifo verde sobre disco blanco: se ve igual en cualquier color de boton (5,1:1) */
+.btn .ico { box-sizing: content-box; width: 20px; height: 20px; padding: 4px; flex: none; color: var(--wa); background: var(--wa-ink); border-radius: 50%; box-shadow: 0 0 0 1.5px var(--ico-anillo); }
 .btn-grande { min-height: 56px; padding: 0 32px; font-size: 1.0625rem; }
 .btn-chico { min-height: 44px; padding: 0 18px; }
 .btn-borde { background: transparent; color: var(--ink); border-color: var(--ink); }
@@ -96,7 +102,7 @@ h1, h2, h3, .marca { font-family: var(--font-h); font-weight: var(--h-peso); let
 .cab-der { display: flex; align-items: center; gap: 14px; flex: 0 1 auto; max-width: 48%; }
 .estado { font-size: .8125rem; font-weight: 600; color: var(--ink-2); text-align: right; line-height: 1.25; }
 .estado.abierto { color: var(--ink); }
-.estado.abierto::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #16a34a; margin-right: 6px; }
+.estado.abierto::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--wa); margin-right: 6px; }
 .cab-wa { display: none; }
 
 /* ---------- Portada ---------- */
@@ -250,6 +256,51 @@ dialog#hoja::backdrop { background: rgb(0 0 0 / .55); }
 dialog#hoja .hoja-msg { margin-block: 12px 18px; padding: 14px 16px; background: var(--surface-2); border-radius: var(--r); font-weight: 600; }
 dialog#hoja .acciones { display: grid; gap: 8px; }
 
+/* ---------- Chat de ejemplo (el HTML trae la conversacion completa; chat.js solo la reproduce) ---------- */
+.sec-chat { border-top: 1px solid var(--line); scroll-margin-top: 72px; }
+.chat-sec { display: grid; gap: 24px; grid-template-areas: "intro" "chat" "cta"; }
+.chat-intro { grid-area: intro; }
+.chat-col { grid-area: chat; }
+.chat-cta { grid-area: cta; display: grid; gap: 10px; justify-items: start; }
+.chat-intro .sec-sub { margin-bottom: 0; }
+.chat { max-width: 420px; background: var(--wa-fondo-chat); border: 1px solid var(--chat-linea); border-radius: var(--r); overflow: hidden; color: var(--chat-txt); }
+.chat-cab { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--chat-burbuja); border-bottom: 1px solid var(--chat-linea); }
+.chat-av { flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; overflow: hidden; background: var(--acento); color: var(--acento-ink); font-family: var(--font-h); font-weight: var(--h-peso); font-size: 1.125rem; line-height: 1; }
+.chat-av img { width: 100%; height: 100%; object-fit: cover; }
+.chat-quien { display: grid; gap: 2px; min-width: 0; }
+.chat-quien strong { font-size: 1rem; line-height: 1.2; color: var(--chat-txt); }
+.chat-quien small { font-size: .8125rem; line-height: 1.3; color: var(--chat-txt-2); }
+.chat-lista { display: grid; gap: 10px; padding: 16px 14px 18px; }
+.g { position: relative; display: flex; }
+.g-c { justify-content: flex-end; }
+.g-sep { justify-content: center; }
+.g-cont { display: flex; flex-direction: column; gap: 4px; max-width: 88%; }
+.g-c .g-cont { align-items: flex-end; }
+.g-a .g-cont { align-items: flex-start; }
+.g-txt { padding: 10px 14px; font-size: 1rem; line-height: 1.4; text-wrap: pretty; border-radius: var(--r); }
+.g-c .g-txt { background: var(--chat-burbuja); color: var(--chat-txt); border: 1px solid var(--chat-linea); border-top-right-radius: calc(var(--r) / 3); }
+.g-a .g-txt { background: var(--wa); color: var(--wa-ink); border-top-left-radius: calc(var(--r) / 3); }
+.g-meta { font-size: .75rem; line-height: 1.3; color: var(--chat-txt-2); }
+.g-chip { padding: 2px 10px; border: 1px solid var(--chat-linea); border-radius: 999px; background: var(--chat-burbuja); }
+.g-hueco { padding: 0 6px; border-radius: 6px; background: var(--chat-hueco); color: var(--chat-txt); box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.g-chips .g-cont { flex-direction: row; flex-wrap: wrap; gap: 8px; max-width: 100%; }
+.chat-chip { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; background: var(--chat-burbuja); color: var(--wa); border: 2px solid var(--wa); border-radius: 999px; font-weight: 600; text-decoration: none; touch-action: manipulation; transition: transform var(--dur-micro) var(--ease-out); }
+.chat-chip:active { transform: scale(.97); }
+.chat-chip:focus-visible, .chat-otra:focus-visible { outline-color: var(--chat-txt); }
+.btn-wa { background: var(--wa); border-color: var(--wa); color: var(--wa-ink); }
+.chat-cta .btn { width: 100%; padding: 0 20px; font-size: 1rem; }
+.chat-pie { display: flex; justify-content: flex-end; min-height: 44px; padding: 0 8px 8px; }
+.chat-otra { visibility: hidden; opacity: 0; min-height: 44px; padding: 0 12px; background: none; border: 0; color: var(--chat-txt-2); font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; touch-action: manipulation; }
+.chat-pie.lista .chat-otra { visibility: visible; opacity: 1; transition: opacity var(--dur-micro) var(--ease-out); }
+.g-typing { display: none; position: absolute; left: 0; top: 0; gap: 5px; padding: 15px 16px; background: var(--wa); border-radius: var(--r); border-top-left-radius: calc(var(--r) / 3); }
+.g-typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--wa-ink); }
+@media (min-width: 900px) {
+  .chat-sec { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-rows: auto 1fr; grid-template-areas: "intro chat" "cta chat"; column-gap: 56px; row-gap: 28px; align-items: start; }
+  .chat-intro { align-self: end; }
+  .chat-col { justify-self: end; width: 100%; max-width: 420px; }
+  .chat-cta .btn { width: auto; }
+}
+
 /* Portada selectora */
 .rubros { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 .rubros li { display: flex; }
@@ -258,6 +309,7 @@ dialog#hoja .acciones { display: grid; gap: 8px; }
 .rubro-card span { display: block; padding: 14px 14px 16px; font-family: var(--font-h); font-weight: 700; font-size: 1.0625rem; line-height: 1.2; min-height: 44px; }
 .rubro-card:hover { border-color: var(--ink); }
 .sel-cab { padding-block: 40px 28px; display: grid; gap: 12px; }
+.sel-cab .enlace { justify-self: start; }
 
 /* ---------- Pantallas anchas ---------- */
 @media (min-width: 640px) {
@@ -296,7 +348,19 @@ dialog#hoja .acciones { display: grid; gap: 8px; }
   .rv { opacity: 0; transform: translateY(10px); }
   .rv.in { opacity: 1; transform: none; transition: opacity .35s ease-out var(--d, 0ms), transform .4s cubic-bezier(.25, 1, .5, 1) var(--d, 0ms); }
 }
+@media (prefers-reduced-motion: no-preference) {
+  /* Cada globo entra con opacity y transform (220 ms). chat.js pone .anim solo si va a reproducir; sin JS se ve todo. */
+  .chat.anim .g-cont { opacity: 0; transform: translateY(8px); }
+  .chat.anim .g-chips:not(.in) .g-cont { visibility: hidden; }
+  .chat.anim .g.in .g-cont { opacity: 1; transform: none; transition: opacity var(--dur-globo) var(--ease-out), transform var(--dur-globo) var(--ease-out); }
+  .chat.anim .g.escribiendo .g-typing { display: flex; }
+  .g-typing i { animation: chat-punto 1s ease-in-out infinite; }
+  .g-typing i:nth-child(2) { animation-delay: .15s; }
+  .g-typing i:nth-child(3) { animation-delay: .3s; }
+}
+@keyframes chat-punto { 0%, 60%, 100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-4px); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .btn, .barra-wa.con-js, .barra-wa.con-js.visible { transition: none; }
+  .btn, .barra-wa.con-js, .barra-wa.con-js.visible, .chat-chip, .chat-pie.lista .chat-otra { transition: none; }
+  .g-typing { display: none !important; }
 }

@@ -1,7 +1,7 @@
 """Arma las paginas HTML de las demos (una por rubro) y la portada "Elegi tu rubro".
 Uso (desde publicar/):  python -I _fuente/generar.py
 Todo el contenido queda escrito en el HTML (titulo, OG, portada, secciones): no depende de JavaScript para verse."""
-import os, sys, re, html, urllib.parse
+import os, sys, re, html, json, urllib.parse
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, AQUI)
@@ -141,7 +141,7 @@ def pagina(r):
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" as="font" type="font/woff2" href="../fonts/%(fp)s" crossorigin>
 <link rel="preload" as="image" imagesrcset="%(srcset)s" imagesizes="(min-width: 900px) 520px, 100vw" fetchpriority="high">
-<link rel="icon" href="data:,">
+%(iconos)s
 %(css)s
 </head>
 <body>
@@ -179,13 +179,13 @@ def pagina(r):
 <div class="barra-wa"><a class="btn btn-grande" href="%(wa)s" rel="noopener">%(ico)s<span>Escribinos por WhatsApp</span></a><small>En esta demo, el botón te comunica con Multitec.</small></div>
 %(extra)s
 <script src="../js/pro.js" defer></script>
-</body>
+%(chatjs)s</body>
 </html>
 """ % dict(
         tema=slug, titulo=E(titulo), desc=E(r["desc"]), tc=r["theme_color"], url=url, og=og, heroalt=E(r["hero_alt"]), fp=fp, srcset=srcset,
         nombre_demo=E(nombre_demo), wa=wa_url, ico=ico(), hero=img(P, slug, "portada", r["hero_alt"], "(min-width: 900px) 520px, 100vw", eager=True),
         rubro=E(r["rubro"]), h1=E(r["h1"]), sub=E(r["sub"]), acc=acciones(r, wa_url), cuerpo=r["cuerpo"],
-        ubic=ubicacion(P, r["horarios"], ""), css=css_en_linea("../fonts/"), cierre=E(r["cierre"]), creditos=creditos(slug), letras=E(r["letras"]), extra=r.get("extra", ""))
+        ubic=ubicacion(P, r["horarios"], ""), css=css_en_linea("../fonts/"), iconos=iconos("../"), chatjs=CHAT_JS % "../" if r.get("chat_js") else "", cierre=E(r["cierre"]), creditos=creditos(slug), letras=E(r["letras"]), extra=r.get("extra", ""))
 
 
 HOJA = ('<dialog id="hoja" aria-labelledby="hoja-t"><h2 id="hoja-t" style="font-size:1.25rem">Así le llega a tu WhatsApp</h2>'
@@ -208,10 +208,117 @@ def boton_consulta(texto_msg, etiqueta="Consultar"):
     return '<button class="btn btn-chico" type="button" data-consulta="%s">%s</button>' % (E(texto_msg), E(etiqueta))
 
 
+# ---------- favicon ----------
+def iconos(P):
+    return ('<link rel="icon" type="image/png" sizes="32x32" href="%sfotos/marca/favicon-32.png">\n'
+            '<link rel="icon" type="image/png" sizes="48x48" href="%sfotos/marca/favicon-48.png">\n'
+            '<link rel="apple-touch-icon" href="%sfotos/marca/apple-touch-180.png">') % (P, P, P)
+
+
+# ---------- chat de ejemplo (textos en _fuente/chats.json) ----------
+CHAT_JS = '<script src="%sjs/chat.js?v=20261122" defer></script>\n'
+TOPE_GLOBO = 140      # caracteres por globo (3 lineas a 343 px)
+TOPE_MENSAJES = 6     # globos de cliente y asistente por chat
+RAYAS = (chr(0x2014), chr(0x2013))   # raya larga y raya corta
+EMOJI = re.compile("[" + chr(0x1F300) + "-" + chr(0x1FAFF) + chr(0x2600) + "-" + chr(0x27BF) + chr(0x2B50) + chr(0x2B55) + "]")
+NOTA_BOTON = {"portada": "Este botón te comunica con Multitec.", "rubro": "En esta demo, el botón te comunica con Multitec."}
+
+
+def cargar_chats():
+    datos = json.load(open(os.path.join(AQUI, "chats.json"), encoding="utf-8"))
+    return {k: v for k, v in datos.items() if not k.startswith("_")}
+
+
+def validar_chat(slug, c, nombre):
+    """Corta la regeneracion (sin escribir nada) si un chat rompe las reglas de Valentina, Ramiro y Emilia."""
+    def falla(m):
+        sys.exit("chats.json [%s]: %s" % (slug, m))
+    if not c.get("rotulo"):
+        falla("falta 'rotulo' (ej.: \"Asistente de {negocio}\")")
+    msgs = c.get("mensajes") or []
+    if not msgs:
+        falla("sin mensajes")
+    if len([m for m in msgs if m.get("de") in ("c", "a")]) > TOPE_MENSAJES:
+        falla("mas de %d mensajes" % TOPE_MENSAJES)
+    emojis = 0
+    for campo in ("rotulo", "titulo", "bajada", "boton", "wa_texto"):
+        if any(r in c.get(campo, "") for r in RAYAS):
+            falla("raya larga en '%s'" % campo)
+    for i, m in enumerate(msgs, 1):
+        de = m.get("de")
+        if de not in ("c", "a", "sep", "chips"):
+            falla("mensaje %d: 'de' tiene que ser c, a, sep o chips" % i)
+        if de == "chips":
+            continue
+        t = m.get("texto", "")
+        if not t:
+            falla("mensaje %d sin texto" % i)
+        if de in ("c", "a") and len(t.replace("{negocio}", nombre)) > TOPE_GLOBO:
+            falla("mensaje %d pasa de %d caracteres (%d)" % (i, TOPE_GLOBO, len(t.replace("{negocio}", nombre))))
+        for campo in ("texto", "cartel", "chip"):
+            v = m.get(campo, "")
+            if any(r in v for r in RAYAS):
+                falla("mensaje %d: raya larga en '%s'" % (i, campo))
+            emojis += len(EMOJI.findall(v))
+    if emojis > 1:
+        falla("%d emojis (maximo 1 por chat)" % emojis)
+
+
+CHATS = cargar_chats()
+for _s, _c in CHATS.items():
+    validar_chat(_s, _c, "N" * 30)   # peor caso de largo del nombre; antes de escribir nada
+
+
+def hueco(texto, nombre):
+    """Escapa primero; despues {negocio} y [campo cargado por el negocio]."""
+    t = E(texto).replace("{negocio}", E(nombre))
+    return re.sub(r"\[([^\]]+)\]", lambda m: '<span class="g-hueco">' + chr(0x2039) + m.group(1) + chr(0x203a) + '</span>', t)
+
+
+def chat_html(slug, P, nombre, chips=()):
+    c = CHATS[slug]
+    validar_chat(slug, c, nombre)
+    for k in ("titulo", "bajada", "boton", "wa_texto"):
+        if not c.get(k):
+            sys.exit("chats.json [%s]: falta '%s'" % (slug, k))
+    if len(c["bajada"].split()) > 20:
+        sys.exit("chats.json [%s]: la bajada pasa de 20 palabras" % slug)
+    items = ""
+    for m in c["mensajes"]:
+        de = m["de"]
+        if de == "sep":
+            items += '<li class="g g-sep"><div class="g-cont"><p class="g-meta">%s</p></div></li>' % E(m["texto"])
+        elif de == "chips":
+            if not chips:
+                sys.exit("chats.json [%s]: 'chips' sin rubros publicados" % slug)
+            items += '<li class="g g-chips"><div class="g-cont">%s</div></li>' % "".join(
+                '<a class="chat-chip" href="%s">%s</a>' % (E(h), E(n)) for h, n in chips)
+        else:
+            cartel = '<p class="g-meta">%s</p>' % E(m["cartel"]) if m.get("cartel") else ""
+            chip = '<p class="g-meta g-chip">%s</p>' % E(m["chip"]) if m.get("chip") else ""
+            items += '<li class="g g-%s"><div class="g-cont">%s<p class="g-txt">%s</p>%s</div></li>' % (de, cartel, hueco(m["texto"], nombre), chip)
+    if c.get("avatar"):
+        av = '<span class="chat-av" aria-hidden="true"><img src="%s%s" width="40" height="40" alt=""></span>' % (P, E(c["avatar"]))
+    else:
+        av = '<span class="chat-av" aria-hidden="true">%s</span>' % E(c.get("inicial", nombre[:1]))
+    wa_chat = "https://wa.me/%s?text=%s" % (WA_NUM, urllib.parse.quote(c["wa_texto"]))
+    nota = NOTA_BOTON["portada" if slug == "portada" else "rubro"]
+    return ('<section class="sec sec-chat" id="chat" aria-labelledby="h-chat"><div class="ancho chat-sec">'
+            '<div class="chat-intro"><h2 class="sec-titulo" id="h-chat">%s</h2><p class="sec-sub">%s</p></div>'
+            '<div class="chat-col"><figure class="chat" data-chat aria-label="Conversación de ejemplo">'
+            '<figcaption class="chat-cab">%s<span class="chat-quien"><strong>%s</strong><small>Conversación de ejemplo · se arma para tu negocio</small></span></figcaption>'
+            '<ol class="chat-lista">%s</ol></figure></div>'
+            '<div class="chat-cta"><a class="btn btn-grande btn-wa" id="wa-chat" href="%s" rel="noopener">%s<span>%s</span></a>'
+            '<p class="nota-demo">%s</p></div></div></section>') % (
+        E(c["titulo"]), E(c["bajada"]), av, hueco(c["rotulo"], nombre), items, wa_chat, ico(), E(c["boton"]), nota)
+
+
+
 P = "../"
 paginas = []
 
 # ================= RESTAURANTE =================
+NOM_REST = "Comedor Tape Porã"
 rest_items = [
     ("milanesa-limon", "Milanesa con limón", "Milanesa de carne dorada, con limón y ensalada.", 38000, "platos", "Milanesa dorada con limón sobre tabla de madera"),
     ("milanesa-papas", "Milanesa con papas fritas", "Con papas fritas caseras, el plato de todos los días.", 42000, "platos", "Milanesa con papas fritas en plato blanco"),
@@ -236,6 +343,7 @@ cuerpo = ('<section class="sec" id="carta" aria-labelledby="h-carta"><div class=
           '<button class="chip" type="button" data-chip="parrilla" aria-pressed="false">Parrilla</button>'
           '<button class="chip" type="button" data-chip="compartir" aria-pressed="false">Para compartir</button></div>'
           '<ul class="filas" data-filtrable>%s</ul></div></section>') % cards
+cuerpo += chat_html("restaurante", P, NOM_REST)
 cuerpo += ('<section class="sec sec-alt" aria-labelledby="h-par"><div class="ancho banda"><div class="banda-foto">%s</div>'
            '<div class="banda-txt"><h2 class="sec-titulo" id="h-par">Desde la parrilla</h2>'
            '<p>El fuego se prende de martes a domingo. Para el fin de semana, preguntá por la parrillada para compartir.</p>'
@@ -246,7 +354,7 @@ cuerpo += opiniones("", "4,6", "128", [
     ("Sergio P.", "S", "Buen almuerzo del día, bien servido. El local está siempre limpio."),
 ])
 paginas.append(dict(
-    slug="restaurante", nombre="Comedor Tape Porã", rubro="Restaurante", titulo_corto="Ejemplo de web para restaurante",
+    slug="restaurante", nombre=NOM_REST, chat_js=True, rubro="Restaurante", titulo_corto="Ejemplo de web para restaurante",
     desc="Demo de página web para un restaurante: carta con fotos, pedido de prueba, horarios y WhatsApp. Es un ejemplo de Presencia Multitec.",
     h1="Almuerzo casero, listo a las 11:30.", sub="Milanesas, pastas y parrilla. Mirá la carta y armá tu pedido.",
     hero_alt="Milanesa dorada con ensalada fresca en plato blanco", wa_rubro="restaurante", theme_color="#ffffff",
@@ -440,7 +548,7 @@ indice = """<!doctype html>
 })();
 </script>
 <link rel="preload" as="font" type="font/woff2" href="fonts/bricolage-700.woff2" crossorigin>
-<link rel="icon" href="data:,">
+%(iconos)s
 %(css)s
 </head>
 <body>
@@ -451,8 +559,10 @@ indice = """<!doctype html>
 <p class="rubro">Presencia Multitec (Demo)</p>
 <h1>Así se vería la web de tu negocio</h1>
 <p class="sub">Elegí tu rubro y mirala como la vería un cliente desde el celular.</p>
+<a class="enlace" href="#chat">Ver cómo te atiende el agente</a>
 </div>
 <section class="ancho" aria-label="Rubros"><ul class="rubros">%(tarj)s</ul></section>
+%(chat)s
 <section class="sec"><div class="ancho banda"><div class="banda-txt"><h2 class="sec-titulo">¿Tu rubro no está?</h2>
 <p>Escribinos y armamos una demo para tu negocio.</p>
 <a class="btn btn-grande" href="%(wa)s" rel="noopener">%(ico)s<span>Escribinos por WhatsApp</span></a>
@@ -463,8 +573,8 @@ indice = """<!doctype html>
 <p>Letras: Bricolage Grotesque y Figtree (licencia SIL OFL 1.1), alojadas en este sitio.</p>
 <div class="enlaces"><a href="privacidad.html">Privacidad</a></div>
 </div></footer>
-</body>
+%(chatjs)s</body>
 </html>
-""" % dict(css=css_en_linea("fonts/"), t=E(titulo), d=E(desc), b=BASE, tarj=tarj, wa=wa_gen, ico=ico(), cred=cred)
+""" % dict(css=css_en_linea("fonts/"), iconos=iconos(""), chat=chat_html("portada", "", "Multitec", [(sl + "/", nm) for sl, nm in SEL]), chatjs=CHAT_JS % "", t=E(titulo), d=E(desc), b=BASE, tarj=tarj, wa=wa_gen, ico=ico(), cred=cred)
 open(os.path.join(RAIZ, "index.html"), "w", encoding="utf-8", newline="\n").write(indice)
 print("ok index")

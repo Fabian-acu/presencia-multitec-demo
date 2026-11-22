@@ -53,9 +53,9 @@
   /* ---------- Barra fija de WhatsApp (celular) ---------- */
   var barra = $(".barra-wa"), bPortada = $("#wa-portada"), bCierre = $("#wa-cierre");
   if (barra && bPortada && "IntersectionObserver" in window) {
-    var pv = true, cv = false;
+    var pv = true, cv = false, chv = false;
     var pintar = function () {
-      var mostrar = !pv && !cv;
+      var mostrar = !pv && !cv && !chv;
       barra.classList.toggle("visible", mostrar);
       barra.setAttribute("aria-hidden", mostrar ? "false" : "true");
       if ("inert" in barra) { barra.inert = !mostrar; }
@@ -66,6 +66,10 @@
     }).observe(bPortada);
     if (bCierre) {
       new IntersectionObserver(function (it) { cv = it[it.length - 1].isIntersecting; pintar(); }).observe(bCierre);
+    }
+    var bChat = $(".chat-cta .btn");
+    if (bChat) {
+      new IntersectionObserver(function (it) { chv = it[it.length - 1].isIntersecting; pintar(); }).observe(bChat);
     }
     pintar();
   }
