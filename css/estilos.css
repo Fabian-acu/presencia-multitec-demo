@@ -1,0 +1,319 @@
+/* Presencia Multitec - estilos.
+   Un solo tema por pagina, elegido en negocio.js (data-tema). Los colores salen de variables:
+   no hay colores sueltos fuera de los bloques de tema. */
+
+/* ---------- Temas ---------- */
+:root,
+[data-tema="estetica"] {
+  --bg: #f6f5f7;
+  --surface: #ffffff;
+  --surface-2: #ece9ee;
+  --ink: #1d1b20;
+  --ink-2: #55505b;
+  --line: #d9d5dc;
+  --acento: #b3274f;
+  --acento-ink: #ffffff;
+  --r: 16px;          /* tarjetas y fotos */
+  --rb: 999px;        /* botones */
+  /* Hanken Grotesk (Google Fonts, licencia SIL OFL 1.1). Si no carga, cae a la letra del sistema. */
+  --font: "Hanken Grotesk", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-titulo: var(--font);
+  --h-peso: 600;
+  --h-caso: none;
+  --h-track: -0.02em;
+  --borde-btn: 0px;
+}
+
+[data-tema="comida"] {
+  --bg: #15171a;
+  --surface: #1f2226;
+  --surface-2: #262a2f;
+  --ink: #f0efea;
+  --ink-2: #b7bbc2;
+  --line: #353a40;
+  --acento: #f0693f;
+  --acento-ink: #15171a;
+  --r: 8px;
+  --rb: 10px;
+  /* Barlow Condensed (titulos) y Barlow (texto): Google Fonts, licencia SIL OFL 1.1 */
+  --font: "Barlow", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-titulo: "Barlow Condensed", "Bahnschrift", "Arial Narrow", var(--font);
+  --h-peso: 700;
+  --h-caso: uppercase;
+  --h-track: 0.005em;
+  --borde-btn: 0px;
+}
+
+[data-tema="comercio"] {
+  --bg: #f1f3f5;
+  --surface: #ffffff;
+  --surface-2: #e3e8ee;
+  --ink: #101820;
+  --ink-2: #475461;
+  --line: #c5ced8;
+  --acento: #1f4fd8;
+  --acento-ink: #ffffff;
+  --r: 4px;
+  --rb: 4px;
+  /* Archivo (Google Fonts, licencia SIL OFL 1.1) */
+  --font: "Archivo", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-titulo: var(--font);
+  --h-peso: 800;
+  --h-caso: none;
+  --h-track: -0.015em;
+  --borde-btn: 2px;
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.6;
+  padding-bottom: 88px; /* lugar para la barra de WhatsApp en celular */
+}
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+
+.ancho { width: 100%; max-width: 1120px; margin-inline: auto; padding-inline: 20px; }
+
+:focus-visible { outline: 3px solid var(--acento); outline-offset: 3px; }
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 24px;
+  background: var(--acento); color: var(--acento-ink);
+  border: var(--borde-btn) solid var(--acento);
+  border-radius: var(--rb);
+  font: inherit; font-weight: 650; text-decoration: none; text-align: center;
+  cursor: pointer; touch-action: manipulation;
+  transition: transform .18s cubic-bezier(.16, 1, .3, 1), filter .18s;
+}
+.btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.btn:active { transform: translateY(1px) scale(.98); }
+.btn .ico { width: 22px; height: 22px; flex: none; }
+.cab-wa { display: none; }
+.btn-grande { min-height: 56px; padding: 0 32px; font-size: 1.0625rem; }
+.btn-chico { min-height: 44px; padding: 0 18px; }
+.btn-borde { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+
+.enlace {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-weight: 600; text-underline-offset: 4px; text-decoration-thickness: 2px;
+  text-decoration-color: var(--acento);
+}
+
+/* ---------- Demo y cabecera ---------- */
+.demo-franja {
+  background: var(--ink); color: var(--bg);
+  text-align: center; font-size: .8125rem; font-weight: 600; padding: 8px 16px;
+}
+.cabecera {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.cabecera-in { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
+.marca {
+  font-weight: var(--h-peso); font-size: 1.125rem; letter-spacing: var(--h-track);
+  text-transform: var(--h-caso); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center;
+}
+
+/* ---------- Fotos ---------- */
+.foto {
+  position: relative; overflow: hidden; border-radius: var(--r);
+  background: var(--surface-2);
+}
+.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* Sin foto: fondo sobrio del tema (degrade suave + luz arriba), sin texto */
+.foto.vacia {
+  background:
+    radial-gradient(120% 90% at 15% 0%, color-mix(in srgb, var(--acento) 16%, transparent), transparent 62%),
+    linear-gradient(160deg, var(--surface-2), color-mix(in srgb, var(--surface-2) 82%, var(--ink)));
+}
+
+/* ---------- Portada ---------- */
+.portada { display: grid; gap: 28px; padding-block: 32px 40px; }
+.portada-texto { display: grid; gap: 16px; align-content: center; }
+.rubro { color: var(--acento); font-weight: 650; }
+h1 {
+  font-size: clamp(2.25rem, 1.1rem + 5vw, 4.25rem);
+  line-height: 1.05; font-weight: var(--h-peso);
+  letter-spacing: var(--h-track); text-transform: var(--h-caso);
+  text-wrap: balance;
+}
+.sub { font-size: 1.125rem; color: var(--ink-2); max-width: 46ch; text-wrap: pretty; }
+.acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; margin-top: 8px; }
+.portada-foto { aspect-ratio: 16 / 10; order: -1; } /* celular: la foto va arriba del texto */
+.portada.sin-foto { padding-block: 40px 48px; }
+.foto-nota { position: absolute; left: 14px; bottom: 12px; font-size: .8125rem; line-height: 1.2; color: var(--ink-2); }
+.servicio .foto-nota { display: none; }
+.servicio.sin-foto { grid-template-columns: 1fr; }
+
+/* ---------- Secciones ---------- */
+.seccion { padding-block: 56px; }
+.titulo {
+  font-size: clamp(1.625rem, 1rem + 2.4vw, 2.5rem); line-height: 1.12;
+  font-weight: var(--h-peso); letter-spacing: var(--h-track); text-transform: var(--h-caso);
+  text-wrap: balance; margin-bottom: 28px;
+}
+
+/* Servicios: filas compactas en celular, grilla con una pieza grande en pantalla ancha */
+.servicios { display: grid; gap: 20px; }
+.servicio { display: grid; grid-template-columns: 104px 1fr; gap: 16px; align-items: center; }
+.servicio .foto { aspect-ratio: 1; }
+.servicio h3 { font-size: 1.1875rem; line-height: 1.25; font-weight: var(--h-peso); text-transform: var(--h-caso); letter-spacing: var(--h-track); }
+.servicio p { color: var(--ink-2); font-size: .9688rem; margin-top: 4px; max-width: 52ch; }
+.servicio .precio { color: var(--acento); font-weight: 650; font-variant-numeric: tabular-nums; }
+.servicio-txt { min-width: 0; }
+
+/* Franja con el texto del negocio */
+.franja { background: var(--acento); color: var(--acento-ink); padding-block: 56px; }
+.franja-txt {
+  font-size: clamp(1.375rem, 1rem + 1.9vw, 2.25rem); line-height: 1.25;
+  font-weight: 600; max-width: 32ch; text-wrap: balance;
+}
+
+/* Galeria: tira que se desliza */
+.tira {
+  display: flex; gap: 12px; overflow-x: auto;
+  scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  padding: 4px max(20px, calc((100vw - 1080px) / 2)) 12px;
+  scroll-padding-inline: max(20px, calc((100vw - 1080px) / 2));
+}
+.tira li { flex: 0 0 min(72vw, 300px); scroll-snap-align: start; }
+.tira .foto { aspect-ratio: 4 / 5; }
+
+/* Horarios y lugar */
+.dos { display: grid; gap: 48px; }
+.horarios li {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding-block: 14px;
+}
+.horarios li + li { border-top: 1px solid var(--line); }
+.hora { font-variant-numeric: tabular-nums; font-weight: 650; text-align: right; }
+.lugar { display: grid; gap: 16px; align-content: start; justify-items: start; }
+.lugar h2 {
+  font-size: clamp(1.625rem, 1rem + 2.4vw, 2.5rem); line-height: 1.12;
+  font-weight: var(--h-peso); letter-spacing: var(--h-track); text-transform: var(--h-caso); text-wrap: balance;
+}
+.direccion { font-size: 1.125rem; }
+.tel { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.mapa { width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: var(--r); background: var(--surface-2); }
+.redes { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.redes a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; text-underline-offset: 4px; text-decoration-color: var(--acento); text-decoration-thickness: 2px; }
+
+/* Cierre */
+.cierre { background: var(--surface-2); padding-block: 72px; }
+.cierre .ancho { display: grid; gap: 24px; justify-items: start; }
+.cierre-titulo {
+  font-size: clamp(1.875rem, 1rem + 3.4vw, 3.25rem); line-height: 1.1;
+  font-weight: var(--h-peso); letter-spacing: var(--h-track); text-transform: var(--h-caso);
+  text-wrap: balance; max-width: 18ch;
+}
+
+/* Pie */
+.pie { padding-block: 32px; color: var(--ink-2); font-size: .875rem; }
+.pie .ancho { display: grid; gap: 4px; }
+
+/* Barra de WhatsApp fija (celular) */
+.barra-wa {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-top: 1px solid var(--line);
+}
+.barra-wa .btn { width: 100%; }
+/* Con JS: oculta hasta que el boton de la portada sale de pantalla; se esconde al ver el del cierre */
+.barra-wa.con-js { transform: translateY(100%); visibility: hidden; transition: transform .3s cubic-bezier(.16, 1, .3, 1), visibility 0s .3s; }
+.barra-wa.con-js.visible { transform: none; visibility: visible; transition: transform .3s cubic-bezier(.16, 1, .3, 1); }
+
+/* ---------- Pantallas anchas ---------- */
+@media (min-width: 640px) {
+  .ancho { padding-inline: 32px; }
+  .tira { padding-inline: max(32px, calc((100vw - 1056px) / 2)); scroll-padding-inline: max(32px, calc((100vw - 1056px) / 2)); }
+}
+
+@media (min-width: 900px) {
+  body { padding-bottom: 0; }
+  .barra-wa { display: none; }
+  .portada { grid-template-columns: 1.05fr .95fr; gap: 64px; padding-block: 48px 72px; align-items: center; }
+  .cab-wa { display: inline-flex; }
+  .portada.sin-foto { grid-template-columns: minmax(0, 760px); padding-block: 72px 88px; }
+  .portada-foto { aspect-ratio: 4 / 5; order: 0; }
+  .seccion { padding-block: 88px; }
+
+  /* Servicios: la grilla depende de la cantidad (n-3 ... n-6), sin huecos */
+  .servicios { grid-template-columns: repeat(3, 1fr); gap: 32px 24px; }
+  .servicio { display: flex; flex-direction: column; align-items: stretch; gap: 14px; }
+  .servicio .foto { aspect-ratio: 4 / 3; }
+  .servicios.n-1 { grid-template-columns: minmax(0, 560px); }
+  .servicios.n-2 { grid-template-columns: repeat(2, 1fr); }
+  .servicios.n-4 { grid-template-columns: repeat(2, 1fr); }
+  .servicios.n-4 .foto { aspect-ratio: 16 / 10; }
+  /* 3 = uno grande a la izquierda (2 filas) y dos apilados a la derecha */
+  .servicios.n-3 { grid-template-columns: 1.5fr 1fr; grid-template-rows: auto auto; }
+  .servicios.n-3 .servicio:first-child { grid-row: span 2; }
+  .servicios.n-3 .servicio:first-child .foto { aspect-ratio: auto; flex: 1 1 auto; min-height: 320px; }
+  .servicios.n-3 .foto { aspect-ratio: 16 / 9; }
+  /* 5 = el primero ocupa 2 columnas */
+  .servicios.n-5 .servicio:first-child { grid-column: span 2; }
+  .servicios.n-5 .servicio:first-child .foto { aspect-ratio: auto; flex: 1 1 auto; min-height: 260px; }
+
+  .franja { padding-block: 88px; }
+  .dos { grid-template-columns: 1fr 1fr; gap: 80px; }
+
+  /* Galeria: grilla (la tira deslizable queda solo para celular) */
+  .tira {
+    display: grid; overflow: visible; scroll-snap-type: none;
+    max-width: 1120px; margin-inline: auto; padding: 0 32px;
+    grid-auto-rows: 300px; gap: 16px;
+  }
+  .tira li { min-width: 0; }
+  .tira .foto { aspect-ratio: auto; height: 100%; }
+  .tira.g-1 { grid-template-columns: minmax(0, 560px); }
+  .tira.g-2 { grid-template-columns: repeat(2, 1fr); }
+  .tira.g-3 { grid-template-columns: repeat(3, 1fr); }
+  .tira.g-4 { grid-template-columns: repeat(4, 1fr); }
+  .tira.g-5 { grid-template-columns: repeat(4, 1fr); }
+  .tira.g-5 li:first-child { grid-column: span 2; grid-row: span 2; }
+  .tira.g-6 { grid-template-columns: repeat(3, 1fr); }
+  .tira.g-1 li:nth-child(n+7), .tira li:nth-child(n+7) { display: none; }
+  .cierre { padding-block: 104px; }
+}
+
+/* ---------- Movimiento (solo si la persona no lo pidio reducido) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .portada-texto > * { animation: sube .7s cubic-bezier(.16, 1, .3, 1) both; }
+  .portada-texto > :nth-child(2) { animation-delay: .06s; }
+  .portada-texto > :nth-child(3) { animation-delay: .12s; }
+  .portada-texto > :nth-child(4) { animation-delay: .18s; }
+  .portada-foto { animation: aparece .9s ease-out .1s both; }
+
+  .rv { opacity: 0; transform: translateY(16px); }
+  .rv.in { opacity: 1; transform: none; transition: opacity .6s ease-out, transform .7s cubic-bezier(.16, 1, .3, 1); }
+  .servicio.rv:nth-child(3n+2) { transition-delay: .06s; }
+  .servicio.rv:nth-child(3n) { transition-delay: .12s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+  .barra-wa.con-js, .barra-wa.con-js.visible { transition: none; }
+}
+@keyframes sube { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes aparece { from { opacity: 0; } to { opacity: 1; } }
+
+/* Letra de titulos (por tema) */
+h1, h2, h3, .marca, .titulo, .cierre-titulo { font-family: var(--font-titulo); }
+
+/* Credito de fotos en el pie */
+.creditos-fotos a { display: inline-block; padding-block: 8px; text-underline-offset: 3px; }
