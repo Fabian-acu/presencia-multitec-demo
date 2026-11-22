@@ -286,7 +286,8 @@
     el("div", { class: "ancho" },
       el("p", { text: "© " + new Date().getFullYear() + " " + nombreVer }),
       creditosFotos(),
-      el("p", { class: "credito", text: "Web hecha con Presencia Multitec" })
+      el("p", { class: "credito", text: "Web hecha con Presencia Multitec" }),
+      el("p", { class: "credito" }, el("a", { href: "privacidad.html", text: "Privacidad" }))
     )));
 
   // Barra fija de WhatsApp (solo celular)
