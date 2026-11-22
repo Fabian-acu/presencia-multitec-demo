@@ -1,0 +1,470 @@
+"""Arma las paginas HTML de las demos (una por rubro) y la portada "Elegi tu rubro".
+Uso (desde publicar/):  python -I _fuente/generar.py
+Todo el contenido queda escrito en el HTML (titulo, OG, portada, secciones): no depende de JavaScript para verse."""
+import os, sys, re, html, urllib.parse
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, AQUI)
+from fotos import FOTOS, SALIDAS  # noqa: E402
+
+RAIZ = os.path.dirname(AQUI)
+BASE = "https://fabian-acu.github.io/presencia-multitec-demo/"
+WA_NUM = "595981601211"
+WA_PATH = open(os.path.join(AQUI, "wa_path.txt")).read().strip()
+E = html.escape
+
+
+def css_en_linea(prefijo_fuentes):
+    """pro.css va dentro del HTML (menos pedidos, portada mas rapida). Las rutas de letras se ajustan a la pagina."""
+    c = open(os.path.join(RAIZ, "css", "pro.css"), encoding="utf-8").read()
+    c = re.sub(r"/\*.*?\*/", "", c, flags=re.S)
+    c = re.sub(r"\s+", " ", c)
+    c = re.sub(r" ?([{};,>]) ?", lambda m: m.group(1), c).replace(": ", ":")
+    return "<style>" + c.replace("../fonts/", prefijo_fuentes) + "</style>"
+
+
+def wa(rubro_txt):
+    msg = "Hola, vi la demo de Presencia Multitec de %s y quiero una para mi negocio" % rubro_txt
+    return "https://wa.me/%s?text=%s" % (WA_NUM, urllib.parse.quote(msg))
+
+
+def ico():
+    return '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="%s"/></svg>' % WA_PATH
+
+
+# ---------- fotos ----------
+def info(carpeta, nombre):
+    for c, n, i, prop, anchos, cal, foco in SALIDAS:
+        if c == carpeta and n == nombre:
+            ok = [a for a in anchos if os.path.exists(os.path.join(RAIZ, "fotos", c, "%s-%d.webp" % (n, a)))]
+            return i, prop, ok
+    raise KeyError((carpeta, nombre))
+
+
+def img(P, carpeta, nombre, alt, sizes, eager=False, alta=None):
+    i, prop, ok = info(carpeta, nombre)
+    srcset = ", ".join("%sfotos/%s/%s-%d.webp %dw" % (P, carpeta, nombre, a, a) for a in ok)
+    a = ok[min(1, len(ok) - 1)]
+    h = round(a * prop[1] / prop[0])
+    extra = (' fetchpriority="high"' if eager else ' decoding="async"') if (eager or alta) else ' loading="lazy" decoding="async"'
+    return '<img src="%sfotos/%s/%s-%d.webp" srcset="%s" sizes="%s" width="%d" height="%d" alt="%s"%s>' % (
+        P, carpeta, nombre, a, srcset, sizes, a, h, E(alt), extra)
+
+
+def creditos(carpeta, nombres=None):
+    ids = []
+    for c, n, i, *_ in SALIDAS:
+        if c == carpeta and (nombres is None or n in nombres) and i not in ids:
+            ids.append(i)
+    partes = ['<a href="https://www.pexels.com/photo/%s/" rel="noopener" target="_blank">%s<span class="solo-lector"> (se abre en otra pestaña)</span></a>' % (FOTOS[i][1], E(FOTOS[i][0])) for i in ids]
+    return "Fotos de Pexels (licencia Pexels, uso libre): " + ", ".join(partes) + "."
+
+
+# ---------- piezas comunes ----------
+def estrellas(n=5):
+    return '<span class="estrellas" aria-hidden="true">' + "★" * n + "</span>"
+
+
+def opiniones(nombre_lugar, promedio, cantidad, lista):
+    rs = ""
+    for nom, ini, txt in lista:
+        rs += ('<li class="resena"><div class="resena-cab"><span class="resena-ini" aria-hidden="true">%s</span>%s (ejemplo)</div>'
+               '<div role="img" aria-label="5 de 5 estrellas">%s</div><p>%s</p></li>') % (ini, E(nom), estrellas(), E(txt))
+    return ('<section class="sec sec-alt" aria-labelledby="h-op"><div class="ancho"><h2 class="sec-titulo" id="h-op">Opiniones de ejemplo</h2>'
+            '<p class="sec-sub">Así se vería la calificación de tu negocio en Google Maps. Los nombres, el promedio y la cantidad son inventados.</p>'
+            '<div class="calif"><div><div class="calif-res"><span class="calif-num">%s</span><div><div role="img" aria-label="%s de 5 estrellas">%s</div>'
+            '<div class="calif-cant">%s opiniones (ejemplo)</div></div></div></div><ul class="resenas">%s</ul></div></div></section>') % (
+        promedio, promedio, estrellas(), cantidad, rs)
+
+
+def horarios_html(filas):
+    out = ""
+    for dias, dows, abre, cierra in filas:
+        if abre:
+            out += '<li data-dias="%s" data-abre="%s" data-cierra="%s"><span>%s</span><span class="hora">%s a %s</span></li>' % (",".join(map(str, dows)), abre, cierra, E(dias), abre, cierra)
+        else:
+            out += '<li data-dias="%s"><span>%s</span><span class="hora">Cerrado</span></li>' % (",".join(map(str, dows)), E(dias))
+    return out
+
+
+OSM = "https://www.openstreetmap.org/export/embed.html?bbox=-54.6171%2C-25.5137%2C-54.6051%2C-25.5057&layer=mapnik&marker=-25.5097%2C-54.6111"
+
+
+def ubicacion(P, filas, cierre_wa_txt):
+    return ('<section class="sec" id="ubicacion" aria-labelledby="h-hor"><div class="ancho dos">'
+            '<div><h2 class="sec-titulo" id="h-hor">Horarios</h2><ul class="horarios">%s</ul></div>'
+            '<div class="lugar"><h2 class="sec-titulo">Dónde estamos</h2><p class="dir">Ciudad del Este (dirección de ejemplo)</p>'
+            '<div class="mapa-fachada" data-src="%s"><img src="%sfotos/mapa-cde.webp" width="600" height="450" loading="lazy" decoding="async" alt="Mapa del centro de Ciudad del Este">'
+            '<span class="mapa-pin" style="top:39.7%%" aria-hidden="true"></span><span class="mapa-leyenda">Ubicación de ejemplo</span>'
+            '<button class="btn btn-chico mapa-boton" type="button" id="ver-mapa">Ver mapa</button></div>'
+            '<p class="mapa-attr">Mapa: © <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">colaboradores de OpenStreetMap<span class="solo-lector"> (se abre en otra pestaña)</span></a></p>'
+            '</div></div></section>') % (horarios_html(filas), OSM, P)
+
+
+def acciones(r, wa_url):
+    boton_wa = '<a class="btn btn-grande%s" id="wa-portada" href="%s" rel="noopener">%s<span>Escribinos por WhatsApp</span></a>' % (" btn-borde" if r.get("carta_primero") else "", wa_url, ico())
+    if r.get("carta_primero"):
+        return '<a class="btn btn-grande" href="#carta">Ver la carta y pedir</a>' + boton_wa
+    return boton_wa + r.get("sec_link", "")
+
+
+def pagina(r):
+    slug = r["slug"]
+    P = "../"
+    url = BASE + slug + "/"
+    og = BASE + "fotos/%s/og.jpg" % slug
+    i, prop, ok = info(slug, "portada")
+    srcset = ", ".join("%sfotos/%s/portada-%d.webp %dw" % (P, slug, a, a) for a in ok)
+    wa_url = wa(r["wa_rubro"])
+    nombre_demo = r["nombre"] + " (Demo)"
+    titulo = "%s | %s" % (nombre_demo, r["titulo_corto"])
+    fp = r["fuente_h"]
+    return """<!doctype html>
+<html lang="es-PY" data-tema="%(tema)s" data-base="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>%(titulo)s</title>
+<meta name="description" content="%(desc)s">
+<meta name="theme-color" content="%(tc)s">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_PY">
+<meta property="og:site_name" content="Presencia Multitec (Demo)">
+<meta property="og:title" content="%(titulo)s">
+<meta property="og:description" content="%(desc)s">
+<meta property="og:url" content="%(url)s">
+<meta property="og:image" content="%(og)s">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="%(heroalt)s">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" as="font" type="font/woff2" href="../fonts/%(fp)s" crossorigin>
+<link rel="preload" as="image" imagesrcset="%(srcset)s" imagesizes="(min-width: 900px) 520px, 100vw" fetchpriority="high">
+<link rel="icon" href="data:,">
+%(css)s
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<div class="demo-franja" role="note">Ejemplo: este negocio no existe. <a href="../">Ver otros rubros</a></div>
+<header class="cab"><div class="ancho cab-in">
+<a class="marca" href="#contenido">%(nombre_demo)s</a>
+<div class="cab-der"><span class="estado" id="estado" aria-live="polite"></span>
+<a class="btn btn-chico cab-wa" href="%(wa)s" rel="noopener">%(ico)s<span>Escribinos por WhatsApp</span></a></div>
+</div></header>
+<main id="contenido">
+<section class="portada ancho" aria-labelledby="h-portada">
+<div class="portada-foto">%(hero)s</div>
+<div class="portada-txt">
+<p class="rubro">%(rubro)s</p>
+<h1 id="h-portada">%(h1)s</h1>
+<p class="sub">%(sub)s</p>
+<div class="acciones">%(acc)s</div>
+<p class="nota-demo">En esta demo, el botón te comunica con Multitec.</p>
+</div>
+</section>
+%(cuerpo)s
+%(ubic)s
+<section class="cierre"><div class="ancho"><h2 class="cierre-titulo">%(cierre)s</h2>
+<a class="btn btn-grande" id="wa-cierre" href="%(wa)s" rel="noopener">%(ico)s<span>Escribinos por WhatsApp</span></a>
+<p class="nota-demo" style="color:inherit;opacity:.8">En esta demo, el botón te comunica con Multitec.</p></div></section>
+</main>
+<footer class="pie"><div class="ancho">
+<p>© 2026 %(nombre_demo)s. Negocio de ejemplo.</p>
+<p>%(creditos)s</p>
+<p>Letras: %(letras)s (licencia SIL OFL 1.1), alojadas en este sitio.</p>
+<p>Web hecha con Presencia Multitec</p>
+<div class="enlaces"><a href="../privacidad.html">Privacidad</a><a href="../">Ver otros rubros</a></div>
+</div></footer>
+<div class="barra-wa"><a class="btn btn-grande" href="%(wa)s" rel="noopener">%(ico)s<span>Escribinos por WhatsApp</span></a><small>En esta demo, el botón te comunica con Multitec.</small></div>
+%(extra)s
+<script src="../js/pro.js" defer></script>
+</body>
+</html>
+""" % dict(
+        tema=slug, titulo=E(titulo), desc=E(r["desc"]), tc=r["theme_color"], url=url, og=og, heroalt=E(r["hero_alt"]), fp=fp, srcset=srcset,
+        nombre_demo=E(nombre_demo), wa=wa_url, ico=ico(), hero=img(P, slug, "portada", r["hero_alt"], "(min-width: 900px) 520px, 100vw", eager=True),
+        rubro=E(r["rubro"]), h1=E(r["h1"]), sub=E(r["sub"]), acc=acciones(r, wa_url), cuerpo=r["cuerpo"],
+        ubic=ubicacion(P, r["horarios"], ""), css=css_en_linea("../fonts/"), cierre=E(r["cierre"]), creditos=creditos(slug), letras=E(r["letras"]), extra=r.get("extra", ""))
+
+
+HOJA = ('<dialog id="hoja" aria-labelledby="hoja-t"><h2 id="hoja-t" style="font-size:1.25rem">Así le llega a tu WhatsApp</h2>'
+        '<p class="hoja-msg" id="hoja-msg"></p><div class="acciones"><a class="btn" href="%s" rel="noopener">Quiero una web así</a>'
+        '<button class="btn btn-borde" type="button" data-cerrar>Cerrar</button></div></dialog>')
+
+
+def tarjeta(P, carpeta, foto, alt, nombre, desc, pie_html, cat="", texto=""):
+    return ('<li class="tarjeta" data-rv%s%s><div class="tarjeta-foto">%s</div><div class="tarjeta-txt"><h3>%s</h3><p>%s</p>%s</div></li>') % (
+        ' data-cat="%s"' % cat if cat else "", ' data-texto="%s"' % E(texto) if texto else "",
+        img(P, carpeta, foto, alt, "(min-width: 900px) 360px, (min-width: 640px) 45vw, 100vw"), E(nombre), E(desc), pie_html)
+
+
+def fila(P, carpeta, foto, alt, nombre, desc, pie_html, cat):
+    return ('<li class="fila" data-rv data-cat="%s"><div class="fila-foto">%s</div><div class="fila-txt"><h3>%s</h3><p>%s</p>%s</div></li>') % (
+        cat, img(P, carpeta, foto, alt, "104px"), E(nombre), E(desc), pie_html)
+
+
+def boton_consulta(texto_msg, etiqueta="Consultar"):
+    return '<button class="btn btn-chico" type="button" data-consulta="%s">%s</button>' % (E(texto_msg), E(etiqueta))
+
+
+P = "../"
+paginas = []
+
+# ================= RESTAURANTE =================
+rest_items = [
+    ("milanesa-limon", "Milanesa con limón", "Milanesa de carne dorada, con limón y ensalada.", 38000, "platos", "Milanesa dorada con limón sobre tabla de madera"),
+    ("milanesa-papas", "Milanesa con papas fritas", "Con papas fritas caseras, el plato de todos los días.", 42000, "platos", "Milanesa con papas fritas en plato blanco"),
+    ("pasta", "Pasta con tomate", "Fideos con salsa de tomate, bien servidos.", 36000, "platos", "Plato de fideos con salsa de tomate"),
+    ("sopa", "Sopa del día", "Sopa caliente de la casa, con crutones.", 22000, "platos", "Sopa cremosa con crutones en un bol"),
+    ("asado-de-tira", "Asado de tira", "Costillas a la parrilla, con pan.", 65000, "parrilla", "Costillas asadas sobre tabla con pan"),
+    ("parrillada", "Parrillada para dos", "Cortes variados a la parrilla, para compartir.", 120000, "parrilla", "Cortes de carne y limones sobre la parrilla"),
+    ("empanadas", "Empanadas (media docena)", "Horneadas, con salsa verde.", 30000, "compartir", "Empanadas horneadas sobre tabla de madera"),
+]
+cards = ""
+for f, n, d, pr, cat, alt in rest_items:
+    gs = "{:,}".format(pr).replace(",", ".")
+    pie = ('<div class="tarjeta-pie"><span class="precio">Gs. %s</span>'
+           '<button class="btn btn-chico" type="button" data-pedido data-id="%s" data-nombre="%s" data-precio="%d" aria-label="Agregar %s al pedido">Agregar</button></div>') % (gs, f, E(n), pr, E(n))
+    cards += fila(P, "restaurante", f, alt, n, d, pie, cat)
+cuerpo = ('<section class="sec" id="carta" aria-labelledby="h-carta"><div class="ancho">'
+          '<h2 class="sec-titulo" id="h-carta">La carta de hoy</h2>'
+          '<p class="sec-sub">Precios de ejemplo en guaraníes (demo). Armá un pedido de prueba: no se hace ningún pedido real.</p>'
+          '<div class="chips chips-fijos" role="group" aria-label="Categorías de la carta">'
+          '<button class="chip" type="button" data-chip="todo" aria-pressed="true">Todo</button>'
+          '<button class="chip" type="button" data-chip="platos" aria-pressed="false">Platos</button>'
+          '<button class="chip" type="button" data-chip="parrilla" aria-pressed="false">Parrilla</button>'
+          '<button class="chip" type="button" data-chip="compartir" aria-pressed="false">Para compartir</button></div>'
+          '<ul class="filas" data-filtrable>%s</ul></div></section>') % cards
+cuerpo += ('<section class="sec sec-alt" aria-labelledby="h-par"><div class="ancho banda"><div class="banda-foto">%s</div>'
+           '<div class="banda-txt"><h2 class="sec-titulo" id="h-par">Desde la parrilla</h2>'
+           '<p>El fuego se prende de martes a domingo. Para el fin de semana, preguntá por la parrillada para compartir.</p>'
+           '<a class="btn" href="#carta">Ver la carta</a></div></div></section>') % img(P, "restaurante", "costillar", "Costillares asados sobre brasas", "(min-width: 900px) 520px, 100vw")
+cuerpo += opiniones("", "4,6", "128", [
+    ("Marcos A.", "M", "La milanesa llegó caliente y abundante. Volvemos el domingo."),
+    ("Lorena G.", "L", "Atención rápida y buena parrilla. Fuimos con los chicos y la pasamos bien."),
+    ("Sergio P.", "S", "Buen almuerzo del día, bien servido. El local está siempre limpio."),
+])
+paginas.append(dict(
+    slug="restaurante", nombre="Comedor Tape Porã", rubro="Restaurante", titulo_corto="Ejemplo de web para restaurante",
+    desc="Demo de página web para un restaurante: carta con fotos, pedido de prueba, horarios y WhatsApp. Es un ejemplo de Presencia Multitec.",
+    h1="Almuerzo casero, listo a las 11:30.", sub="Milanesas, pastas y parrilla. Mirá la carta y armá tu pedido.",
+    hero_alt="Milanesa dorada con ensalada fresca en plato blanco", wa_rubro="restaurante", theme_color="#ffffff",
+    fuente_h="bricolage-700.woff2", letras="Bricolage Grotesque y Figtree", cuerpo=cuerpo,
+    carta_primero=True, cierre="¿Reservamos tu mesa?", extra="",
+    horarios=[("Martes a domingo", [2, 3, 4, 5, 6, 0], "11:30", "23:00"), ("Lunes", [1], None, None)]))
+
+# ================= PANADERIA Y CAFE =================
+pan_items = [
+    ("pan-casero", "Pan casero", "Corteza crocante y miga abierta.", "Pan casero de corteza dorada sobre mesa de madera"),
+    ("pan-de-queso", "Chipa", "Se hornea a media mañana, sale calentita.", "Chipas calientes en una canasta de mimbre"),
+    ("pancitos", "Pancitos", "Livianos, para el desayuno y la merienda.", "Pancitos recién horneados"),
+    ("tortas", "Tortas por encargo", "Pedí tu torta con anticipación, por WhatsApp.", "Porciones de torta en una vitrina de vidrio"),
+    ("panes-semillas", "Panes de semillas", "Con semillas por encima, de la vitrina.", "Panes largos con semillas en un estante"),
+    ("cafe", "Café con leche", "Para tomar acá o llevar.", "Taza de café con leche sobre un plato blanco"),
+]
+cards = ""
+for f, n, d, alt in pan_items:
+    pie = '<div class="tarjeta-pie"><span class="precio">Precio: consultá</span>%s</div>' % boton_consulta("quiero consultar por %s" % n)
+    cards += tarjeta(P, "panaderia", f, alt, n, d, pie)
+cuerpo = ('<section class="sec" aria-labelledby="h-hor-pan"><div class="ancho banda"><div><h2 class="sec-titulo" id="h-hor-pan">Horneadas del día</h2>'
+          '<p class="sec-sub">Horarios de ejemplo en que sale el pan de la casa.</p></div>'
+          '<ul class="horneadas"><li><span>Pan casero</span><b>06:30</b></li><li><span>Chipa</span><b>10:00</b></li><li><span>Pancitos</span><b>16:00</b></li></ul></div></section>')
+cuerpo += ('<section class="sec sec-alt" id="vitrina" aria-labelledby="h-vit"><div class="ancho"><h2 class="sec-titulo" id="h-vit">La vitrina</h2>'
+           '<p class="sec-sub">Pan, tortas y café, todos los días. Los precios los confirmamos por WhatsApp.</p><ul class="tarjetas tarjetas-2">%s</ul></div></section>') % cards
+cuerpo += ('<section class="sec" aria-labelledby="h-enc"><div class="ancho banda"><div class="duo"><div class="banda-foto">%s</div><div class="banda-foto">%s</div></div>'
+           '<div class="banda-txt"><h2 class="sec-titulo" id="h-enc">Encargá tu torta</h2><p>Contanos para cuándo la necesitás y cuántas personas son. Te respondemos por WhatsApp.</p>'
+           '<a class="btn" href="%s" rel="noopener">%s<span>Encargar por WhatsApp</span></a></div></div></section>') % (
+    img(P, "panaderia", "horno", "Panes dorados dentro del horno", "(min-width: 900px) 260px, 50vw"),
+    img(P, "panaderia", "vitrina", "Vitrina con panes y masas dulces", "(min-width: 900px) 260px, 50vw"), wa("panadería"), ico())
+cuerpo += opiniones("", "4,7", "96", [
+    ("Carmen R.", "C", "El pan sale calentito a la mañana. La torta que encargué llegó justo a tiempo."),
+    ("Diego F.", "D", "Buena chipa y buen café. Se llena a la tarde, conviene ir temprano."),
+    ("Patricia M.", "P", "Siempre me atienden con una sonrisa. Lo recomiendo."),
+])
+paginas.append(dict(
+    slug="panaderia", nombre="Panadería Horno Viejo", rubro="Panadería y café", titulo_corto="Ejemplo de web para panadería y café",
+    desc="Demo de página web para una panadería y café: horneadas del día, vitrina, tortas por encargo y WhatsApp. Es un ejemplo de Presencia Multitec.",
+    h1="Pan caliente desde las 6:30, de lunes a sábado.", sub="Pan casero, chipa y café. Encargá tu torta por WhatsApp.",
+    hero_alt="Panes rústicos en estantes de madera", wa_rubro="panadería", theme_color="#ffffff",
+    fuente_h="youngserif-400.woff2", letras="Young Serif y Work Sans", cuerpo=cuerpo,
+    sec_link='<a class="enlace" href="#vitrina">Ver la vitrina</a>', cierre="¿Te guardamos el pan de hoy?", extra=HOJA % wa("panadería"),
+    horarios=[("Lunes a sábado", [1, 2, 3, 4, 5, 6], "06:30", "19:30"), ("Domingo", [0], "07:00", "12:00")]))
+
+# ================= CARNES =================
+carne_items = [
+    ("t-bone", "T-bone", "Bife con hueso, para la parrilla.", "T-bone crudo sobre hielo con ají y pimienta"),
+    ("bife-ancho", "Bife ancho", "Para parrilla o plancha.", "Dos bifes anchos crudos sobre platos de cerámica"),
+    ("tomahawk", "Tomahawk", "Corte grande con hueso, para compartir.", "Tomahawk crudo con hierbas y especias"),
+    ("chorizo", "Chorizo fresco", "Para la parrilla, se vende por kilo.", "Chorizos frescos con una rama de romero"),
+    ("arrollado", "Arrollado de carne", "Atado y listo para el horno.", "Arrollado de carne cruda sobre pizarra"),
+    ("medallones", "Medallones", "Cortes redondos, para plancha o sartén.", "Medallones de carne cruda sobre tabla de madera"),
+]
+cards = ""
+for f, n, d, alt in carne_items:
+    pie = '<div class="tarjeta-pie"><span class="precio">Precio por kg: consultá</span>%s</div>' % boton_consulta("quiero consultar por %s" % n)
+    cards += tarjeta(P, "carnes", f, alt, n, d, pie)
+cuerpo = ('<section class="sec" id="cortes" aria-labelledby="h-cortes"><div class="ancho"><h2 class="sec-titulo" id="h-cortes">Cortes para tu asado</h2>'
+          '<p class="sec-sub">Elegí el corte y consultá el precio por kilo.</p><ul class="tarjetas">%s</ul></div></section>') % cards
+cuerpo += ('<section class="sec sec-alt" aria-labelledby="h-ped"><div class="ancho banda"><div class="banda-foto">%s</div>'
+           '<div class="banda-txt"><h2 class="sec-titulo" id="h-ped">Armá tu pedido para el finde</h2>'
+           '<ol class="pasos"><li><strong>Contanos cuántos son</strong> y qué cortes querés.</li><li><strong>Te confirmamos</strong> disponibilidad y precio por kilo.</li><li><strong>Pasás a retirar</strong> o lo coordinamos.</li></ol>'
+           '<a class="btn" href="%s" rel="noopener">%s<span>Armar pedido por WhatsApp</span></a></div></div></section>') % (
+    img(P, "carnes", "cortes", "Cortes de carne cruda sobre fondo oscuro", "(min-width: 900px) 520px, 100vw"), wa("carnicería"), ico())
+paginas.append(dict(
+    slug="carnes", nombre="Cortes del Este", rubro="Carnicería boutique", titulo_corto="Ejemplo de web para carnicería",
+    desc="Demo de página web para una carnicería: cortes con foto, pedido para el fin de semana y WhatsApp. Es un ejemplo de Presencia Multitec.",
+    h1="Cortes para tu asado, listos para llevar.", sub="Elegí el corte, consultá el precio por kilo y armá tu pedido para el finde.",
+    hero_alt="Corte de carne cruda con sal gruesa y romero sobre fondo oscuro", wa_rubro="carnicería", theme_color="#141414",
+    fuente_h="anton-400.woff2", letras="Anton y Archivo", cuerpo=cuerpo,
+    sec_link='<a class="enlace" href="#cortes">Ver los cortes</a>', cierre="¿Qué asado armamos este finde?", extra=HOJA % wa("carnicería"),
+    horarios=[("Lunes a sábado", [1, 2, 3, 4, 5, 6], "07:00", "19:00"), ("Domingo", [0], "07:00", "12:00")]))
+
+# ================= MATERIALES =================
+mat_items = [
+    ("ladrillo-hueco", "Ladrillo hueco", "albañilería", "Albañilería", "ladrillo bloque pared construccion obra", "Mano con guante apoyando un ladrillo hueco"),
+    ("bloques", "Bloques de hormigón", "albañilería", "Albañilería", "bloque hormigon cemento pared obra", "Bloques de hormigón sobre un pallet de madera"),
+    ("ladrillos", "Ladrillos comunes", "albañilería", "Albañilería", "ladrillo rojo pared construccion", "Ladrillos rojos apilados"),
+    ("cemento", "Cemento y mezcla", "albañilería", "Albañilería", "cemento mezcla mortero arena obra", "Mezcla de cemento con una pala"),
+    ("martillos", "Martillos", "herramientas", "Herramientas", "martillo mazo herramienta guantes", "Martillos y guantes sobre un banco de madera"),
+    ("llaves", "Juego de llaves y dados", "herramientas", "Herramientas", "llave dado herramienta mecanica juego", "Juego de llaves y dados en su maletín"),
+    ("puntas", "Puntas de destornillador", "herramientas", "Herramientas", "punta destornillador atornillador herramienta", "Puntas de destornillador en un estuche"),
+    ("bulones", "Bulones", "ferretería", "Ferretería", "bulon tornillo ferreteria fijacion", "Bulones de metal en cajones"),
+    ("tuercas", "Tuercas y arandelas", "ferretería", "Ferretería", "tuerca arandela ferreteria fijacion", "Tuercas y arandelas en bandejas"),
+    ("brocas", "Brocas", "ferretería", "Ferretería", "broca taladro mecha ferreteria", "Brocas ordenadas en una caja de madera"),
+]
+fichas = ""
+for f, n, cat, catn, sin, alt in mat_items:
+    fichas += ('<li class="ficha" data-rv data-cat="%s" data-texto="%s"><div class="ficha-foto">%s</div><div class="ficha-txt"><div><h3>%s</h3><p class="contador" style="margin:0">%s</p></div>%s</div></li>') % (
+        cat, E((n + " " + catn + " " + sin).lower()), img(P, "materiales", f, alt, "(min-width: 900px) 260px, (min-width: 640px) 30vw, 50vw"), E(n), catn,
+        '<button class="btn btn-chico" type="button" data-consulta="%s">Pedir precio</button>' % E("quiero pedir precio de %s" % n))
+cuerpo = ('<section class="sec" id="catalogo" aria-labelledby="h-cat"><div class="ancho"><h2 class="sec-titulo" id="h-cat">Catálogo</h2>'
+          '<p class="sec-sub">Buscá por nombre o elegí una categoría y pedí el precio por WhatsApp.</p>'
+          '<div class="buscador"><label for="buscar">Buscar un producto</label><input id="buscar" type="search" placeholder="Ej.: ladrillo, martillo, tuercas" autocomplete="off"></div>'
+          '<div class="chips" role="group" aria-label="Categorías">'
+          '<button class="chip" type="button" data-chip="todo" aria-pressed="true">Todo</button>'
+          '<button class="chip" type="button" data-chip="albañilería" aria-pressed="false">Albañilería</button>'
+          '<button class="chip" type="button" data-chip="herramientas" aria-pressed="false">Herramientas</button>'
+          '<button class="chip" type="button" data-chip="ferretería" aria-pressed="false">Ferretería</button></div>'
+          '<p class="contador" id="contador" aria-live="polite">10 productos</p>'
+          '<ul class="fichas" data-filtrable>%s</ul>'
+          '<div class="vacio" id="sin-resultados" hidden><p><strong>No lo encontramos.</strong> Mandanos la lista por WhatsApp y te respondemos.</p>'
+          '<a class="btn" href="%s" rel="noopener">%s<span>Mandanos tu lista por WhatsApp</span></a></div></div></section>') % (fichas, wa("materiales"), ico())
+paginas.append(dict(
+    slug="materiales", nombre="Materiales Monday", rubro="Materiales y ferretería", titulo_corto="Ejemplo de web para materiales de construcción",
+    desc="Demo de página web para un corralón y ferretería: catálogo con buscador, pedido de precio por WhatsApp y horarios. Es un ejemplo de Presencia Multitec.",
+    h1="Pedí tu presupuesto por WhatsApp.", sub="Buscá en el catálogo y consultá el precio de lo que necesitás para tu obra.",
+    hero_alt="Bloques de hormigón apilados sobre un pallet de madera", wa_rubro="materiales de construcción", theme_color="#f4f4f5",
+    fuente_h="barlowsc-700.woff2", letras="Barlow y Barlow Semi Condensed", cuerpo=cuerpo,
+    sec_link='<a class="enlace" href="#catalogo">Ver el catálogo</a>', cierre="¿Qué necesitás para tu obra?", extra=HOJA % wa("materiales de construcción"),
+    horarios=[("Lunes a viernes", [1, 2, 3, 4, 5], "07:00", "17:30"), ("Sábado", [6], "07:00", "12:00"), ("Domingo", [0], None, None)]))
+
+# ================= ROPA Y REGALOS =================
+ropa_items = [
+    ("top-y-jean", "Top rojo y jean", "Para combinar", "Top rojo y pantalón jean sobre una mesa", True),
+    ("pulover-tejido", "Pulóver tejido", "Tejido a rayas", "Pulóver tejido de rayas azules y grises", False),
+    ("pulover-y-jean", "Pulóver de lana y jean", "Abrigo liviano", "Pulóver de lana crema sobre un jean", False),
+    ("looks-de-jean", "Looks de jean", "Remeras y pantalones", "Prendas de jean y remeras dobladas sobre madera", False),
+    ("lino", "Lino para regalar", "Atado con hilo", "Prendas de lino dobladas y atadas con hilo", False),
+    ("regalo-en-caja", "Regalo en caja", "Listo para entregar", "Prenda blanca dentro de una caja de cartón", False),
+    ("vestidos", "Vestidos de verano", "Colores vivos", "Vestidos de colores en un perchero dorado", False),
+    ("abrigos", "Abrigos livianos", "Para entretiempo", "Abrigos claros en un perchero", False),
+]
+prendas = ""
+for f, n, d, alt, nuevo in ropa_items:
+    prendas += ('<li class="prenda" data-rv><div class="prenda-foto">%s%s</div><h3>%s</h3><p>%s. %s</p>%s</li>') % (
+        img(P, "ropa", f, alt, "(min-width: 900px) 260px, (min-width: 640px) 30vw, 50vw"), '<span class="etiqueta">Nuevo</span>' if nuevo else "", E(n), E(d),
+        "Colores: consultá." if f in ("lino", "regalo-en-caja") else "Talles: consultá.",
+        boton_consulta("quiero consultar disponibilidad de %s" % n, "Consultar"))
+cuerpo = ('<section class="sec" id="vidriera" aria-labelledby="h-vid"><div class="ancho"><h2 class="sec-titulo" id="h-vid">La vidriera</h2>'
+          '<p class="sec-sub">Lo nuevo de la semana. Consultá talle, color y disponibilidad por WhatsApp.</p><ul class="vidriera">%s</ul></div></section>') % prendas
+cuerpo += ('<section class="sec sec-alt" aria-labelledby="h-vis"><div class="ancho banda"><div class="banda-foto">%s</div>'
+           '<div class="banda-txt"><h2 class="sec-titulo" id="h-vis">Pasá a probártelo</h2><p>Mostramos solo lo que hay en el local. Escribinos y te guardamos tu talle.</p>'
+           '<a class="btn" href="%s" rel="noopener">%s<span>Escribinos por WhatsApp</span></a></div></div></section>') % (
+    img(P, "ropa", "perchero", "Perchero con prendas de colores suaves", "(min-width: 900px) 520px, 100vw"), wa("tienda de ropa"), ico())
+paginas.append(dict(
+    slug="ropa", nombre="Casa Jazmín", rubro="Ropa y regalos", titulo_corto="Ejemplo de web para tienda de ropa y regalos",
+    desc="Demo de página web para una tienda de ropa y regalos: vidriera con fotos, consulta de talles y WhatsApp. Es un ejemplo de Presencia Multitec.",
+    h1="Lo nuevo de la semana, en tu talle.", sub="Mirá la vidriera y consultá disponibilidad por WhatsApp.",
+    hero_alt="Local de ropa con prendas colgadas y plantas", wa_rubro="tienda de ropa", theme_color="#ffffff",
+    fuente_h="outfit-600.woff2", letras="Outfit", cuerpo=cuerpo,
+    sec_link='<a class="enlace" href="#vidriera">Ver la vidriera</a>', cierre="¿Te guardamos tu talle?", extra=HOJA % wa("tienda de ropa"),
+    horarios=[("Lunes a sábado", [1, 2, 3, 4, 5, 6], "09:00", "19:00"), ("Domingo", [0], None, None)]))
+
+for r in paginas:
+    d = os.path.join(RAIZ, r["slug"])
+    os.makedirs(d, exist_ok=True)
+    open(os.path.join(d, "index.html"), "w", encoding="utf-8", newline="\n").write(pagina(r))
+    print("ok", r["slug"])
+
+# ================= PORTADA "ELEGI TU RUBRO" =================
+SEL = [("restaurante", "Restaurante"), ("panaderia", "Panadería y café"), ("carnes", "Carnicería"), ("materiales", "Materiales y ferretería"), ("ropa", "Ropa y regalos")]
+tarj = ""
+for k, (slug, nom) in enumerate(SEL):
+    tarj += '<li><a class="rubro-card" href="%s/"><div class="tarjeta-foto">%s</div><span>%s</span></a></li>' % (
+        slug, img("", "selector", slug, "Ejemplo de la web de %s" % nom.lower(), "(min-width: 900px) 200px, (min-width: 640px) 30vw, 50vw", eager=(k == 0), alta=(k < 4)), E(nom))
+ids = []
+for c, n, i, *_ in SALIDAS:
+    if c == "selector" and i not in ids:
+        ids.append(i)
+cred = ", ".join('<a href="https://www.pexels.com/photo/%s/" rel="noopener" target="_blank">%s<span class="solo-lector"> (se abre en otra pestaña)</span></a>' % (FOTOS[i][1], E(FOTOS[i][0])) for i in ids)
+wa_gen = "https://wa.me/%s?text=%s" % (WA_NUM, urllib.parse.quote("Hola, vi las demos de Presencia Multitec y mi rubro no está. Quiero una web para mi negocio"))
+titulo = "Presencia Multitec: así se vería la web de tu negocio"
+desc = "Elegí tu rubro y mirá una demo de cómo se vería la web de tu negocio desde el celular. Ejemplos de Presencia Multitec."
+indice = """<!doctype html>
+<html lang="es-PY" data-tema="selector">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>%(t)s</title>
+<meta name="description" content="%(d)s">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_PY">
+<meta property="og:site_name" content="Presencia Multitec (Demo)">
+<meta property="og:title" content="%(t)s">
+<meta property="og:description" content="%(d)s">
+<meta property="og:url" content="%(b)s">
+<meta property="og:image" content="%(b)sfotos/selector/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fotos de cinco rubros: restaurante, panadería, carnicería, materiales y ropa">
+<meta name="twitter:card" content="summary_large_image">
+<script>
+/* Links viejos: ?tema=comida va al restaurante y ?tema=comercio a la tienda. Cualquier otro valor muestra esta portada. */
+(function () {
+  var t = new URLSearchParams(location.search).get("tema");
+  var m = { comida: "restaurante/", comercio: "ropa/" };
+  if (m[t]) { location.replace(m[t]); }
+})();
+</script>
+<link rel="preload" as="font" type="font/woff2" href="fonts/bricolage-700.woff2" crossorigin>
+<link rel="icon" href="data:,">
+%(css)s
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<div class="demo-franja" role="note">Ejemplo: los negocios de estas páginas no existen.</div>
+<main id="contenido">
+<div class="ancho sel-cab">
+<p class="rubro">Presencia Multitec (Demo)</p>
+<h1>Así se vería la web de tu negocio</h1>
+<p class="sub">Elegí tu rubro y mirala como la vería un cliente desde el celular.</p>
+</div>
+<section class="ancho" aria-label="Rubros"><ul class="rubros">%(tarj)s</ul></section>
+<section class="sec"><div class="ancho banda"><div class="banda-txt"><h2 class="sec-titulo">¿Tu rubro no está?</h2>
+<p>Escribinos y armamos una demo para tu negocio.</p>
+<a class="btn btn-grande" href="%(wa)s" rel="noopener">%(ico)s<span>Escribinos por WhatsApp</span></a>
+<p class="nota-demo">Este botón te comunica con Multitec.</p></div></div></section>
+</main>
+<footer class="pie"><div class="ancho">
+<p>Fotos de Pexels (licencia Pexels, uso libre): %(cred)s.</p>
+<p>Letras: Bricolage Grotesque y Figtree (licencia SIL OFL 1.1), alojadas en este sitio.</p>
+<div class="enlaces"><a href="privacidad.html">Privacidad</a></div>
+</div></footer>
+</body>
+</html>
+""" % dict(css=css_en_linea("fonts/"), t=E(titulo), d=E(desc), b=BASE, tarj=tarj, wa=wa_gen, ico=ico(), cred=cred)
+open(os.path.join(RAIZ, "index.html"), "w", encoding="utf-8", newline="\n").write(indice)
+print("ok index")

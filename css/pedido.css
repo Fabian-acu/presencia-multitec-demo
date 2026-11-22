@@ -1,0 +1,88 @@
+/* Pedido simulado (demo restaurante). Se carga recien al primer toque en "Agregar". */
+.ped-bar[hidden], .ped [hidden], .mk[hidden] { display: none !important; }
+.ped-bar {
+  position: fixed; z-index: 40; left: 16px; right: 16px; bottom: calc(14px + env(safe-area-inset-bottom));
+  box-shadow: 0 8px 24px rgb(0 0 0 / .25);
+}
+@media (min-width: 900px) { .ped-bar { left: auto; right: 24px; bottom: 24px; } }
+html.ped-abierto { overflow: hidden; }
+@media (max-width: 899px) { html.con-carrito .barra-wa { display: none; } }
+
+/* contador en la carta */
+.cant { display: inline-flex; align-items: center; gap: 4px; border: 2px solid var(--ink); border-radius: var(--rb); }
+.cant output { min-width: 28px; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; }
+.cant-b { width: 44px; height: 44px; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 1.375rem; line-height: 1; border-radius: var(--rb); cursor: pointer; touch-action: manipulation; }
+.cant-b:active { transform: scale(.94); }
+
+/* ventana */
+dialog.ped { padding: 0; border: 0; width: 100%; max-width: 560px; height: 100%; max-height: 100%; margin: 0 0 0 auto; background: var(--bg); color: var(--ink); flex-direction: column; }
+dialog.ped[open] { display: flex; }
+dialog.ped::backdrop { background: rgb(0 0 0 / .55); }
+@media (min-width: 700px) { dialog.ped { height: min(92vh, 860px); max-height: 92vh; margin: auto; border-radius: var(--r); } }
+.ped-demo { background: var(--ink); color: var(--bg); text-align: center; font-size: .8125rem; font-weight: 600; padding: 8px 12px; }
+.ped-cab { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px 6px; }
+.ped-t { font-size: 1.5rem; line-height: 1.15; }
+.ped-x { width: 44px; height: 44px; border: 0; background: var(--surface-2); color: var(--ink); border-radius: 50%; font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.ped-cuerpo { flex: 1; overflow-y: auto; padding: 10px 20px 20px; display: grid; gap: 14px; align-content: start; overscroll-behavior: contain; }
+.ped-pie { display: flex; gap: 10px; padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--bg); }
+.ped-pie .btn { flex: 1; }
+.ped-sub { color: var(--ink-2); font-size: .875rem; }
+.ped-ayuda { font-size: .9375rem; }
+.ped-lista li { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 12px; padding-block: 12px; border-bottom: 1px solid var(--line); }
+.ped-monto { font-weight: 600; font-variant-numeric: tabular-nums; min-width: 84px; text-align: right; }
+.ped-total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 1.125rem; }
+.ped-total strong { font-variant-numeric: tabular-nums; }
+.ped-fs { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; }
+.ped-fs legend { font-weight: 600; margin-bottom: 8px; padding: 0; }
+.ped-op { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 14px; border: 2px solid var(--line); border-radius: var(--r); cursor: pointer; }
+.ped-op:has(input:checked) { border-color: var(--ink); background: var(--surface-2); }
+.ped-op input { width: 20px; height: 20px; accent-color: var(--acento); }
+.ped-campo { display: grid; gap: 6px; }
+.ped-campo label { font-weight: 600; }
+.ped-campo input { min-height: 48px; padding: 0 14px; font: inherit; color: var(--ink); background: var(--surface); border: 2px solid var(--line); border-radius: var(--r); }
+.ped-campo input:focus { border-color: var(--ink); }
+.ped-err { color: #b91c1c; font-weight: 600; font-size: .9375rem; }
+
+/* mapa */
+.ped-mapa-zona { display: grid; gap: 10px; }
+.mp { position: relative; width: 100%; height: 260px; border-radius: var(--r); overflow: hidden; background: #e5e3df; border: 1px solid var(--line); isolation: isolate; }
+.mp-seg { height: 300px; }
+.mp-arrastra { touch-action: none; cursor: grab; }
+.mp-capa { position: absolute; inset: 0; }
+.mp-tesela { position: absolute; left: 0; top: 0; width: 256px; height: 256px; max-width: none; user-select: none; -webkit-user-drag: none; }
+.mp-attr { position: absolute; right: 0; bottom: 0; z-index: 3; background: rgb(255 255 255 / .85); color: #333; font-size: .6875rem; padding: 2px 6px; text-decoration: none; }
+.mp-pin { position: absolute; left: 50%; top: 50%; width: 28px; height: 28px; margin: -28px 0 0 -14px; z-index: 2; background: var(--acento); border: 3px solid #fff; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); box-shadow: 0 3px 8px rgb(0 0 0 / .4); pointer-events: none; }
+.mp-zoom { position: absolute; right: 10px; top: 10px; z-index: 3; display: grid; gap: 6px; }
+.mp-zoom button { width: 44px; height: 44px; border: 0; border-radius: 8px; background: #fff; color: #111; font-size: 1.375rem; box-shadow: 0 2px 6px rgb(0 0 0 / .3); cursor: pointer; }
+.mk { position: absolute; left: 0; top: 0; z-index: 2; width: 0; height: 0; will-change: transform; }
+.mk span { position: absolute; left: 0; top: 0; transform: translate(-50%, -100%); white-space: nowrap; background: #111; color: #fff; font-size: .75rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; box-shadow: 0 2px 6px rgb(0 0 0 / .35); }
+.mk-cli span { background: var(--acento); color: var(--acento-ink); }
+.mk-moto .mk-ico { position: absolute; left: 0; top: 0; transform: translate(-50%, 6px); width: 36px; height: 36px; padding: 5px; border-radius: 50%; background: #fff; color: #111; border: 3px solid var(--acento); box-shadow: 0 2px 6px rgb(0 0 0 / .35); }
+
+/* seguimiento */
+.ped-estado { font-family: var(--font-h); font-weight: var(--h-peso); font-size: 1.75rem; line-height: 1.1; }
+.ped-eta { font-weight: 600; color: var(--ink-2); }
+.ped-prog { height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+.ped-prog-in { height: 100%; background: var(--acento); transform-origin: left; transform: scaleX(0); border-radius: 999px; transition: transform .6s cubic-bezier(.25, 1, .5, 1); }
+.ped-pasos { display: grid; gap: 0; counter-reset: paso; }
+.ped-pasos li { display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 12px; min-height: 44px; color: var(--ink-2); }
+.ped-punto { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--line); background: var(--bg); justify-self: center; }
+.ped-pasos li.hecho { color: var(--ink); }
+.ped-pasos li.hecho .ped-punto { background: var(--acento); border-color: var(--acento); }
+.ped-pasos li.actual { color: var(--ink); font-weight: 600; }
+.ped-pasos li.actual .ped-punto { border-color: var(--acento); background: var(--acento); animation: ped-late 1.4s ease-in-out infinite; }
+.ped-hora { font-size: .8125rem; font-variant-numeric: tabular-nums; }
+.ped-wa { justify-self: start; }
+@keyframes ped-late { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: .7; } }
+@media (prefers-reduced-motion: reduce) {
+  .ped-pasos li.actual .ped-punto { animation: none; }
+  .ped-prog-in { transition: none; }
+}
+
+.ped-otro { justify-self: start; min-height: 44px; padding: 0; border: 0; background: none; color: var(--ink-2); font: inherit; font-size: .875rem; text-decoration: underline; cursor: pointer; }
+.ped-otro:disabled { opacity: .45; cursor: not-allowed; text-decoration: none; }
+
+.fila .cant { gap: 0; }
+.fila .cant-b { width: 40px; }
+.ped-pie .btn { white-space: nowrap; }
+.ped-pie .btn-borde { flex: 0 0 auto; padding: 0 20px; }
