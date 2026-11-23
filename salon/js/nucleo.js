@@ -119,7 +119,18 @@
   var imgs = doc.querySelectorAll("img[data-foto-img]");
   for (var n = 0; n < imgs.length; n++) {
     if (T.estadoPrueba === "sinfotos") T.fotoFalta(imgs[n]);
-    imgs[n].addEventListener("error", function (e) { T.fotoFalta(e.target); });
+    /* "error" solo cuenta si la imagen de verdad no cargo: al cambiar de src/srcset (tira a ventana) el pedido viejo se corta y avisa "error"
+       aunque la nueva ya cargo; cualquier "load" posterior saca la marca (salvo en ?estado=sinfotos) */
+    imgs[n].addEventListener("error", function (e) {
+      var im = e.target;
+      if (im.complete && im.naturalWidth > 0) return;
+      T.fotoFalta(im);
+    });
+    imgs[n].addEventListener("load", function (e) {
+      if (T.estadoPrueba === "sinfotos") return;
+      var caja = e.target.closest("[data-foto-caja]");
+      if (caja) caja.classList.remove("foto--falta");
+    });
     /* una imagen no diferida que ya fallo antes de que corra este script (las diferidas avisan con "error" cuando se piden) */
     if (imgs[n].getAttribute("loading") !== "lazy" && imgs[n].complete && imgs[n].naturalWidth === 0 && imgs[n].getAttribute("src")) T.fotoFalta(imgs[n]);
   }
