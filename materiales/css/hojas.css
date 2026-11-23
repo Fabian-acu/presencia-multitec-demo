@@ -1,0 +1,101 @@
+/* La Plomada (Demo): hojas (<dialog>). Celular: suben desde abajo (la lista, a pagina completa). Compu: ficha y mapa al centro, lista como panel.
+   Foto ARRIBA, texto ABAJO, y la accion principal en un pie fijo. Animan solo transform y opacity. */
+dialog.hoja { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: var(--pizarra); overflow: visible; }
+dialog.hoja::backdrop { background: var(--fondo-modal); opacity: 0; transition: opacity 300ms var(--curva); }
+dialog.hoja.visible::backdrop { opacity: 1; }
+html:has(dialog.hoja:modal) { overflow: hidden; }
+
+.hoja__panel {
+  position: fixed; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; max-height: 94dvh;
+  background: var(--hormigon); border-radius: var(--r) var(--r) 0 0; overflow: hidden;
+  transform: translateY(100%); transition: transform 400ms var(--curva-hoja);
+}
+dialog.hoja.visible .hoja__panel { transform: none; }
+.hoja--filtros .hoja__panel, .hoja--mapa .hoja__panel { max-height: 84dvh; }
+.hoja--lista .hoja__panel { top: 0; max-height: none; height: 100dvh; border-radius: 0; }
+.hoja--detalle .hoja__panel { height: 94dvh; }
+
+.hoja__cabeza { position: relative; flex: none; display: flex; align-items: center; gap: 8px; min-height: 60px; padding: 16px 8px 4px 14px; background: var(--hormigon); }
+.hoja__asa { position: absolute; top: 6px; left: 50%; width: 44px; height: 4px; margin-left: -22px; border-radius: 2px; background: var(--borde); }
+.hoja__titulo { margin-right: auto; font-size: 20px; }
+.hoja__x, .hoja__volver { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 44px; min-height: 44px; padding: 0; border: 0; border-radius: var(--r); background: transparent; color: var(--pizarra); font-weight: 700; touch-action: manipulation; }
+.hoja__x { margin-left: auto; }
+.hoja__volver { margin-right: auto; padding: 0 10px 0 4px; }
+.hoja__x:active, .hoja__volver:active { transform: scale(0.97); }
+.hoja__scroll { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; overflow-y: auto; overscroll-behavior: contain; }
+.hoja__scroll > * { flex: none; }
+.hoja__pie { flex: none; display: grid; gap: 8px; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: var(--papel); border-top: 2px solid var(--pizarra); }
+
+/* ficha de producto */
+.det__foto { position: relative; height: clamp(180px, 34svh, 320px); background: var(--foto-vacia); overflow: hidden; }
+.det__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.det__sinfoto { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; font-size: 22px; color: var(--pizarra); }
+.det__foto--sinfoto img { visibility: hidden; }
+.det__foto--sinfoto .det__sinfoto { display: flex; }
+.det__texto { display: flex; flex-direction: column; gap: 10px; padding: 16px 14px 24px; }
+.det__nombre { font-size: 24px; }
+.det__cod { font-size: 14px; color: var(--pizarra-2); }
+.det__medida { font-weight: 700; }
+.det__datos { display: grid; border-top: 2px solid var(--pizarra); }
+.det__datos > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 9px 0; border-bottom: 1px solid var(--linea); }
+.det__datos dt { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--pizarra-2); }
+.det__datos dd { min-width: 0; }
+.det__datos .disp { margin-top: 0; font-size: 16px; }
+.det__cuanto { padding: 12px; border: 2px solid var(--pizarra); border-radius: var(--r); background: var(--papel); }
+.det__cuanto h3 { font-size: 18px; }
+.det__cuanto > p { margin-top: 4px; }
+.det__cuanto .campo__fila { max-width: 240px; }
+.det__cuanto input { font-family: var(--f-mono); }
+.campo__fila--chico input { min-height: 48px; }
+.det__res { margin-top: 10px; min-height: 1.5em; font-weight: 700; }
+.det__aviso { margin-top: 6px; font-size: 13px; color: var(--pizarra-2); }
+.det__lineas { font-size: 13px; color: var(--pizarra-2); }
+.det__asesor { display: grid; justify-items: start; gap: 2px; }
+.hoja__pie--detalle .paso { width: 100%; }
+.hoja__pie--detalle .btn { line-height: 1.15; }
+@media (min-width: 520px) { .hoja__pie--detalle { grid-template-columns: 200px minmax(0, 1fr); } .det__datos > div { grid-template-columns: 170px minmax(0, 1fr); gap: 12px; } }
+
+/* filtros */
+.filtros { display: flex; flex-direction: column; min-height: 0; flex: 1 1 auto; }
+.filtro { margin: 0; padding: 12px 14px; border: 0; border-bottom: 1px solid var(--linea); min-width: 0; }
+.filtro legend { padding: 0; margin-bottom: 4px; font-weight: 700; font-stretch: 110%; font-size: 17px; }
+.filtro__ayuda { font-size: 13px; color: var(--pizarra-2); }
+.opcion { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 15px; touch-action: manipulation; }
+.opcion input { flex: none; width: 22px; height: 22px; margin: 0; accent-color: var(--pizarra); }
+.hoja__pie--filtros { grid-template-columns: auto minmax(0, 1fr); }
+
+/* mapa */
+.mapa--grande { margin: 14px; }
+.mapa__txt { padding: 0 14px 8px; }
+.mapa__txt--osm { font-size: 12px; color: var(--pizarra-2); padding-bottom: 20px; }
+
+/* tablet y compu */
+@media (min-width: 900px) {
+  .hoja--detalle .hoja__panel, .hoja--mapa .hoja__panel {
+    left: 50%; right: auto; top: 50%; bottom: auto; width: min(720px, 92vw); height: auto; max-height: 88dvh; border-radius: var(--r);
+    transform: translate(-50%, -46%); opacity: 0; transition: transform 300ms var(--curva), opacity 300ms var(--curva);
+  }
+  .hoja--mapa .hoja__panel { width: min(560px, 92vw); }
+  dialog.hoja--detalle.visible .hoja__panel, dialog.hoja--mapa.visible .hoja__panel { transform: translate(-50%, -50%); opacity: 1; }
+  .hoja--detalle .hoja__asa, .hoja--mapa .hoja__asa { display: none; }
+  .hoja--detalle .hoja__cabeza, .hoja--mapa .hoja__cabeza { padding-top: 4px; }
+  .det__foto { height: clamp(200px, 36svh, 300px); }
+  /* lista: cajon a la derecha (y panel fijo desde 1100 px) */
+  .hoja--lista .hoja__panel { left: auto; width: min(460px, 100%); height: 100dvh; transform: translateX(100%); transition: transform 300ms var(--curva); border-radius: 0; }
+  .hoja--lista .hoja__asa { display: none; }
+  .hoja--lista .hoja__cabeza { padding-top: 4px; }
+  /* filtros: columna fija al lado de la lista */
+  dialog.hoja--filtros { display: block; position: sticky; top: calc(var(--alto-barra) + 60px); width: auto; height: auto; background: var(--papel); border: 2px solid var(--pizarra); border-radius: var(--r); }
+  .hoja--filtros .hoja__panel { position: static; transform: none; max-height: none; background: transparent; transition: none; border-radius: 0; }
+  .hoja--filtros .hoja__cabeza { min-height: 0; padding: 12px 14px 0; background: transparent; }
+  .hoja--filtros .hoja__asa, .hoja--filtros .hoja__x, .hoja__pie--filtros [data-ver-n] { display: none; }
+  .hoja--filtros .hoja__pie { border-top: 0; padding: 10px 14px 14px; }
+  .hoja--filtros .hoja__scroll { overflow: visible; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hoja__panel, dialog.hoja::backdrop { transition: opacity 150ms linear; }
+  .hoja__panel { transform: none !important; opacity: 0; }
+  dialog.hoja.visible .hoja__panel { opacity: 1; }
+  .hoja--detalle .hoja__panel, .hoja--mapa .hoja__panel { transform: translate(-50%, -50%) !important; }
+  .hoja--filtros .hoja__panel { opacity: 1; }
+}

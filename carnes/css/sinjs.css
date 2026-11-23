@@ -1,0 +1,5 @@
+/* Sin JavaScript: se lee toda la lista de cortes y las bandas quedan abiertas; se esconden los controles que necesitan JS. */
+.banda__cuerpo { grid-template-rows: 1fr; }
+.banda__dentro { visibility: visible; }
+.banda__caret, .ctl, .barra__ticket, .btn--filtrar, .filtros, [data-pasar], [data-pasar-ayuda], [data-semana], .barra-mezcla, [data-personas] { display: none !important; }
+.hero__h1 .linea > span { animation: none; }

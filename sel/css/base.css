@@ -1,0 +1,231 @@
+/* Selector "Elegí tu rubro" (Multitec). Cuarto oscuro: tema oscuro único, sin cajas ni sombras.
+   Este archivo es la página SIN JavaScript: una lista de enlaces blancos sobre negro. Lo que mejora con JS está en lista.css.
+   Forma (regla única): controles y bloques con radio 0; imágenes y miniaturas con radio 8 px. Nada más. */
+
+@font-face {
+  font-family: "Sofia Sans Extra Condensed";
+  src: url("../fuentes/sofiasansextracondensed-800-latin.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Sofia Sans";
+  src: url("../fuentes/sofiasans-400-600-latin.woff2") format("woff2");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+/* Respaldo que ocupa casi lo mismo que Sofia Sans (medido con Arial; ajuste estimado) para que el texto no salte al cargar la letra. */
+@font-face {
+  font-family: "Sofia Sans Respaldo";
+  src: local("Arial");
+  size-adjust: 95.5%;
+  ascent-override: 94%;
+  descent-override: 31%;
+  line-gap-override: 0%;
+}
+
+:root {
+  /* Base */
+  --bg: #0E0E10;
+  --text: #F2F2EF;
+  --text-2: #A9A9A4;
+  --line: #2A2A2D;
+  --marca: #1F5EFF;
+  --marca-pres: #1A4FD6;
+  --blanco: #FFFFFF;
+  /* Colores de inundación (firma de cada demo) y el texto que pasa 4,5:1 encima de cada uno.
+     --ko = texto principal, --ko2 = texto secundario (sigue pasando 4,5:1), --kb = texto del botón "Abrir demo" (fondo = --ko). */
+  --aji: #C2361A;       --on-aji: #FFFFFF;       --on2-aji: #FFFFFF; --on3-aji: #ECC1B8;
+  --manteca: #F2C53D;   --on-manteca: #0E0E10;   --on2-manteca: #594A1F; --on3-manteca: #7B6626;
+  --carne: #1A201D;     --on-carne: #F2F2EF;     --on2-carne: #E2E2DF; --on3-carne: #BCBCBA;
+  --pizarra: #2B3640;   --on-pizarra: #F2F2EF;   --on2-pizarra: #A6ABAC; --on3-pizarra: #81878B;
+  --fucsia: #B8136B;    --on-fucsia: #FFFFFF;    --on2-fucsia: #FFFFFF; --on3-fucsia: #E6ACCB;
+  --salvia: #3F7A63;    --on-salvia: #FFFFFF;    --on2-salvia: #F2F6F4; --on3-salvia: #C3D6CF;
+  --lima: #C8F03C;      --on-lima: #0E0E10;      --on2-lima: #515F20; --on3-lima: #6D8126;
+  --velo: rgb(14 14 16 / .66); /* sobre la foto de carnicería: con 55% el peor píxel (blanco) da 3,8:1; con 66% da 5,6:1 */
+  /* Texto actual: cambia con la inundación (lista.css) */
+  --on: var(--text);
+  --on-2: var(--text-2);
+  --on-3: var(--text-2);
+  /* Medidas */
+  --pad: clamp(1rem, 4vw, 3rem);
+  --gut: max(var(--pad), calc((100vw - 87.5rem) / 2));
+  --curva: cubic-bezier(0.23, 1, 0.32, 1);
+  --fuente: "Sofia Sans", "Sofia Sans Respaldo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fuente-nombre: "Sofia Sans Extra Condensed", "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  background: var(--bg);
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  min-height: 100dvh;
+  color: var(--on);
+  font: 400 1rem/1.5 var(--fuente);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+h1, h2, h3, p, ol, ul { margin: 0; padding: 0; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--on); outline-offset: 3px; }
+
+/* Texto solo para lector de pantalla */
+.vh {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.saltar {
+  position: absolute;
+  left: var(--pad);
+  top: 0;
+  z-index: 20;
+  padding: 12px 16px;
+  background: var(--text);
+  color: var(--bg);
+  text-decoration: none;
+  transform: translateY(-120%);
+}
+.saltar:focus { transform: none; outline: 2px solid var(--marca); outline-offset: 2px; }
+
+.pagina { position: relative; z-index: 1; min-height: 100dvh; display: flex; flex-direction: column; }
+#contenido { flex: 1 0 auto; }
+
+/* Barra de arriba: una sola línea de 320 a 1440 */
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  padding: 0 var(--gut);
+}
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
+}
+.logo { flex: none; display: block; padding: 3px; background: var(--blanco); border-radius: 8px; line-height: 0; }
+.logo img { width: 31px; height: 28px; }
+.marca-t { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1; }
+
+.wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  background: var(--marca);
+  color: var(--blanco);
+  border: 1px solid transparent;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  touch-action: manipulation;
+}
+.ico { flex: none; width: 20px; height: 20px; fill: currentColor; }
+/* Desde 440 px hacia abajo solo se ve "WhatsApp" (el nombre accesible sigue completo) */
+@media (max-width: 27.5rem) {
+  .wa-pre {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .wa { padding: 0 12px; }
+}
+
+/* Titular y lista */
+.cabeza { padding: clamp(1.5rem, 5vw, 3rem) var(--gut) 1.25rem; }
+.titulo { font-size: 1.25rem; font-weight: 500; line-height: 1.3; letter-spacing: -0.005em; }
+.apoyo { margin-top: 4px; color: var(--on-2); font-size: 1rem; }
+.aviso { margin-top: 12px; max-width: 46rem; color: var(--on); font-size: 1rem; }
+
+.lista { list-style: none; }
+.fila { position: relative; border-top: 1px solid var(--line); color: var(--on); }
+.fila:last-child { border-bottom: 1px solid var(--line); }
+.fila-a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 16px;
+  min-height: 5rem;
+  padding: 0.5rem var(--gut);
+  color: inherit;
+  text-decoration: none;
+  touch-action: manipulation;
+}
+.fila-a:focus-visible { outline: 2px solid var(--on); outline-offset: -6px; }
+.nombre {
+  display: block;
+  font-family: var(--fuente-nombre);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 13vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.num {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  color: var(--on-2);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.num small { font-size: 0.8125rem; font-weight: 400; }
+/* Lo que solo existe con JavaScript */
+.mini, .detalle, .mar, .vista { display: none; }
+
+/* Pie */
+.pie {
+  display: grid;
+  gap: 2.5rem;
+  padding: clamp(2.5rem, 7vw, 4.5rem) var(--gut) calc(2rem + env(safe-area-inset-bottom));
+}
+.pie-t {
+  font-family: var(--fuente-nombre);
+  font-weight: 800;
+  font-size: clamp(2rem, 7vw, 3.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+.pie-p { margin-top: 12px; max-width: 34rem; color: var(--on-2); font-size: 1.0625rem; line-height: 1.55; }
+.wa--pie { margin-top: 20px; min-height: 48px; background: transparent; color: var(--on); border-color: currentColor; }
+.cred-t { font-size: 1rem; font-weight: 600; }
+.cred-p { margin-top: 6px; color: var(--on-2); font-size: 0.875rem; line-height: 1.5; max-width: 40rem; }
+.cred-l { list-style: none; display: grid; gap: 2px 24px; margin: 10px 0; color: var(--on-2); font-size: 0.875rem; line-height: 1.6; }
+.cred-l a { color: var(--on); text-underline-offset: 3px; overflow-wrap: anywhere; }
+@media (min-width: 45rem) {
+  .pie { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 4rem; align-items: start; }
+  .cred-l { grid-template-columns: 1fr 1fr; }
+}
+
+/* Hover solo con puntero que lo tiene (en el celular un toque no deja el botón "pegado") */
+@media (hover: hover) {
+  .wa:hover { background: var(--marca-pres); }
+  .wa--pie:hover { background: var(--line); }
+  .cred-l a:hover { text-decoration-thickness: 2px; }
+}

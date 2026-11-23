@@ -1,0 +1,128 @@
+/* La Primera Hornada (Demo): hojas (<dialog>), campos, fichas elegibles, cantidad y ficha del producto.
+   Celular: hoja inferior de 400 ms, arrastrable. Compu: la bolsa es un panel a la derecha; ficha, encargo y mapa, una ventana al centro. */
+dialog.hoja {
+  position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+  margin: 0; padding: 0; border: 0; background: transparent; color: var(--ink); overflow: hidden;
+}
+dialog.hoja:not([open]) { display: none; }
+.hoja::backdrop { background: var(--velo); opacity: 0; transition: opacity 300ms var(--salida); }
+.hoja.visible::backdrop { opacity: 1; }
+body:has(dialog.hoja[open]) { overflow: hidden; }
+
+.hoja__panel {
+  position: absolute; left: 0; right: 0; bottom: 0; max-height: 92dvh;
+  display: flex; flex-direction: column; overflow: hidden;
+  background: var(--bg); border-radius: var(--r) var(--r) 0 0;
+  transform: translateY(100%); transition: transform 400ms var(--hoja);
+}
+.hoja.visible .hoja__panel { transform: translateY(0); }
+.hoja__cabeza { position: relative; flex: none; display: flex; justify-content: center; align-items: flex-start; min-height: 52px; padding-top: var(--s3); touch-action: none; cursor: grab; }
+.hoja__asa { width: 40px; height: 4px; border-radius: var(--r-pill); background: var(--on-ink-2); }
+.hoja__cerrar {
+  position: absolute; right: var(--s2); top: var(--s1); width: 44px; height: 44px; padding: 0;
+  display: grid; place-items: center; border: 0; border-radius: var(--r-pill);
+  background: var(--harina); color: var(--ink); cursor: pointer; touch-action: manipulation;
+  transition: transform 140ms var(--salida);
+}
+.hoja__cerrar:active { transform: scale(0.97); }
+.hoja__cuerpo { overflow-y: auto; overscroll-behavior: contain; padding: 0 var(--s4) var(--s5); display: flex; flex-direction: column; gap: var(--s4); min-width: 0; min-height: 0; }
+.hoja__cuerpo > * { flex: none; min-width: 0; }
+.hoja__pie { flex: none; display: grid; gap: var(--s2); padding: var(--s3) var(--s4) calc(var(--s3) + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--bg); }
+.hoja h2 { font-size: 1.875rem; }
+.hoja .nota-demo { margin-top: calc(var(--s2) * -1); }
+
+@media (min-width: 900px) {
+  /* ventana al centro (ficha, encargo, mapa) */
+  .hoja__panel {
+    top: 50%; left: 50%; right: auto; bottom: auto; width: min(880px, 92vw); max-height: 90dvh; border-radius: var(--r);
+    transform: translate(-50%, -46%); opacity: 0;
+    transition: transform 300ms var(--salida), opacity 300ms var(--salida);
+  }
+  .hoja.visible .hoja__panel { transform: translate(-50%, -50%); opacity: 1; }
+  .hoja--encargo .hoja__panel, .hoja--mapa .hoja__panel { width: min(640px, 92vw); }
+  .hoja__cabeza { position: absolute; top: var(--s2); right: var(--s2); z-index: 2; min-height: 0; padding: 0; cursor: default; }
+  .hoja__asa { display: none; }
+  .hoja__cerrar { position: static; background: var(--bg); box-shadow: 0 0 0 1px var(--line); }
+  .hoja__cuerpo { padding: var(--s6) var(--s6) var(--s5); }
+  /* la bolsa: panel lateral, entra desde la derecha */
+  .hoja--bolsa .hoja__panel {
+    top: 0; right: 0; left: auto; bottom: 0; width: min(460px, 100%); max-height: none; border-radius: 0; opacity: 1;
+    transform: translateX(100%); transition: transform 400ms var(--hoja);
+  }
+  .hoja--bolsa.visible .hoja__panel { transform: translateX(0); }
+  .hoja--bolsa .hoja__cabeza { top: var(--s3); right: var(--s3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hoja__panel, .hoja.visible .hoja__panel, .hoja--bolsa .hoja__panel, .hoja--bolsa.visible .hoja__panel { transform: none; }
+  .hoja__panel { opacity: 0; transition: opacity 150ms linear; }
+  .hoja.visible .hoja__panel { opacity: 1; }
+  @media (min-width: 900px) {
+    .hoja__panel, .hoja.visible .hoja__panel { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .hoja--bolsa .hoja__panel, .hoja--bolsa.visible .hoja__panel { top: 0; left: auto; transform: none; }
+  }
+  .hoja::backdrop { transition-duration: 150ms; }
+  .hoja__cerrar:active { transform: none; }
+}
+
+/* ---- campos y errores ---- */
+.campo { display: grid; gap: var(--s2); border: 0; margin: 0; padding: 0; min-width: 0; }
+.campo label, .campo legend { font-weight: 700; font-size: 1rem; padding: 0; }
+.campo input[type="text"], .campo textarea {
+  width: 100%; min-height: 48px; padding: var(--s3); font: inherit; font-size: 1rem; color: var(--ink);
+  background: var(--bg); border: 2px solid var(--ink-2); border-radius: var(--r);
+}
+.campo textarea { min-height: 76px; resize: vertical; }
+.campo__ayuda { font-size: .875rem; color: var(--ink-2); }
+.campo__ayuda--der { text-align: right; }
+.campo [aria-invalid="true"] { border-color: var(--error); }
+.error { display: flex; align-items: flex-start; gap: var(--s2); font-weight: 700; font-size: .9375rem; color: var(--error); }
+.error .icono { margin-top: 2px; }
+
+/* fichas elegibles (radio como pastilla) */
+.fichas { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.ficha { position: relative; }
+.ficha input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.ficha span, .ficha-btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; padding: 0 var(--s4);
+  border: 2px solid var(--ink); border-radius: var(--r-pill); background: transparent; font: 700 1rem/1.1 var(--f-texto); text-align: center;
+  transition: background-color 140ms var(--salida), transform 140ms var(--salida);
+}
+.ficha-btn { cursor: pointer; touch-action: manipulation; }
+.ficha input:checked + span, .ficha-btn[aria-pressed="true"] { background: var(--manteca); }
+.ficha input:focus-visible + span, .ficha-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.ficha input:disabled { cursor: not-allowed; }
+.ficha input:disabled + span, .ficha-btn[aria-disabled="true"] { opacity: .5; border-style: dashed; cursor: not-allowed; }
+.ficha:active span, .ficha-btn:active { transform: scale(0.97); }
+
+/* cantidad */
+.cantidad { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); }
+.cantidad__etiqueta { font-weight: 700; }
+.cantidad__control { display: flex; align-items: center; gap: var(--s2); }
+.cantidad__btn {
+  width: 44px; height: 44px; padding: 0; display: grid; place-items: center; border: 2px solid var(--ink); border-radius: var(--r-pill);
+  background: transparent; color: var(--ink); cursor: pointer; touch-action: manipulation; transition: transform 140ms var(--salida);
+}
+.cantidad__btn:active { transform: scale(0.97); }
+.cantidad__btn[disabled] { opacity: .4; cursor: not-allowed; }
+.cantidad__num { display: block; min-width: 3ch; text-align: center; font: 800 1.375rem/44px var(--f-display); font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) { .ficha span, .ficha-btn, .cantidad__btn { transition: none; } .ficha:active span, .ficha-btn:active, .cantidad__btn:active { transform: none; } }
+
+/* ---- ficha del producto ---- */
+.ficha__foto { border-radius: var(--r); overflow: hidden; background: var(--harina); }
+.ficha__foto img, .ficha__foto .sinfoto { width: 100%; aspect-ratio: 4 / 5; max-height: 46dvh; object-fit: cover; border-radius: 0; }
+.ficha__datos { display: grid; gap: var(--s3); align-content: start; }
+.ficha__precio { font: 800 1.75rem/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.ficha__desc { color: var(--ink-2); }
+.ficha__hora { display: inline-flex; width: fit-content; padding: 2px var(--s3); border-radius: var(--r-pill); background: var(--manteca); font-weight: 700; }
+.ficha__lista { display: grid; gap: var(--s1); margin: 0; }
+.ficha__lista dt { font-weight: 700; margin-top: var(--s2); }
+.ficha__lista dd { margin: 0; color: var(--ink-2); }
+.hoja--ficha .nota-demo { margin-top: 0; }
+@media (min-width: 900px) {
+  .hoja--ficha .hoja__cuerpo { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s6); align-items: start; padding: var(--s5); }
+  .hoja--ficha .ficha__foto img, .hoja--ficha .ficha__foto .sinfoto { max-height: 70dvh; }
+  .hoja--ficha .hoja__pie { border-top: 0; padding: 0 var(--s5) var(--s5); }
+}
+
+/* etiqueta de un boton con precio, en un solo bloque (sin espacios raros) */
+.boton__txt { display: inline; }

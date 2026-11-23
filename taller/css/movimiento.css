@@ -1,0 +1,29 @@
+/* Taller Aviso (Demo): movimiento. Solo transform, opacity y clip-path. Todo dentro de no-preference: con reduced-motion la pagina queda quieta y completa.
+   Cada animacion tiene su motivo (ver el informe). Lo visible lo es por defecto: estas reglas solo agregan una entrada. */
+@keyframes acercar { from { transform: scale(1.08); } }
+@keyframes revelar { from { clip-path: inset(0 0 100% 0); transform: translateY(0.35em); } to { clip-path: inset(0 0 0 0); transform: none; } }
+@keyframes subir { from { opacity: 0; transform: translateY(12px); } }
+@keyframes globo { from { opacity: 0; transform: translateY(8px); } }
+@keyframes pulso { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* portada: el macro se acerca (precision) y el titular se revela con una mascara; el resto sube detras */
+  .macro__img { animation: acercar 900ms var(--salida) backwards; }
+  .h1__in { animation: revelar 700ms var(--salida) 120ms backwards; }
+  .portada__bajada { animation: subir 500ms var(--salida) 260ms backwards; }
+  .portada__botones { animation: subir 500ms var(--salida) 340ms backwards; }
+  .datos { animation: subir 500ms var(--salida) 420ms backwards; }
+
+  /* detalles: cada foto se descubre de arriba hacia abajo al entrar en pantalla */
+  .mosaico__fig.rev-pre .mosaico__foto { clip-path: inset(0 0 100% 0); }
+  .mosaico__fig.rev-ok .mosaico__foto { clip-path: inset(0 0 0 0); transition: clip-path 420ms var(--salida); transition-delay: var(--d, 0ms); }
+
+  /* chat: llega un mensaje */
+  .burbuja.rev-pre { opacity: 0; transform: translateY(8px); }
+  .burbuja.rev-ok { opacity: 1; transform: none; transition: opacity 220ms var(--salida), transform 220ms var(--salida); transition-delay: var(--d, 0ms); }
+  .burbuja.entra { animation: globo 220ms var(--salida); }
+
+  /* seguimiento: la barra avanza hasta la etapa 4 */
+  .barra5.rev-pre .seg--lleno::before { transform: scaleX(0); }
+  .barra5.rev-ok .seg--lleno::before { transform: scaleX(1); transition: transform 400ms var(--salida); transition-delay: calc(var(--i, 0) * 80ms); }
+}

@@ -1,0 +1,85 @@
+/* Tono Vivo (Demo): hojas (<dialog>). Celular: suben desde abajo, la revision y el visor a pagina completa.
+   Compu: al centro. FOTO ARRIBA, TEXTO ABAJO, y la accion principal en una barra fija. Animan solo transform y opacity. */
+dialog.hoja { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: var(--ink); overflow: visible; }
+dialog.hoja::backdrop { background: var(--fondo-modal); opacity: 0; transition: opacity 300ms var(--curva); }
+dialog.hoja.visible::backdrop { opacity: 1; }
+html:has(dialog.hoja:modal) { overflow: hidden; }
+
+.hoja__panel {
+  position: fixed; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; max-height: 100dvh;
+  background: var(--page); border-radius: var(--r) var(--r) 0 0; overflow: hidden;
+  transform: translateY(100%); transition: transform 400ms var(--curva-hoja);
+}
+dialog.hoja.visible .hoja__panel { transform: none; }
+.hoja--revision .hoja__panel, .hoja--visor .hoja__panel { top: 0; height: 100dvh; border-radius: 0; }
+.hoja--mapa .hoja__panel { max-height: 92dvh; }
+
+.hoja__cabeza { position: relative; flex: none; display: flex; align-items: center; gap: 8px; min-height: 60px; padding: 16px 8px 4px 20px; }
+.hoja__asa { position: absolute; top: 6px; left: 50%; width: 44px; height: 4px; margin-left: -22px; border-radius: 2px; background: var(--borde); }
+.hoja__titulo { margin-right: auto; font-size: 20px; }
+.hoja__x { margin-right: 6px; display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0; border: 0; border-radius: 50%; background: transparent; touch-action: manipulation; transition: transform 140ms var(--curva); }
+.hoja__x .icono { width: 24px; height: 24px; }
+.hoja__x:active { transform: scale(0.95); }
+.hoja__cuerpo { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+
+/* foto arriba (alto reservado), texto abajo: nunca encimados */
+.hoja__foto { position: relative; height: clamp(150px, 28svh, 300px); background: var(--tinte-2); overflow: hidden; }
+.hoja__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hoja__foto--mapa img { object-fit: cover; }
+.hoja__pin { position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; transform: translate(-50%, -100%); color: var(--ink); }
+.hoja__texto { display: grid; gap: 12px; padding: 20px 20px 24px; }
+
+.resumen { display: grid; border-top: 2px solid var(--ink); }
+.resumen > div { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.resumen dt { font-size: 13px; font-weight: 700; color: var(--ink-2); }
+.resumen dd { min-width: 0; font-weight: 500; }
+.resumen__tono { display: inline-block; width: 18px; height: 18px; margin-right: 10px; border-radius: 50%; background: var(--tono); box-shadow: 0 0 0 2px var(--ink); vertical-align: -3px; }
+
+/* barra de accion fija abajo */
+.hoja__barra { flex: none; display: grid; gap: 8px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: var(--blanco); border-top: 2px solid var(--ink); }
+.hoja__barra .btn { width: 100%; }
+.hoja__barra .nota-wa { margin-top: 0; text-align: center; }
+.hoja__barra .nota { text-align: center; font-size: 13px; }
+
+/* visor de trabajos */
+.hoja__cuerpo--visor { display: flex; overflow: hidden; padding: 4px 16px 12px; }
+.visor__foto { position: relative; flex: 1 1 auto; min-height: 0; width: 100%; touch-action: pan-y; }
+.visor__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; transition: opacity 160ms linear; }
+.visor__foto.cambia img { opacity: 0; }
+.hoja__barra--visor { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; }
+.hoja__barra--visor .visor__nav { width: 52px; min-height: 52px; padding: 0; }
+.visor__cuenta { text-align: center; font-weight: 600; }
+
+@media (min-width: 480px) {
+  .resumen > div { grid-template-columns: 130px minmax(0, 1fr); gap: 12px; }
+  .hoja--revision .hoja__barra { grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
+  .hoja--revision .hoja__barra > a.btn { grid-column: 1; }
+  .hoja--revision .hoja__barra > .nota-wa { grid-column: 1; }
+  .hoja--revision .hoja__barra > button { grid-column: 2; grid-row: 1; width: auto; }
+  .hoja--revision .hoja__barra > .nota { grid-column: 1 / -1; }
+}
+
+@media (min-width: 900px) {
+  .hoja__panel {
+    left: 50%; right: auto; top: 50%; bottom: auto; width: min(560px, 92vw); height: auto; max-height: 90dvh; border-radius: var(--r);
+    transform: translate(-50%, -46%); opacity: 0; transition: transform 300ms var(--curva), opacity 300ms var(--curva);
+  }
+  dialog.hoja.visible .hoja__panel { transform: translate(-50%, -50%); opacity: 1; }
+  .hoja--revision .hoja__panel { top: 50%; height: auto; border-radius: var(--r); }
+  .hoja--visor .hoja__panel { top: 50%; width: min(920px, 94vw); height: min(88dvh, 820px); border-radius: var(--r); }
+  .hoja--mapa .hoja__panel { width: min(640px, 92vw); }
+  .hoja__asa { display: none; }
+  .hoja__cabeza { padding-left: 24px; }
+  .hoja__barra .nota-wa, .hoja__barra .nota { text-align: left; }   /* las dos notas en la misma x que el borde del boton */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hoja__panel { transform: none; opacity: 0; transition: opacity 150ms linear; }
+  dialog.hoja.visible .hoja__panel { opacity: 1; }
+  dialog.hoja::backdrop { transition: opacity 150ms linear; }
+  .hoja__x { transition: none; }
+  .visor__foto img { transition: none; }
+}
+@media (prefers-reduced-motion: reduce) and (min-width: 900px) {
+  .hoja__panel { transform: translate(-50%, -50%); }
+}

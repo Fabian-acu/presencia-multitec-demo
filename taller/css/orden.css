@@ -1,0 +1,73 @@
+/* Taller Aviso (Demo): la orden de trabajo (casillas, campos, panel "Tu orden") y el chat de ejemplo.
+   Zonas tactiles de 44 px o mas: la fila entera es la casilla. Un solo boton con el acento por pantalla: "Enviar la orden por WhatsApp". */
+.orden__rejilla { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem 3rem; }
+.orden__col, .orden__lado { min-width: 0; }
+.orden__lado { display: grid; gap: 2rem; align-content: start; }
+@media (min-width: 900px) {
+  .orden__rejilla { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: start; }
+}
+
+/* ---------- servicios: filas de una orden de trabajo ---------- */
+.serv { border-top: 2px solid var(--ink); }
+.serv__fila { border-bottom: 1px solid var(--line); }
+.casilla { position: relative; isolation: isolate; display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); align-items: center; gap: 0.75rem; min-height: 4.25rem; padding: 0.625rem 0.5rem; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.casilla::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--alta-vis-suave); opacity: 0; transition: opacity 160ms var(--salida); }
+.casilla--marcada::before { opacity: 1; }
+.casilla__in { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.casilla__caja { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; margin-inline: 0.5rem; border: 2px solid var(--ink); background: var(--papel); transition: background-color 160ms var(--salida), transform 140ms var(--salida); }
+.casilla__caja .icono { width: 1.25rem; height: 1.25rem; clip-path: inset(0 100% 0 0); transition: clip-path 160ms var(--salida); }
+.casilla--marcada .casilla__caja { background: var(--alta-vis); }
+.casilla--marcada .casilla__caja .icono { clip-path: inset(0 0 0 0); }
+.casilla:active .casilla__caja { transform: scale(0.94); }
+.casilla__in:focus-visible + .casilla__caja { outline: 3px solid var(--ink); outline-offset: 3px; }
+.casilla:has(.casilla__in:focus-visible) { outline: 3px solid var(--ink); outline-offset: -3px; }
+.casilla__t { display: grid; gap: 0.125rem; min-width: 0; }
+.casilla__n { font: 600 1.375rem/1.1 var(--f-cond); }
+.casilla__l { color: var(--ink-2); font-size: 0.9375rem; line-height: 1.35; }
+@media (hover: hover) { .casilla:hover { background: var(--chapa); } }
+
+.contador { margin-top: 1rem; font: 400 0.9375rem/1.4 var(--f-mono); }
+#error-serv, .orden__form .nota { margin-top: 0.5rem; }
+
+/* ---------- campos ---------- */
+.campo { display: grid; gap: 0.375rem; margin-top: 1.75rem; }
+.campo__et { font-weight: 500; font-size: 1.0625rem; }
+.campo__op { color: var(--ink-2); font-weight: 400; }
+.campo__in { width: 100%; min-width: 0; min-height: 3rem; padding: 0.625rem 0.75rem; border: 2px solid var(--ink); border-radius: 0; background: var(--papel); font-size: 1rem; line-height: 1.4; }
+.campo__in--area { min-height: 7.5rem; resize: vertical; }
+.campo__in:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.campo__in[aria-invalid="true"] { border-color: var(--error); }
+.campo__ayuda { color: var(--ink-2); font-size: 0.9375rem; line-height: 1.35; }
+.campo__cuenta { justify-self: end; font-size: 0.8125rem; color: var(--ink-2); }
+.campo__cuenta.sobre { color: var(--error); font-weight: 500; }
+
+/* ---------- panel "Tu orden" ---------- */
+.panel { display: grid; gap: 1rem; min-width: 0; padding: clamp(1rem, 3vw, 1.5rem); border: 2px solid var(--ink); background: var(--chapa); }
+.panel__tit { font-size: 1.875rem; }
+.panel__cab { margin-top: -0.5rem; font-size: 0.8125rem; color: var(--ink-2); }
+.panel__datos { display: grid; gap: 0.625rem; font-size: 0.875rem; line-height: 1.45; }
+.panel__datos > div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0.5rem; padding-bottom: 0.625rem; border-bottom: 1px dashed var(--ink-2); }
+.panel__datos dt { color: var(--ink-2); }
+.panel__datos dd { min-width: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+.panel__frase { font-size: 0.9375rem; }
+.panel__pie { font-size: 0.8125rem; line-height: 1.4; color: var(--ink-2); }
+.panel__acc { display: grid; gap: 0.5rem; }
+.panel__acc .btn { width: 100%; }
+@media (max-width: 419px) { .panel__acc .btn { font-size: 1rem; } }
+.panel__ayuda { font-weight: 500; font-size: 0.9375rem; }
+.panel__resultado:empty { display: none; }
+.panel__resultado { font-weight: 500; font-size: 0.9375rem; }
+.panel__falla { display: grid; gap: 0.5rem; justify-items: start; }
+.panel__msg { padding: 0.5rem 0.625rem; border: 1px dashed var(--ink-2); font-size: 0.8125rem; line-height: 1.4; overflow-wrap: anywhere; user-select: all; }
+
+/* ---------- chat de ejemplo (sin caja para escribir) ---------- */
+.chat { min-width: 0; border: 2px solid var(--ink); background: var(--papel); }
+.chat__marco { padding: 0.625rem 0.75rem; border-bottom: 2px solid var(--ink); background: var(--chapa); font: 500 0.8125rem/1.3 var(--f-mono); letter-spacing: 0; }
+.chat__quien { padding: 0.625rem 0.75rem 0; font-size: 0.8125rem; color: var(--ink-2); }
+.chat__lista { display: grid; gap: 0.5rem; padding: 0.75rem; }
+.chat > .nota { padding: 0 0.75rem 0.75rem; }
+.burbuja { max-width: 88%; padding: 0.5rem 0.75rem; font-size: 0.9375rem; line-height: 1.35; overflow-wrap: anywhere; }
+.burbuja--asi { justify-self: start; background: var(--chapa); border: 1px solid var(--line); }
+.burbuja--cli { justify-self: end; background: var(--ink); color: var(--sobre-ink); }
+.hueco { text-decoration: underline dotted; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+@media (max-width: 479px) { .chat__sep { display: none; } .chat__sub { display: block; } }

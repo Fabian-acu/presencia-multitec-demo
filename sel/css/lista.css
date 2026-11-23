@@ -1,0 +1,105 @@
+/* Lo que mejora con JavaScript: baño de color, vista previa que sigue al puntero (modo-fino) y filas que se abren (modo-toque).
+   Todo se ve por defecto: si el JS falla queda la lista de base.css. Solo se animan transform, opacity (y el color del texto). */
+
+/* Color firma de cada demo, el texto que pasa 4,5:1 encima y el del botón de la fila abierta.
+   Los lleva cada fila, cada capa y cada foto (data-c) y también <html> mientras una está activa (lo pone el JS). */
+[data-c="restaurante"] { --k: var(--aji);     --ko: var(--on-aji);     --ko2: var(--on2-aji); --ko3: var(--on3-aji);     --kb: var(--bg); }
+[data-c="panaderia"]   { --k: var(--manteca); --ko: var(--on-manteca); --ko2: var(--on2-manteca); --ko3: var(--on3-manteca); --kb: var(--text); }
+[data-c="carniceria"]  { --k: var(--carne);   --ko: var(--on-carne);   --ko2: var(--on2-carne); --ko3: var(--on3-carne);   --kb: var(--bg); }
+[data-c="materiales"]  { --k: var(--pizarra); --ko: var(--on-pizarra); --ko2: var(--on2-pizarra); --ko3: var(--on3-pizarra); --kb: var(--bg); }
+[data-c="salon"]       { --k: var(--fucsia);  --ko: var(--on-fucsia);  --ko2: var(--on2-fucsia); --ko3: var(--on3-fucsia);  --kb: var(--bg); }
+[data-c="odontologia"] { --k: var(--salvia);  --ko: var(--on-salvia);  --ko2: var(--on2-salvia); --ko3: var(--on3-salvia);  --kb: var(--bg); }
+[data-c="taller"]      { --k: var(--lima);    --ko: var(--on-lima);    --ko2: var(--on2-lima); --ko3: var(--on3-lima);    --kb: var(--text); }
+html[data-c] { --on: var(--ko); --on-2: var(--ko2); --on-3: var(--ko3); }
+/* Con el baño activo el botón azul no vibra contra ají, fucsia ni salvia: queda transparente con texto y borde en --on */
+html[data-c] .barra .wa { background: transparent; color: var(--on); border-color: var(--on); }
+
+/* Fotos (en la vista previa y en la fila abierta) */
+.foto { position: relative; overflow: hidden; background: var(--line); }
+.foto img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; color: transparent; font-size: 0; }
+.falta {
+  display: none;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  text-align: center;
+  color: var(--text-2);
+  font-family: var(--fuente-nombre);
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 0.95;
+}
+.sinfoto img { display: none; }
+.sinfoto .falta { display: flex; }
+
+/* ===== MODO FINO (compu) ===== */
+.modo-fino .mar { display: block; position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.capa { position: absolute; inset: 0; background: var(--k); opacity: 0; }
+.capa.on { opacity: 1; }
+.capa img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* Carnicería es acromática: la inundación es su foto con un velo oscuro */
+.capa[data-c="carniceria"]::after { content: ""; position: absolute; inset: 0; background: var(--velo); }
+
+/* Sobre un color, las hermanas bajan a --on-2 (siempre >= 4,5:1) y la activa se corre un poco */
+.modo-fino[data-c] .fila:not(.activa) { color: var(--on-2); }
+/* El nombre de las hermanas es texto grande (800, 40 px o más): 3,3:1 alcanza y se nota cuál es la activa */
+.modo-fino[data-c] .fila:not(.activa) .nombre { color: var(--on-3); }
+.modo-fino[data-c] .fila { border-color: color-mix(in srgb, var(--on) 24%, transparent); }
+.modo-fino .nombre { transform-origin: left center; }
+.modo-fino .fila.activa .nombre { transform: translateX(0.1em); }
+
+.modo-fino .vista {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  width: clamp(12.5rem, 20vw, 18.75rem);
+  aspect-ratio: 4 / 5;
+  pointer-events: none;
+  opacity: 0;
+}
+.modo-fino .vista.visible { opacity: 1; will-change: transform; }
+.vista-in { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 8px; background: var(--line); transform: scale(0.95); }
+.vista.visible .vista-in { transform: none; }
+.vista .foto { position: absolute; inset: 0; opacity: 0; }
+.vista .foto.visible { opacity: 1; }
+
+/* ===== MODO TOQUE (celular) ===== */
+.modo-toque .fila { isolation: isolate; }
+.modo-toque .fila::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--k); opacity: 0; }
+.modo-toque .fila.abierta::before { opacity: 1; }
+.modo-toque .fila.abierta { --on: var(--ko); --on-2: var(--ko2); color: var(--on); border-color: transparent; }
+.modo-toque .fila-a { grid-template-columns: 3.5rem minmax(0, 1fr) auto; column-gap: 10px; min-height: 5.25rem; }
+.modo-toque .nombre { font-size: clamp(2.25rem, 12vw, 6rem); }
+.modo-toque .mini { display: block; width: 56px; height: 56px; overflow: hidden; border-radius: 8px; background: var(--line); }
+.mini img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.modo-toque .detalle { display: grid; grid-template-rows: 0fr; visibility: hidden; }
+.modo-toque .fila.abierta .detalle { grid-template-rows: 1fr; visibility: visible; }
+.detalle-in { min-height: 0; overflow: hidden; padding: 0 var(--gut); }
+.detalle .foto { aspect-ratio: 16 / 10; border-radius: 8px; }
+.negocio { margin-top: 14px; color: var(--on-2); font-size: 0.875rem; line-height: 1.3; }
+.negocio strong { color: var(--on); font-weight: 600; }
+.linea { margin-top: 4px; max-width: 36rem; color: var(--on); font-size: 1.0625rem; line-height: 1.45; }
+.abrir {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  margin: 16px 0 22px;
+  padding: 0 22px;
+  background: var(--ko);
+  color: var(--kb);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  touch-action: manipulation;
+}
+.abrir .ico { width: 20px; height: 20px; }
+@media (min-width: 30rem) {
+  .abrir { display: inline-flex; width: auto; min-width: 12rem; }
+}

@@ -1,0 +1,5 @@
+/* Tono Vivo (Demo): sin JavaScript. Se leen los servicios, el equipo y el local; lo que necesita JS se esconde. */
+.solo-js, .muestras, .muestras__vivo, .servicios__foto, .hoja { display: none !important; }
+.grupo[hidden] { display: block !important; }   /* sin JS se ven los dos grupos */
+.fila__acc { grid-template-columns: minmax(0, 1fr); }
+.hero__titulo, .hero__mando, .hero__foto { animation: none; }

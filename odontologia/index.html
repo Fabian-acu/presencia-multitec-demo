@@ -1,65 +1,328 @@
 <!doctype html>
-<html lang="es-PY" data-tema="odontologia" data-base="../">
+<html lang="es-PY">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'">
 <meta name="robots" content="noindex, nofollow">
-<title>Consultorio Dental Arandú (Demo) | Ejemplo de web para consultorio odontológico</title>
-<meta name="description" content="Demo de página web para un consultorio odontológico: motivos de consulta, turnos por WhatsApp y horarios. Es un ejemplo de Presencia Multitec.">
-<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<title>Consultorio Abril (Demo) | Tu primera visita, paso a paso</title>
+<meta name="description" content="Demo de una web para consultorio odontológico hecha por Multitec: primera visita en 5 pasos, tratamientos y mapa, todo de ejemplo.">
+<meta name="theme-color" content="#F2F5F4">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_PY">
-<meta property="og:site_name" content="Presencia Multitec (Demo)">
-<meta property="og:title" content="Consultorio Dental Arandú (Demo) | Ejemplo de web para consultorio odontológico">
-<meta property="og:description" content="Demo de página web para un consultorio odontológico: motivos de consulta, turnos por WhatsApp y horarios. Es un ejemplo de Presencia Multitec.">
+<meta property="og:title" content="Consultorio Abril (Demo) | Tu primera visita, paso a paso">
+<meta property="og:description" content="Demo de una web para consultorio odontológico hecha por Multitec: primera visita en 5 pasos, tratamientos y mapa, todo de ejemplo.">
 <meta property="og:url" content="https://fabian-acu.github.io/presencia-multitec-demo/odontologia/">
-<meta property="og:image" content="https://fabian-acu.github.io/presencia-multitec-demo/fotos/odontologia/og.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Instrumental y equipo de un consultorio odontológico">
+<meta property="og:image" content="https://fabian-acu.github.io/presencia-multitec-demo/odontologia/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" as="font" type="font/woff2" href="../fonts/figtree-600.woff2" crossorigin>
-<link rel="preload" as="image" imagesrcset="../fotos/odontologia/portada-480.webp 480w, ../fotos/odontologia/portada-720.webp 720w, ../fotos/odontologia/portada-960.webp 960w" imagesizes="(min-width: 900px) 520px, 100vw" fetchpriority="high">
-<link rel="icon" type="image/png" sizes="32x32" href="../fotos/marca/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="../fotos/marca/favicon-48.png">
-<link rel="apple-touch-icon" href="../fotos/marca/apple-touch-180.png">
-<style> @font-face{font-family:"Figtree";font-weight:400;font-style:normal;font-display:swap;src:url("../fonts/figtree-400.woff2") format("woff2");}@font-face{font-family:"Figtree";font-weight:600;font-style:normal;font-display:swap;src:url("../fonts/figtree-600.woff2") format("woff2");}:root,[data-tema="selector"]{--bg:#ffffff;--surface:#ffffff;--surface-2:#f4f4f5;--ink:#18181b;--ink-2:#52525b;--line:#e4e4e7;--acento:#18181b;--acento-ink:#ffffff;--acento-txt:#18181b;--r:12px;--rb:12px;--font:"Figtree",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Bricolage Grotesque",var(--font);--h-peso:700;--h-caso:none;--h-track:-0.02em;--btn-peso:600;--wa:#0A7D5E;--wa-ink:#ffffff;--wa-fondo-chat:#eaf0ed;--chat-burbuja:#ffffff;--chat-txt:#18181b;--chat-txt-2:#52525b;--chat-linea:#d3dcd8;--chat-hueco:#e4e8e6;--ico-anillo:transparent;--ease-out:cubic-bezier(0.23,1,0.32,1);--dur-micro:160ms;--dur-ui:240ms;--dur-hero:600ms;--dur-globo:220ms;}[data-tema="restaurante"]{--acento:#c2410c;--acento-ink:#ffffff;--acento-txt:#c2410c;}[data-tema="panaderia"]{--bg:#ffffff;--surface:#ffffff;--surface-2:#f5f5f4;--ink:#1f1f1f;--ink-2:#555555;--line:#e5e5e3;--acento:#f2b705;--acento-ink:#1f1f1f;--acento-txt:#8a5a00;--ico-anillo:var(--ink);--r:16px;--rb:16px;--font:"Work Sans",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Young Serif",Georgia,serif;--h-peso:400;--h-track:-0.01em;}[data-tema="carnes"]{--bg:#141414;--surface:#1f1f1f;--surface-2:#1b1b1b;--ink:#f2f2f2;--ink-2:#b8b8b8;--line:#333333;--acento:#c62828;--acento-ink:#ffffff;--acento-txt:#ff6b63;--r:6px;--rb:6px;--font:"Archivo",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Anton",Impact,"Arial Narrow",sans-serif;--h-peso:400;--h-caso:uppercase;--h-track:0.01em;}[data-tema="materiales"]{--bg:#f4f4f5;--surface:#ffffff;--surface-2:#e8e8ea;--ink:#111111;--ink-2:#4b4b52;--line:#d4d4d8;--acento:#ffcc00;--acento-ink:#111111;--acento-txt:#111111;--ico-anillo:var(--ink);--r:4px;--rb:4px;--font:"Barlow",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Barlow Semi Condensed","Arial Narrow",var(--font);--h-peso:700;--h-track:-0.005em;}[data-tema="ropa"]{--acento:#c2185b;--acento-ink:#ffffff;--acento-txt:#c2185b;--ink:#111111;--r:0px;--rb:999px;--font:"Outfit",system-ui,"Segoe UI",Arial,sans-serif;--font-h:var(--font);--h-peso:600;--h-track:-0.02em;}[data-tema="salon"]{--acento:#2b47b8;--acento-ink:#ffffff;--acento-txt:#2b47b8;--r:14px;--rb:999px;}[data-tema="odontologia"]{--bg:#ffffff;--surface:#ffffff;--surface-2:#f2f6f6;--ink:#182022;--ink-2:#4a5658;--line:#dde5e6;--acento:#00707a;--acento-ink:#ffffff;--acento-txt:#00707a;--r:10px;--rb:10px;--font-h:var(--font);--h-peso:600;--h-track:-0.015em;}[data-tema="taller"]{--bg:#17181a;--surface:#212326;--surface-2:#1d1f21;--ink:#f1f1f0;--ink-2:#b5b8bb;--line:#34373b;--acento:#f26b21;--acento-ink:#151617;--acento-txt:#f26b21;--r:6px;--rb:6px;--font:"Barlow",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Barlow Semi Condensed","Arial Narrow",var(--font);--h-peso:700;--h-caso:uppercase;--h-track:0.01em;}*,*::before,*::after{box-sizing:border-box;}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:1rem;line-height:1.55;padding-bottom:calc(112px + env(safe-area-inset-bottom));}h1,h2,h3,p,ul,figure,dl,dd{margin:0;}ul{padding:0;list-style:none;}img{display:block;max-width:100%;height:auto;}a{color:inherit;}.ancho{width:100%;max-width:1120px;margin-inline:auto;padding-inline:20px;}:focus-visible{outline:3px solid var(--acento-txt);outline-offset:3px;}.solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}.saltar{position:absolute;left:8px;top:-60px;z-index:100;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:var(--r);}.saltar:focus{top:8px;}h1,h2,h3,.marca{font-family:var(--font-h);font-weight:var(--h-peso);letter-spacing:var(--h-track);text-transform:var(--h-caso);text-wrap:balance;}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;background:var(--acento);color:var(--acento-ink);border:2px solid var(--acento);border-radius:var(--rb);font:inherit;font-weight:var(--btn-peso);text-decoration:none;text-align:center;cursor:pointer;touch-action:manipulation;transition:transform .12s cubic-bezier(.16,1,.3,1),filter .15s;}.btn:hover{filter:brightness(1.07);}.btn:active{transform:scale(.98);}.btn .ico{box-sizing:content-box;width:20px;height:20px;padding:4px;flex:none;color:var(--wa);background:var(--wa-ink);border-radius:50%;box-shadow:0 0 0 1.5px var(--ico-anillo);}.btn-grande{min-height:56px;padding:0 32px;font-size:1.0625rem;}.btn-chico{min-height:44px;padding:0 18px;}.btn-borde{background:transparent;color:var(--ink);border-color:var(--ink);}.btn[hidden]{display:none;}.btn[disabled]{opacity:.5;cursor:not-allowed;}.enlace{display:inline-flex;align-items:center;min-height:44px;font-weight:600;text-underline-offset:4px;text-decoration-thickness:2px;text-decoration-color:var(--acento-txt);}.demo-franja{background:var(--ink);color:var(--bg);text-align:center;font-size:.8125rem;font-weight:600;padding:8px 12px;line-height:1.3;}.demo-franja a{text-decoration-thickness:2px;text-underline-offset:3px;padding-block:6px;}.cab{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);}.cab-in{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;}.marca{font-size:1rem;line-height:1.2;text-decoration:none;display:inline-flex;align-items:center;min-height:44px;}.cab-der{display:flex;align-items:center;gap:14px;flex:0 1 auto;max-width:48%;}.estado{font-size:.8125rem;font-weight:600;color:var(--ink-2);text-align:right;line-height:1.25;}.estado.abierto{color:var(--ink);}.estado.abierto::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--wa);margin-right:6px;}.cab-wa{display:none;}.portada{display:grid;gap:0;}.portada-foto{margin-inline:calc(-1 * 20px);aspect-ratio:4 / 3;background:var(--surface-2);overflow:hidden;order:-1;}.portada-foto img{width:100%;height:100%;object-fit:cover;}.portada-txt{display:grid;gap:14px;padding-block:24px 32px;align-content:center;}.rubro{color:var(--acento-txt);font-weight:600;}h1{font-size:clamp(2rem,1.1rem + 4.4vw,3.75rem);line-height:1.05;}.sub{font-size:1.0625rem;color:var(--ink-2);max-width:46ch;text-wrap:pretty;}.acciones{display:flex;flex-wrap:wrap;align-items:center;gap:4px 24px;margin-top:6px;}.acciones-par{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;max-width:380px;}.acciones-par .btn{width:100%;}.nota-demo{font-size:.8125rem;color:var(--ink-2);}section[id]{scroll-margin-top:80px;}.sec{padding-block:48px;}.sec-titulo{font-size:clamp(1.625rem,1rem + 2.4vw,2.5rem);line-height:1.12;margin-bottom:10px;}.sec-sub{color:var(--ink-2);margin-bottom:24px;max-width:56ch;}.sec-alt{background:var(--surface-2);}.tarjetas{display:grid;gap:20px;}.tarjeta{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;}.tarjeta-foto{aspect-ratio:4 / 3;background:var(--surface-2);overflow:hidden;}.tarjeta-foto img{width:100%;height:100%;object-fit:cover;}.tarjeta-txt{padding:16px 18px 18px;display:grid;gap:6px;align-content:start;flex:1;}.tarjeta h3{font-size:1.25rem;line-height:1.2;}.tarjeta p{color:var(--ink-2);font-size:.9688rem;}.precio{white-space:nowrap;color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;}.tarjeta-pie{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:10px;flex-wrap:wrap;}.tarjeta[hidden],.ficha[hidden]{display:none;}.filas{display:grid;gap:10px;}.fila{display:grid;grid-template-columns:104px 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px;align-items:stretch;}.fila[hidden]{display:none;}.fila-foto{width:104px;height:104px;border-radius:calc(var(--r) - 4px);overflow:hidden;background:var(--surface-2);align-self:center;}.fila-foto img{width:100%;height:100%;object-fit:cover;}.fila-txt{display:flex;flex-direction:column;min-width:0;}.fila h3{font-size:1.0625rem;line-height:1.2;}.fila p{color:var(--ink-2);font-size:.875rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}.fila .tarjeta-pie{margin-top:auto;padding-top:6px;min-height:52px;flex-wrap:nowrap;}.chips-fijos{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;position:sticky;top:60px;z-index:15;background:var(--bg);padding-block:10px;margin-block:0 8px;}.tarjetas-2{grid-template-columns:repeat(2,1fr);gap:12px;}@media (max-width:639px){.tarjetas-2 .tarjeta-txt{padding:12px;}.tarjetas-2 h3{font-size:1.0625rem;}.tarjetas-2 .tarjeta-pie{flex-direction:column;align-items:stretch;}.tarjetas-2 .btn{width:100%;}}.servicios{display:grid;gap:10px;}.servicio{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px 12px 18px;}.servicio[hidden]{display:none;}.servicio>div{min-width:0;}.servicio h3{font-size:1.0625rem;line-height:1.2;}.servicio p{color:var(--ink-2);font-size:.9375rem;margin-top:2px;}.servicio .btn{flex:none;background:transparent;color:var(--acento-txt);border-color:var(--acento-txt);}.servicios-uno{max-width:720px;}.galeria{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}.galeria li{position:relative;overflow:hidden;aspect-ratio:4 / 5;border-radius:var(--r);background:var(--surface-2);}.galeria li:first-child{grid-column:1 / -1;aspect-ratio:4 / 3;}.galeria img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}.chip{flex:none;min-height:44px;padding:0 18px;border:2px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-weight:600;cursor:pointer;touch-action:manipulation;}.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);}.buscador{display:grid;gap:8px;margin-bottom:16px;}.buscador label{font-weight:600;}.buscador input{width:100%;min-height:52px;padding:0 16px;font:inherit;font-size:1.0625rem;color:var(--ink);background:var(--surface);border:2px solid var(--ink);border-radius:var(--r);}.contador{color:var(--ink-2);font-size:.875rem;margin-bottom:12px;}.vacio{padding:28px;border:2px dashed var(--line);border-radius:var(--r);display:grid;gap:14px;justify-items:start;}.vacio[hidden]{display:none;}.fichas{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}.ficha{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);display:flex;flex-direction:column;overflow:hidden;}.ficha-foto{aspect-ratio:1;background:var(--surface-2);}.ficha-foto img{width:100%;height:100%;object-fit:cover;}.ficha-txt{padding:12px;display:grid;gap:8px;flex:1;align-content:space-between;}.ficha h3{font-size:1.0625rem;line-height:1.2;}.ficha .btn{width:100%;min-height:44px;padding:0 10px;font-size:.9375rem;}.vidriera{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 12px;}.prenda-foto{aspect-ratio:4 / 5;background:var(--surface-2);overflow:hidden;}.prenda-foto img{width:100%;height:100%;object-fit:cover;}.prenda h3{font-size:1.0625rem;margin-top:10px;line-height:1.2;}.prenda p{color:var(--ink-2);font-size:.9063rem;margin:2px 0 8px;}.prenda .btn{width:100%;min-height:44px;padding:0 8px;font-size:.9375rem;}.banda{display:grid;gap:20px;align-items:center;}.banda-foto{overflow:hidden;border-radius:var(--r);background:var(--surface-2);aspect-ratio:4 / 3;}.banda-foto img{width:100%;height:100%;object-fit:cover;}.banda-txt{display:grid;gap:14px;justify-items:start;}.banda-txt p{color:var(--ink-2);max-width:52ch;}.duo{display:grid;gap:12px;}.duo .banda-foto{aspect-ratio:4 / 3;}.horneadas{display:grid;gap:0;background:var(--surface-2);color:var(--ink);border:1px solid var(--line);border-radius:var(--r);padding:4px 20px;}.horneadas li{display:flex;justify-content:space-between;gap:16px;padding-block:14px;}.horneadas li + li{border-top:1px solid var(--line);}.horneadas b{font-variant-numeric:tabular-nums;color:var(--acento-txt);}.pasos{display:grid;gap:10px;counter-reset:p;}.pasos li{padding-left:0;color:var(--ink-2);}.pasos li strong{color:var(--ink);}.calif{display:grid;gap:20px;}.calif-res{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}.calif-num{font-family:var(--font-h);font-size:3rem;line-height:1;font-weight:var(--h-peso);}.estrellas{color:#b45309;letter-spacing:2px;font-size:1.125rem;line-height:1;}.calif-cant{color:var(--ink-2);font-size:.9063rem;}.resenas{display:grid;gap:12px;}.resena{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:grid;gap:6px;}.resena-cab{display:flex;align-items:center;gap:10px;font-weight:600;}.resena-ini{width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:.875rem;}.resena p{color:var(--ink-2);font-size:.9688rem;}.sec-alt .resena{background:var(--bg);}.dos{display:grid;gap:40px;}.horarios li{display:flex;justify-content:space-between;gap:16px;padding:13px 10px;border-radius:var(--r);}.horarios li + li{border-top:1px solid var(--line);}.horarios li.hoy{background:var(--surface-2);font-weight:600;}.hora{font-variant-numeric:tabular-nums;font-weight:600;text-align:right;}.lugar{display:grid;gap:14px;align-content:start;justify-items:start;}.mapa-fachada{position:relative;width:100%;aspect-ratio:4 / 3;border-radius:var(--r);overflow:hidden;background:var(--surface-2);border:1px solid var(--line);}.mapa-fachada img{width:100%;height:100%;object-fit:cover;}.mapa-fachada iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}.mapa-pin{position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--acento);border:3px solid #fff;box-shadow:0 2px 8px rgb(0 0 0 / .4);}.mapa-leyenda{position:absolute;left:10px;top:10px;background:#fff;color:#111;font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:999px;}.mapa-boton{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);}.mapa-attr{font-size:.75rem;color:var(--ink-2);}.mapa-attr a{padding-block:10px;display:inline-block;}.dir{font-size:1.0625rem;}.cierre{background:var(--ink);color:var(--bg);padding-block:64px;}.cierre .ancho{display:grid;gap:22px;justify-items:start;}.cierre-titulo{font-size:clamp(1.875rem,1rem + 3.4vw,3.25rem);line-height:1.08;max-width:18ch;}.cierre .btn-borde{color:var(--bg);border-color:var(--bg);}.pie{padding-block:32px;color:var(--ink-2);font-size:.875rem;}.pie .ancho{display:grid;gap:4px;}.pie a{text-underline-offset:3px;}.pie .enlaces a{display:inline-block;padding-block:10px;}.pie .enlaces{display:flex;flex-wrap:wrap;gap:0 20px;}.barra-wa{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line);box-shadow:0 -6px 18px rgb(0 0 0 / .08);}.barra-wa .btn{width:100%;}.barra-wa small{display:block;text-align:center;font-size:.75rem;color:var(--ink-2);margin-top:6px;}.barra-wa.con-js{transform:translateY(100%);visibility:hidden;transition:transform .3s cubic-bezier(.16,1,.3,1),visibility 0s .3s;}.barra-wa.con-js.visible{transform:none;visibility:visible;transition:transform .3s cubic-bezier(.16,1,.3,1);}dialog#hoja{border:0;border-radius:var(--r);padding:24px;max-width:min(92vw,420px);background:var(--bg);color:var(--ink);}dialog#hoja::backdrop{background:rgb(0 0 0 / .55);}dialog#hoja .hoja-msg{margin-block:12px 18px;padding:14px 16px;background:var(--surface-2);border-radius:var(--r);font-weight:600;}dialog#hoja .acciones{display:grid;gap:8px;}.sec-chat{border-top:1px solid var(--line);scroll-margin-top:72px;}.chat-sec{display:grid;gap:24px;grid-template-areas:"intro" "chat" "cta";}.chat-intro{grid-area:intro;}.chat-col{grid-area:chat;}.chat-cta{grid-area:cta;display:grid;gap:10px;justify-items:start;}.chat-intro .sec-sub{margin-bottom:0;}.chat{max-width:420px;background:var(--wa-fondo-chat);border:1px solid var(--chat-linea);border-radius:var(--r);overflow:hidden;color:var(--chat-txt);}.chat-cab{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--chat-burbuja);border-bottom:1px solid var(--chat-linea);}.chat-av{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:var(--acento);color:var(--acento-ink);font-family:var(--font-h);font-weight:var(--h-peso);font-size:1.125rem;line-height:1;}.chat-av img{width:100%;height:100%;object-fit:cover;}.chat-quien{display:grid;gap:2px;min-width:0;}.chat-quien strong{font-size:1rem;line-height:1.2;color:var(--chat-txt);}.chat-quien small{font-size:.8125rem;line-height:1.3;color:var(--chat-txt-2);}.chat-lista{display:grid;gap:10px;padding:16px 14px 18px;}.g{position:relative;display:flex;}.g-c{justify-content:flex-end;}.g-sep{justify-content:center;}.g-cont{display:flex;flex-direction:column;gap:4px;max-width:88%;}.g-c .g-cont{align-items:flex-end;}.g-a .g-cont{align-items:flex-start;}.g-txt{padding:10px 14px;font-size:1rem;line-height:1.4;text-wrap:pretty;border-radius:var(--r);}.g-c .g-txt{background:var(--chat-burbuja);color:var(--chat-txt);border:1px solid var(--chat-linea);border-top-right-radius:calc(var(--r) / 3);}.g-a .g-txt{background:var(--wa);color:var(--wa-ink);border-top-left-radius:calc(var(--r) / 3);}.g-meta{font-size:.75rem;line-height:1.3;color:var(--chat-txt-2);}.g-chip{padding:2px 10px;border:1px solid var(--chat-linea);border-radius:999px;background:var(--chat-burbuja);}.g-hueco{padding:0 6px;border-radius:6px;background:var(--chat-hueco);color:var(--chat-txt);box-decoration-break:clone;-webkit-box-decoration-break:clone;}.g-chips .g-cont{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;max-width:100%;}.chat-chip{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:6px 12px;line-height:1.25;text-align:center;background:var(--chat-burbuja);color:var(--wa);border:2px solid var(--wa);border-radius:999px;font-weight:600;text-decoration:none;touch-action:manipulation;transition:transform var(--dur-micro) var(--ease-out);}.chat-chip:active{transform:scale(.97);}.chat-chip:focus-visible,.chat-otra:focus-visible{outline-color:var(--chat-txt);}.btn-wa{background:var(--wa);border-color:var(--wa);color:var(--wa-ink);}.chat-cta .btn{width:100%;padding:0 20px;font-size:1rem;}.chat-pie{display:flex;justify-content:flex-end;min-height:44px;padding:0 8px 8px;}.chat-otra{visibility:hidden;opacity:0;min-height:44px;padding:0 12px;background:none;border:0;color:var(--chat-txt-2);font:inherit;font-weight:600;text-decoration:underline;text-underline-offset:4px;cursor:pointer;touch-action:manipulation;}.chat-pie.lista .chat-otra{visibility:visible;opacity:1;transition:opacity var(--dur-micro) var(--ease-out);}.g-typing{display:none;position:absolute;left:0;top:0;gap:5px;padding:15px 16px;background:var(--wa);border-radius:var(--r);border-top-left-radius:calc(var(--r) / 3);}.g-typing i{width:7px;height:7px;border-radius:50%;background:var(--wa-ink);}@media (min-width:900px){.chat-sec{grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;grid-template-areas:"intro chat" "cta chat";column-gap:56px;row-gap:28px;align-items:start;}.chat-intro{align-self:end;}.chat-col{justify-self:end;width:100%;max-width:420px;}.chat-cta .btn{width:auto;}}.rubros{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}.rubros li{display:flex;}.rubro-card{display:block;width:100%;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;}.rubro-card .tarjeta-foto{aspect-ratio:4 / 5;}.rubro-card .rc-nom{display:block;padding:14px 14px 2px;font-family:var(--font-h);font-weight:700;font-size:1.0625rem;line-height:1.2;}.rubro-card small{display:block;padding:0 14px 16px;color:var(--ink-2);font-size:.875rem;line-height:1.35;}.rubro-card:hover{border-color:var(--ink);}.sel-cab{padding-block:40px 28px;display:grid;gap:12px;}.sel-cab .enlace{justify-self:start;}@media (min-width:640px){.ancho{padding-inline:32px;}.portada-foto{margin-inline:-32px;}.tarjetas{grid-template-columns:repeat(2,1fr);}.filas{grid-template-columns:repeat(2,1fr);gap:12px;}.fichas{grid-template-columns:repeat(3,1fr);gap:16px;}.vidriera{grid-template-columns:repeat(3,1fr);gap:20px 16px;}.rubros{grid-template-columns:repeat(3,1fr);}.rubros.rubros-4{grid-template-columns:repeat(4,1fr);}.resenas{grid-template-columns:repeat(3,1fr);}.servicios{grid-template-columns:repeat(2,1fr);gap:12px;}.servicios.servicios-uno{grid-template-columns:1fr;}.galeria{grid-template-columns:repeat(3,1fr);gap:16px;}.galeria li:first-child{grid-column:span 2;aspect-ratio:auto;}.duo{grid-template-columns:1fr 1fr;}}@media (min-width:900px){body{padding-bottom:0;}.barra-wa{display:none;}.cab-wa{display:inline-flex;}.portada{grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding-block:40px 56px;}.portada-foto{margin-inline:0;aspect-ratio:5 / 4;border-radius:var(--r);order:0;}.portada-txt{padding-block:0;}.sec{padding-block:80px;}.tarjetas{grid-template-columns:repeat(3,1fr);gap:24px;}.tarjetas-2{grid-template-columns:repeat(3,1fr);}.fichas{grid-template-columns:repeat(4,1fr);}.vidriera{grid-template-columns:repeat(4,1fr);}.rubros{grid-template-columns:repeat(5,1fr);}.rubros.rubros-3{grid-template-columns:repeat(3,1fr);}.banda{grid-template-columns:1fr 1fr;gap:56px;}.dos{grid-template-columns:1fr 1fr;gap:72px;}.calif{grid-template-columns:240px 1fr;gap:48px;align-items:start;}.resenas{grid-template-columns:repeat(3,1fr);}.cierre{padding-block:96px;}}@media (prefers-reduced-motion:no-preference){.rv{opacity:0;transform:translateY(10px);}.rv.in{opacity:1;transform:none;transition:opacity .35s ease-out var(--d,0ms),transform .4s cubic-bezier(.25,1,.5,1) var(--d,0ms);}}@media (prefers-reduced-motion:no-preference){.chat.anim .g-cont{opacity:0;transform:translateY(8px);}.chat.anim .g-chips:not(.in) .g-cont{visibility:hidden;}.chat.anim .g.in .g-cont{opacity:1;transform:none;transition:opacity var(--dur-globo) var(--ease-out),transform var(--dur-globo) var(--ease-out);}.chat.anim .g.escribiendo .g-typing{display:flex;}.g-typing i{animation:chat-punto 1s ease-in-out infinite;}.g-typing i:nth-child(2){animation-delay:.15s;}.g-typing i:nth-child(3){animation-delay:.3s;}}@keyframes chat-punto{0%,60%,100%{transform:translateY(0);opacity:.5;}30%{transform:translateY(-4px);opacity:1;}}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}.btn,.barra-wa.con-js,.barra-wa.con-js.visible,.chat-chip,.chat-pie.lista .chat-otra{transition:none;}.g-typing{display:none !important;}}</style>
+<link rel="icon" href="data:,">
+<link rel="preload" href="fuentes/hankengrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script src="js/arranque.js?v=20261123"></script>
+<link rel="stylesheet" href="cinta/cinta.css?v=20261123">
+<link rel="stylesheet" href="css/base.css?v=20261123">
+<link rel="stylesheet" href="css/carta.css?v=20261123">
+<link rel="stylesheet" href="css/movimiento.css?v=20261123">
+<link rel="stylesheet" href="css/hojas.css?v=20261123">
+<link rel="stylesheet" href="css/estados.css?v=20261123">
+<noscript><link rel="stylesheet" href="css/sinjs.css?v=20261123"></noscript>
 </head>
 <body>
-<a class="saltar" href="#contenido">Saltar al contenido</a>
-<div class="demo-franja" role="note">Ejemplo: este negocio no existe. <a href="../">Ver otros rubros</a></div>
-<header class="cab"><div class="ancho cab-in">
-<a class="marca" href="#contenido">Consultorio Dental Arandú (Demo)</a>
-<div class="cab-der"><span class="estado" id="estado" aria-live="polite"></span>
-<a class="btn btn-chico cab-wa" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20odontolog%C3%ADa%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Pedir turno por WhatsApp</span></a></div>
-</div></header>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<aside class="cinta" data-cinta data-rubro="Consultorio Abril" aria-label="Aviso de demo">
+  <div class="cinta__marca">
+    <img class="cinta__logo" src="cinta/logo-m.png" width="24" height="24" alt="Multitec">
+    <p class="cinta__texto">(Demo) Web de ejemplo hecha por Multitec</p>
+  </div>
+  <div class="cinta__acciones">
+    <a class="cinta__boton" data-cinta-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Consultorio%20Abril%20y%20quiero%20una%20web%20as%C3%AD.">Quiero una web así</a>
+    <button class="cinta__cerrar" type="button" data-cinta-cerrar hidden aria-label="Cerrar aviso">
+      <svg viewBox="0 0 256 256" aria-hidden="true" focusable="false"><use href="iconos.svg#i-x"/></svg>
+    </button>
+  </div>
+</aside>
+<a class="cinta-flotante" data-cinta-flotante data-cinta-wa hidden target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Consultorio%20Abril%20y%20quiero%20una%20web%20as%C3%AD.">Quiero una web así</a>
+
+<header class="barra" data-barra>
+  <div class="barra__dentro">
+    <a class="barra__marca" href="#inicio" aria-label="Consultorio Abril, ir al inicio">Consultorio Abril</a>
+    <nav class="barra__nav" id="menu-nav" aria-label="Secciones" data-menu-nav>
+      <ul>
+        <li><a href="#pasos">Primera visita</a></li>
+        <li><a href="#tratamientos">Tratamientos</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#lugar">El lugar</a></li>
+        <li><a href="#preguntas">Preguntas</a></li>
+      </ul>
+    </nav>
+    <button class="barra__menu" type="button" data-menu aria-expanded="false" aria-controls="menu-nav"><span>Menú</span><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-caret-down"/></svg></button>
+    <div class="wa wa--barra"><a class="btn btn--linea" data-wa href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Consultorio%20Abril%20y%20quiero%20una%20web%20as%C3%AD." target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Agendar por WhatsApp</span></a><p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p></div>
+  </div>
+</header>
+<p class="sr" id="anuncio" role="status" aria-live="polite"></p>
+<p class="aviso-red" data-red hidden role="status"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-wifi-slash"/></svg><span>Sin conexión. Revisá tu internet y probá de nuevo.</span><button class="btn btn--linea btn--s" type="button" data-reintentar-red>Reintentar</button></p>
+
 <main id="contenido">
-<section class="portada ancho" aria-labelledby="h-portada">
-<div class="portada-foto"><img src="../fotos/odontologia/portada-720.webp" srcset="../fotos/odontologia/portada-480.webp 480w, ../fotos/odontologia/portada-720.webp 720w, ../fotos/odontologia/portada-960.webp 960w" sizes="(min-width: 900px) 520px, 100vw" width="720" height="540" alt="Instrumental y equipo de un consultorio odontológico" fetchpriority="high"></div>
-<div class="portada-txt">
-<p class="rubro">Odontología</p>
-<h1 id="h-portada">Tu consulta, con turno por WhatsApp.</h1>
-<p class="sub">Control, limpieza y más. Elegí el motivo y escribinos.</p>
-<div class="acciones"><a class="btn btn-grande" id="wa-portada" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20odontolog%C3%ADa%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Pedir turno por WhatsApp</span></a><a class="enlace" href="#consultas">Ver los motivos de consulta</a></div>
-<p class="nota-demo">En esta demo, el botón te comunica con Multitec.</p>
-</div>
+<section class="portada" id="inicio" aria-labelledby="h1">
+  <div class="portada__dentro">
+    <p class="aviso-cerrado" data-cerrado role="status"></p>
+    <h1 id="h1" class="portada__h1">Tu primera visita, paso a paso</h1>
+    <p class="portada__bajada">Consultorio odontológico (Demo). Mirá cómo es tu primera visita y agendá por WhatsApp.</p>
+    <noscript><p class="portada__sinjs">Sin JavaScript la foto se ve abierta y los pasos como lista. Igual podés hablar por WhatsApp (Demo).</p></noscript>
+    <div class="portada__acciones">
+      <div class="wa"><a class="btn btn--sal" data-wa href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Consultorio%20Abril%20y%20quiero%20una%20web%20as%C3%AD." target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Agendar por WhatsApp</span></a><p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p><p class="wa__estado" data-wa-estado role="status"></p></div>
+      <a class="enlace-flecha" href="#pasos"><span>Ver los 5 pasos</span><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-arrow-down"/></svg></a>
+    </div>
+  </div>
+  <figure class="ventana" data-ventana>
+    <div class="ventana__marco">
+      <div class="ventana__vidrio"><img class="ventana__img" src="fotos/ventana-720.webp" srcset="fotos/ventana-720.webp 720w, fotos/ventana-1440.webp 1440w" sizes="(min-width: 1180px) 1072px, calc(100vw - 60px)" width="720" height="480" alt="Consultorio vacío con sillón, lámpara, un escritorio y una ventana, sin personas" data-foto="Consultorio"></div>
+    </div>
+    <figcaption>Foto de ejemplo (Demo).</figcaption>
+  </figure>
+  <dl class="datos">
+    <div><dt>Dónde</dt><dd>Zona Centro. Dirección de ejemplo.</dd></div>
+    <div><dt>Cuándo</dt><dd>Lunes a viernes, 08:30 a 18:00; sábados, 08:30 a 12:30 (ejemplo)</dd></div>
+    <div><dt>Urgencias</dt><dd>Si es una urgencia, llamá a emergencias.</dd></div>
+  </dl>
 </section>
-<section class="sec" id="consultas" aria-labelledby="h-cons"><div class="ancho"><h2 class="sec-titulo" id="h-cons">Consultas y turnos</h2><p class="sec-sub">Elegí el motivo y pedí tu turno por WhatsApp. Lo que corresponda a cada caso lo ve el profesional en la consulta.</p><ul class="servicios servicios-uno"><li class="servicio"><div><h3>Primera consulta</h3><p>Para conocer al profesional y contar qué necesitás.</p></div><button class="btn btn-chico" type="button" data-consulta="quiero pedir turno para primera consulta">Pedir turno</button></li><li class="servicio"><div><h3>Control y revisión</h3><p>Revisión general de rutina.</p></div><button class="btn btn-chico" type="button" data-consulta="quiero pedir turno para control y revisión">Pedir turno</button></li><li class="servicio"><div><h3>Limpieza</h3><p>Limpieza dental de rutina.</p></div><button class="btn btn-chico" type="button" data-consulta="quiero pedir turno para limpieza">Pedir turno</button></li><li class="servicio"><div><h3>Ortodoncia</h3><p>Consulta de ortodoncia con el profesional.</p></div><button class="btn btn-chico" type="button" data-consulta="quiero pedir turno para ortodoncia">Pedir turno</button></li><li class="servicio"><div><h3>Otra consulta</h3><p>Contanos qué necesitás y el consultorio te responde.</p></div><button class="btn btn-chico" type="button" data-consulta="quiero pedir turno para otra consulta">Pedir turno</button></li></ul></div></section><section class="sec sec-alt" aria-labelledby="h-pasos"><div class="ancho banda"><div class="banda-foto"><img src="../fotos/odontologia/consulta-800.webp" srcset="../fotos/odontologia/consulta-480.webp 480w, ../fotos/odontologia/consulta-800.webp 800w" sizes="(min-width: 900px) 520px, 100vw" width="800" height="600" alt="Consultorio odontológico con sillón, lámpara y escritorio" loading="lazy" decoding="async"></div><div class="banda-txt"><h2 class="sec-titulo" id="h-pasos">Cómo pedir tu turno</h2><ol class="pasos"><li><strong>Elegí el motivo </strong>de la consulta.</li><li><strong>Escribinos por WhatsApp </strong>y te tomamos los datos.</li><li><strong>El consultorio te confirma </strong>el turno.</li></ol><a class="btn" data-oculta-barra href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20odontolog%C3%ADa%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Pedir turno por WhatsApp</span></a></div></div></section><section class="sec sec-chat" id="chat" aria-labelledby="h-chat"><div class="ancho chat-sec"><div class="chat-intro"><h2 class="sec-titulo" id="h-chat">Probalo con tu propio mensaje</h2><p class="sec-sub">Así contestaría el asistente de un consultorio odontológico. Para probarlo, escribile a Multitec por WhatsApp.</p></div><div class="chat-col"><figure class="chat" data-chat aria-label="Conversación de ejemplo"><figcaption class="chat-cab"><span class="chat-av" aria-hidden="true">C</span><span class="chat-quien"><strong>Asistente de Consultorio Dental Arandú</strong><small>Conversación de ejemplo · se arma para tu negocio</small></span></figcaption><ol class="chat-lista"><li class="g g-c"><div class="g-cont"><p class="g-txt">Hola, ¿sos un bot? Quiero consultar por una limpieza</p></div></li><li class="g g-a"><div class="g-cont"><p class="g-txt">Sí, soy el asistente automático de Consultorio Dental Arandú. ¿Para qué día te gustaría el turno?</p></div></li><li class="g g-c"><div class="g-cont"><p class="g-txt">¿Cuánto sale?</p></div></li><li class="g g-a"><div class="g-cont"><p class="g-txt">Te tomo los datos y el consultorio te confirma el turno y el valor. ¿Me pasás tu nombre?</p></div></li><li class="g g-c"><div class="g-cont"><p class="g-txt">Soy <span class="g-hueco">‹nombre›</span></p></div></li><li class="g g-a"><div class="g-cont"><p class="g-txt">Gracias, <span class="g-hueco">‹nombre›</span>. Se lo paso a una persona del consultorio y te confirman por acá.</p></div></li></ol></figure></div><div class="chat-cta"><a class="btn btn-grande btn-wa" id="wa-chat" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20odontolog%C3%ADa%20y%20quiero%20probar%20el%20agente" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Probá el agente de Multitec</span></a><p class="nota-demo">En esta demo, el botón te comunica con Multitec.</p></div></div></section>
-<section class="sec" id="ubicacion" aria-labelledby="h-hor"><div class="ancho dos"><div><h2 class="sec-titulo" id="h-hor">Horarios</h2><ul class="horarios"><li data-dias="1,2,3,4,5" data-abre="08:00" data-cierra="17:00"><span>Lunes a viernes</span><span class="hora">08:00 a 17:00</span></li><li data-dias="6" data-abre="08:00" data-cierra="12:00"><span>Sábado</span><span class="hora">08:00 a 12:00</span></li><li data-dias="0"><span>Domingo</span><span class="hora">Cerrado</span></li></ul></div><div class="lugar"><h2 class="sec-titulo">Dónde estamos</h2><p class="dir">Ciudad del Este (dirección de ejemplo)</p><div class="mapa-fachada" data-src="https://www.openstreetmap.org/export/embed.html?bbox=-54.6171%2C-25.5137%2C-54.6051%2C-25.5057&layer=mapnik&marker=-25.5097%2C-54.6111"><img src="../fotos/mapa-cde.webp" width="600" height="450" loading="lazy" decoding="async" alt="Mapa del centro de Ciudad del Este"><span class="mapa-pin" style="top:39.7%" aria-hidden="true"></span><span class="mapa-leyenda">Ubicación de ejemplo</span><button class="btn btn-chico mapa-boton" type="button" id="ver-mapa">Ver mapa</button></div><p class="mapa-attr">Mapa: © <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">colaboradores de OpenStreetMap<span class="solo-lector"> (se abre en otra pestaña)</span></a></p></div></div></section>
-<section class="cierre"><div class="ancho"><h2 class="cierre-titulo">¿Para qué día querés tu turno?</h2>
-<a class="btn btn-grande" id="wa-cierre" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20odontolog%C3%ADa%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Pedir turno por WhatsApp</span></a>
-<p class="nota-demo" style="color:inherit;opacity:.8">En esta demo, el botón te comunica con Multitec.</p></div></section>
+
+<section class="seccion pasos" id="pasos" aria-labelledby="h-pasos">
+  <div class="pasos__dentro">
+    <div class="pasos__intro">
+      <h2 id="h-pasos" class="h2">La primera visita, en 5 pasos</h2>
+      <p class="bajada">Así podría ser tu primera visita. Pasos de ejemplo (Demo).</p>
+      <p class="linea-fija">Pasos de ejemplo (Demo). Cada consultorio define su propio proceso.</p>
+      <div class="wa"><a class="btn btn--sal" data-wa href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Consultorio%20Abril%20y%20quiero%20una%20web%20as%C3%AD." target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Agendar por WhatsApp</span></a><p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p><p class="wa__estado" data-wa-estado role="status"></p></div>
+    </div>
+    <ol class="pasos__lista">
+      <li class="paso">
+        <span class="paso__num" aria-hidden="true" data-n="1">1</span>
+        <span class="paso__linea" aria-hidden="true"></span>
+        <div class="paso__texto">
+          <h3 class="paso__t"><span class="sr">Paso 1 de 5: </span>Escribís</h3>
+          <p>Nos contás por WhatsApp que querés agendar una visita.</p>
+        </div>
+        <figure class="chat">
+            <p class="chat__marco">Conversación de ejemplo · se arma para tu negocio</p>
+            <p class="chat__quien">Asistente de Consultorio Abril</p>
+            <ol class="chat__lista" data-chat>
+              <li class="globo globo--cliente"><span class="sr">Cliente: </span>Hola, ¿sos un bot? Quiero consultar por una limpieza</li>
+              <li class="globo globo--asistente"><span class="sr">Asistente de Consultorio Abril: </span>Sí, soy el asistente automático de Consultorio Abril. ¿Para qué día te gustaría el turno?</li>
+              <li class="globo globo--cliente"><span class="sr">Cliente: </span>¿Cuánto sale?</li>
+              <li class="globo globo--asistente"><span class="sr">Asistente de Consultorio Abril: </span>Te tomo los datos y el consultorio te confirma el turno y el valor. ¿Me pasás tu nombre?</li>
+              <li class="globo globo--cliente"><span class="sr">Cliente: </span>Soy <span class="hueco">nombre<span class="sr"> (cargado por el cliente)</span></span></li>
+              <li class="globo globo--asistente"><span class="sr">Asistente de Consultorio Abril: </span>Gracias, <span class="hueco">nombre<span class="sr"> (cargado por el cliente)</span></span>. Se lo paso a una persona del consultorio y te confirman por WhatsApp.</li>
+            </ol>
+            <figcaption class="linea-fija">Conversación de ejemplo (Demo). El asistente ayuda a agendar. Lo demás lo ve el consultorio. Si es una urgencia, llamá a emergencias.</figcaption>
+        </figure>
+      </li>
+      <li class="paso">
+        <span class="paso__num" aria-hidden="true" data-n="2">2</span>
+        <span class="paso__linea" aria-hidden="true"></span>
+        <div class="paso__texto">
+          <h3 class="paso__t"><span class="sr">Paso 2 de 5: </span>Te damos un horario</h3>
+          <p>El consultorio te confirma un horario.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <span class="paso__num" aria-hidden="true" data-n="3">3</span>
+        <span class="paso__linea" aria-hidden="true"></span>
+        <div class="paso__texto">
+          <h3 class="paso__t"><span class="sr">Paso 3 de 5: </span>Llegás</h3>
+          <p>Te esperamos en el consultorio, a la hora acordada.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <span class="paso__num" aria-hidden="true" data-n="4">4</span>
+        <span class="paso__linea" aria-hidden="true"></span>
+        <div class="paso__texto">
+          <h3 class="paso__t"><span class="sr">Paso 4 de 5: </span>Revisión del profesional</h3>
+          <p>El profesional te recibe y conversa con vos.</p>
+        </div>
+      </li>
+      <li class="paso">
+        <span class="paso__num" aria-hidden="true" data-n="5">5</span>
+        <span class="paso__linea" aria-hidden="true"></span>
+        <div class="paso__texto">
+          <h3 class="paso__t"><span class="sr">Paso 5 de 5: </span>Plan</h3>
+          <p>Con el profesional definen los pasos a seguir.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="seccion trat" id="tratamientos" aria-labelledby="h-trat">
+  <div class="trat__dentro">
+    <h2 id="h-trat" class="h2">Tratamientos</h2>
+    <p class="bajada">Tocá uno para ver de qué se trata. Todo lo define el profesional en la consulta.</p>
+    <div class="esqueleto" data-esqueleto aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <ul class="acc" data-acc data-acc-tipo="trat">
+      <li class="acc__item">
+        <h3 class="acc__t" data-acc-t>Limpieza</h3>
+        <div class="acc__panel" data-acc-panel>
+          <div class="acc__interior">
+            <p>Limpieza dental de rutina con el profesional.</p>
+            <div class="wa"><a class="btn btn--linea" data-wa href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Consultorio%20Abril%20(tratamiento%3A%20Limpieza)%20y%20quiero%20una%20web%20as%C3%AD." target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Consultar por WhatsApp</span></a><p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p><p class="wa__estado" data-wa-estado role="status"></p></div>
+          </div>
+        </div>
+      </li>
+      <li class="acc__item">
+        <h3 class="acc__t" data-acc-t>Ortodoncia</h3>
+        <div class="acc__panel" data-acc-panel>
+          <div class="acc__interior">
+            <p>Consulta de ortodoncia con el profesional.</p>
+            <div class="wa"><a class="btn btn--linea" data-wa href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Consultorio%20Abril%20(tratamiento%3A%20Ortodoncia)%20y%20quiero%20una%20web%20as%C3%AD." target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Consultar por WhatsApp</span></a><p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p><p class="wa__estado" data-wa-estado role="status"></p></div>
+          </div>
+        </div>
+      </li>
+      <li class="acc__item">
+        <h3 class="acc__t" data-acc-t>Blanqueamiento</h3>
+        <div class="acc__panel" data-acc-panel>
+          <div class="acc__interior">
+            <p>Consulta sobre blanqueamiento dental con el profesional.</p>
+            <div class="wa"><a class="btn btn--linea" data-wa href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Consultorio%20Abril%20(tratamiento%3A%20Blanqueamiento)%20y%20quiero%20una%20web%20as%C3%AD." target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Consultar por WhatsApp</span></a><p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p><p class="wa__estado" data-wa-estado role="status"></p></div>
+          </div>
+        </div>
+      </li>
+      <li class="acc__item">
+        <h3 class="acc__t" data-acc-t>Implantes</h3>
+        <div class="acc__panel" data-acc-panel>
+          <div class="acc__interior">
+            <p>Consulta sobre implantes dentales con el profesional.</p>
+            <div class="wa"><a class="btn btn--linea" data-wa href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Consultorio%20Abril%20(tratamiento%3A%20Implantes)%20y%20quiero%20una%20web%20as%C3%AD." target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Consultar por WhatsApp</span></a><p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p><p class="wa__estado" data-wa-estado role="status"></p></div>
+          </div>
+        </div>
+      </li>
+      <li class="acc__item">
+        <h3 class="acc__t" data-acc-t>Odontopediatría</h3>
+        <div class="acc__panel" data-acc-panel>
+          <div class="acc__interior">
+            <p>Atención odontológica para niñas y niños.</p>
+            <div class="wa"><a class="btn btn--linea" data-wa href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Consultorio%20Abril%20(tratamiento%3A%20Odontopediatr%C3%ADa)%20y%20quiero%20una%20web%20as%C3%AD." target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Consultar por WhatsApp</span></a><p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p><p class="wa__estado" data-wa-estado role="status"></p></div>
+          </div>
+        </div>
+      </li>
+      <li class="acc__item">
+        <h3 class="acc__t" data-acc-t>Urgencias</h3>
+        <div class="acc__panel" data-acc-panel>
+          <div class="acc__interior">
+            <p>Si es una urgencia, llamá a emergencias.</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <p class="linea-fija">Descripciones de ejemplo (Demo). Esto no reemplaza una consulta profesional.</p>
+  </div>
+</section>
+
+<section class="seccion equipo" id="equipo" aria-labelledby="h-equipo">
+  <div class="equipo__dentro">
+    <h2 id="h-equipo" class="h2">Equipo</h2>
+    <p class="bajada">Nombres y áreas de ejemplo (Demo). No son personas reales.</p>
+    <ul class="equipo__lista">
+      <li class="persona"><span class="persona__ini" aria-hidden="true">V</span><div><h3 class="persona__nombre">Valeria (ejemplo)</h3><p class="persona__area">Área de ejemplo: odontología general</p></div></li>
+      <li class="persona"><span class="persona__ini" aria-hidden="true">G</span><div><h3 class="persona__nombre">Gustavo (ejemplo)</h3><p class="persona__area">Área de ejemplo: ortodoncia</p></div></li>
+      <li class="persona"><span class="persona__ini" aria-hidden="true">L</span><div><h3 class="persona__nombre">Lorena (ejemplo)</h3><p class="persona__area">Área de ejemplo: niñas y niños</p></div></li>
+    </ul>
+    <p class="linea-fija">Equipo de ejemplo (Demo).</p>
+  </div>
+</section>
+
+<section class="seccion lugar" id="lugar" aria-labelledby="h-lugar">
+  <div class="lugar__dentro">
+    <h2 id="h-lugar" class="h2">El lugar</h2>
+    <p class="bajada">Fotos de ejemplo (Demo).</p>
+    <div class="lugar__estado" data-fotos-error hidden role="status"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-warning-circle"/></svg><span>No pudimos cargar las fotos. Probá de nuevo en un rato.</span><button class="btn btn--linea btn--s" type="button" data-reintentar-fotos>Reintentar</button></div>
+    <div class="lugar__mosaico">
+      <figure class="lugar__foto lugar__foto--sala">
+        <div class="lugar__marco"><img src="fotos/lugar-sala-480.webp" srcset="fotos/lugar-sala-480.webp 480w, fotos/lugar-sala-800.webp 800w" sizes="(min-width: 900px) 55vw, 92vw" width="480" height="320" loading="lazy" alt="Sala de espera con sillas azules, una mesa baja y un mostrador al fondo, sin personas" data-foto="Sala de espera"></div>
+        <figcaption>Sala de espera (Demo)</figcaption>
+      </figure>
+      <figure class="lugar__foto lugar__foto--instrumental">
+        <div class="lugar__marco"><img src="fotos/lugar-instrumental-480.webp" srcset="fotos/lugar-instrumental-480.webp 480w, fotos/lugar-instrumental-800.webp 800w" sizes="(min-width: 900px) 36vw, 92vw" width="480" height="360" loading="lazy" alt="Bandeja metálica con un espejo y otros instrumentos, en primer plano, sin personas" data-foto="Instrumental en una bandeja"></div>
+        <figcaption>Instrumental en una bandeja (Demo)</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="seccion preg" id="preguntas" aria-labelledby="h-preg">
+  <div class="preg__dentro">
+    <div class="preg__col">
+      <h2 id="h-preg" class="h2">Preguntas</h2>
+      <p class="bajada">Solo las prácticas. Lo demás lo conversás con el consultorio.</p>
+      <ul class="acc" data-acc data-acc-tipo="preg">
+        <li class="acc__item">
+          <h3 class="acc__t" data-acc-t>¿Cómo se paga?</h3>
+          <div class="acc__panel" data-acc-panel><div class="acc__interior"><p>Se puede pagar en efectivo o por transferencia (ejemplo).</p></div></div>
+        </li>
+        <li class="acc__item">
+          <h3 class="acc__t" data-acc-t>¿Puedo cambiar o cancelar mi horario?</h3>
+          <div class="acc__panel" data-acc-panel><div class="acc__interior"><p>Sí. Avisanos por WhatsApp y lo cambiamos para que otra persona pueda usarlo (ejemplo).</p></div></div>
+        </li>
+        <li class="acc__item">
+          <h3 class="acc__t" data-acc-t>¿Cómo llego?</h3>
+          <div class="acc__panel" data-acc-panel><div class="acc__interior"><p>Estamos en Zona Centro. Dirección de ejemplo. Abrí el mapa de abajo.</p></div></div>
+        </li>
+      </ul>
+      <p class="linea-fija">Respuestas de ejemplo (Demo). Cada consultorio define las suyas.</p>
+    </div>
+    <section class="contacto" id="contacto" aria-labelledby="h-contacto">
+      <h2 id="h-contacto" class="h2 h2--s">Dónde estamos</h2>
+      <p>Zona Centro. Dirección de ejemplo.</p>
+      <p>Lunes a viernes, 08:30 a 18:00; sábados, 08:30 a 12:30 (ejemplo). Domingos cerramos.</p>
+      <div class="contacto__mapa">
+        <button class="btn btn--linea" type="button" data-abrir-mapa aria-haspopup="dialog"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-map-pin"/></svg><span>Cómo llegar</span></button>
+        <p class="nota-wa">Mapa de ejemplo (Demo).</p>
+      </div>
+      <p class="contacto__urgencia"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-warning-circle"/></svg>Si es una urgencia, llamá a emergencias.</p>
+      <div class="wa"><a class="btn btn--sal" data-wa href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Consultorio%20Abril%20y%20quiero%20una%20web%20as%C3%AD." target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Agendar por WhatsApp</span></a><p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p><p class="wa__estado" data-wa-estado role="status"></p></div>
+    </section>
+  </div>
+</section>
 </main>
-<footer class="pie"><div class="ancho">
-<p>© 2026 Consultorio Dental Arandú (Demo). Negocio de ejemplo.</p>
-<p>Fotos de Pexels (licencia Pexels, uso libre): <a href="https://www.pexels.com/photo/dental-tool-set-305566/" rel="noopener" target="_blank">Daniel Frank<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/a-dental-equipment-in-the-clinic-6812453/" rel="noopener" target="_blank">Pavel Danilyuk<span class="solo-lector"> (se abre en otra pestaña)</span></a>.</p>
-<p>Letras: Figtree (licencia SIL OFL 1.1), alojadas en este sitio.</p>
-<p>Web hecha con Presencia Multitec</p>
-<div class="enlaces"><a href="../privacidad.html">Privacidad</a><a href="../">Ver otros rubros</a></div>
-</div></footer>
-<div class="barra-wa"><a class="btn btn-grande" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20odontolog%C3%ADa%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Pedir turno por WhatsApp</span></a><small>En esta demo, el botón te comunica con Multitec.</small></div>
-<dialog id="hoja" aria-labelledby="hoja-t"><h2 id="hoja-t" style="font-size:1.25rem">Así le llega a tu WhatsApp</h2><p class="hoja-msg" id="hoja-msg"></p><div class="acciones"><a class="btn" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20odontolog%C3%ADa%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener">Quiero una web así</a><button class="btn btn-borde" type="button" data-cerrar>Cerrar</button></div></dialog>
-<script src="../js/pro.js" defer></script>
-<script src="../js/chat.js?v=20261122" defer></script>
+
+<footer class="pie">
+  <div class="pie__dentro">
+    <p class="pie__linea pie__fotos"><span>Fotos (Pexels):</span><a href="https://www.pexels.com/photo/a-dental-equipment-in-the-clinic-6812453/" target="_blank" rel="noopener">Pavel Danilyuk</a><a href="https://www.pexels.com/photo/waiting-room-in-a-hospital-8459996/" target="_blank" rel="noopener">Los Muertos Crew</a><a href="https://www.pexels.com/photo/close-up-of-sterile-instruments-on-medical-tray-6627671/" target="_blank" rel="noopener">kaboompics</a></p>
+    <p class="pie__linea">Letras: Hanken Grotesk (SIL OFL 1.1), alojada en este sitio.</p>
+    <p class="pie__linea">Íconos: Phosphor Icons (MIT). Mapa: © colaboradores de OpenStreetMap.</p>
+    <p class="pie__linea">(Demo) Los datos de esta página son de ejemplo.</p>
+    <p class="pie__linea pie__links"><a href="CREDITOS.md" target="_blank" rel="noopener">Créditos</a><a href="https://fabian-acu.github.io/presencia-multitec-demo/" target="_blank" rel="noopener">Web de Multitec</a></p>
+  </div>
+</footer>
+<p class="pie-fijo">(Demo) Sitio de ejemplo. No reemplaza una consulta profesional.</p>
+
+<dialog class="hoja" id="hoja-mapa" aria-labelledby="mapa-t" data-hoja="mapa">
+  <div class="hoja__panel" data-panel>
+    <div class="hoja__cabeza"><span class="hoja__asa" aria-hidden="true"></span><button class="hoja__x" type="button" data-cerrar aria-label="Cerrar mapa"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-x"/></svg></button></div>
+    <div class="hoja__cuerpo">
+      <figure class="hoja__foto" data-mapa-foto>
+        <div class="hoja__mapa"><img src="fotos/mapa-gris.webp" width="600" height="450" loading="lazy" alt="Mapa de ejemplo en grises, sin nombres de calles" data-mapa-img><svg class="ico hoja__pin" aria-hidden="true" focusable="false"><use href="iconos.svg#i-map-pin"/></svg></div>
+        <figcaption>Mapa de ejemplo (Demo). © colaboradores de OpenStreetMap</figcaption>
+      </figure>
+      <div class="hoja__error" data-mapa-error hidden role="status"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-warning-circle"/></svg><span>No pudimos cargar el mapa. Probá de nuevo en un rato.</span><button class="btn btn--linea btn--s" type="button" data-reintentar-mapa>Reintentar</button></div>
+      <div class="hoja__texto">
+        <h2 id="mapa-t" class="h2 h2--s">Cómo llegar</h2>
+        <p>Zona Centro. Dirección de ejemplo.</p>
+        <p>Lunes a viernes, 08:30 a 18:00; sábados, 08:30 a 12:30 (ejemplo). Domingos cerramos.</p>
+        <p class="contacto__urgencia"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-warning-circle"/></svg>Si es una urgencia, llamá a emergencias.</p>
+      </div>
+    </div>
+    <div class="hoja__pie">
+      <div class="wa wa--hoja"><a class="btn btn--sal" data-wa href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Consultorio%20Abril%20y%20quiero%20una%20web%20as%C3%AD." target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Agendar por WhatsApp</span></a><p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p><p class="wa__estado" data-wa-estado role="status"></p></div>
+      <p class="hoja__demo">(Demo) Sitio de ejemplo. No reemplaza una consulta profesional.</p>
+    </div>
+  </div>
+</dialog>
+
+<script src="js/nucleo.js?v=20261123" defer></script>
+<script src="js/acordeon.js?v=20261123" defer></script>
+<script src="js/hoja.js?v=20261123" defer></script>
+<script src="js/chat.js?v=20261123" defer></script>
+<script src="js/estados.js?v=20261123" defer></script>
+<script src="cinta/cinta.js?v=20261123" defer></script>
 </body>
 </html>

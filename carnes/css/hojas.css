@@ -1,0 +1,45 @@
+/* El Filo (Demo): hojas (<dialog>). Abajo en celular, panel lateral en compu. El ticket baja desde arriba (ticket.css). */
+html:has(dialog[open]) { overflow: hidden; }
+dialog.hoja { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: var(--sal); overflow: hidden; }
+dialog.hoja::backdrop { background: var(--fondo-modal); opacity: 0; transition: opacity 250ms var(--salida); }
+dialog.hoja.visible::backdrop { opacity: 1; }
+.hoja__panel { position: absolute; display: flex; flex-direction: column; background: var(--tabla); }
+.hoja--abajo .hoja__panel { left: 0; right: 0; bottom: 0; max-height: 90svh; border-top: 1px solid var(--niebla); transform: translateY(100%); transition: transform 400ms var(--hoja); }
+.hoja--abajo.visible .hoja__panel { transform: none; }
+.hoja__cabeza { position: relative; display: grid; place-items: center; min-height: 44px; flex: none; touch-action: none; cursor: grab; }
+.hoja__asa { width: 40px; height: 4px; border-radius: 2px; background: var(--niebla); }
+.hoja__x { position: absolute; right: 4px; top: 0; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; color: inherit; }
+.hoja__x .icono { width: 22px; height: 22px; }
+.hoja__scroll { display: flex; flex-direction: column; gap: 14px; min-height: 0; padding: 4px var(--gutter) 28px; overflow: auto; overscroll-behavior: contain; }
+.hoja__scroll > * { flex: none; min-width: 0; }
+.det__t { font-size: clamp(1.9rem, 8vw, 2.75rem); }
+.det__fijo { font-size: .9375rem; color: var(--humo); }
+/* la foto va arriba con alto propio y el texto empieza debajo: nunca se pisan */
+.det__foto { position: relative; width: 100%; height: clamp(200px, 38svh, 380px); overflow: hidden; background: var(--tabla); }
+.det__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.det__foto .falta { position: absolute; inset: 0; }
+.det { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.det dt { font: 500 12px/1 var(--mono); color: var(--humo); text-transform: uppercase; margin-bottom: 4px; }
+.det dd { font-size: 1.125rem; }
+.det dd.mono { font-size: 14px; }
+.det__fila { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.campo { display: grid; gap: 8px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.campo legend, .campo label { padding: 0; font: 500 12px/1.2 var(--mono); text-transform: uppercase; color: var(--humo); }
+.det__cant { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.det__cant-t { font: 500 12px/1 var(--mono); color: var(--humo); text-transform: uppercase; }
+.local__mapa--g { aspect-ratio: 4 / 3; }
+/* barra de cantidad y Sumar fijas al pie de la hoja del detalle */
+.hoja__panel > .hoja__scroll { flex: 1 1 auto; }
+.hoja__pie { flex: none; display: grid; gap: 12px; padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom)); border-top: 1px solid var(--hueso); background: var(--tabla); }
+@media (min-width: 900px) {
+  .hoja--abajo .hoja__panel { left: auto; top: 0; bottom: 0; width: min(460px, 100vw); max-height: none; border-top: 0; border-left: 1px solid var(--niebla); transform: translateX(100%); transition-duration: 300ms; }
+  .hoja--abajo.visible .hoja__panel { transform: none; }
+  .hoja__cabeza { cursor: default; min-height: 52px; }
+  .hoja__asa { display: none; }
+  .hoja__x { top: 4px; right: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  dialog.hoja::backdrop { transition-duration: 150ms !important; }
+  .hoja--abajo .hoja__panel { transform: none; opacity: 0; transition: opacity 150ms linear; }
+  .hoja--abajo.visible .hoja__panel { opacity: 1; }
+}

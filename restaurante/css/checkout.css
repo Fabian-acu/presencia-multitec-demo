@@ -1,0 +1,20 @@
+/* La Ajicera (Demo): datos y entrega. */
+.hoja__form { display: flex; flex-direction: column; min-height: 0; flex: 1 1 auto; }
+.hoja__form .hoja__cuerpo { flex: 1 1 auto; min-height: 0; }
+.entrega { display: grid; gap: var(--s4); }
+.entrega[hidden] { display: none; }
+.mapa-sim { margin: 0; display: grid; gap: var(--s2); }
+.mapa-sim__lienzo { position: relative; border-radius: var(--r); overflow: hidden; background: var(--surface); }
+.mapa-sim__lienzo img { width: 100%; height: auto; }
+.mapa-sim__pin {
+  position: absolute; left: 0; top: 0; width: 36px; height: 36px; color: var(--aji);
+  --x: 50; --y: 50;
+  transform: translate(calc(var(--x) * 1cqw - 18px), calc(var(--y) * 1cqh - 36px));
+  transition: transform 320ms var(--salida-fuerte), opacity 200ms var(--salida-fuerte);
+}
+.mapa-sim__pin.sin-zona { opacity: 0; }
+.mapa-sim__lienzo { container-type: size; aspect-ratio: 4 / 3; }
+.mapa-sim__lienzo img { height: 100%; object-fit: cover; }
+.pie-total { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s3); }
+.pie-total strong { font: 800 1.25rem/1.2 var(--f-display); font-stretch: 110%; }
+@media (prefers-reduced-motion: reduce) { .mapa-sim__pin { transition: none; } }

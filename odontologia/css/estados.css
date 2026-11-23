@@ -1,0 +1,20 @@
+/* Consultorio Abril (Demo): estados. Sin conexion, fotos que fallan, cargando (?estado=cargando), nada de datos de salud. */
+
+/* sin conexion: aviso fijo sobre el pie fijo y por encima del boton flotante de la cinta */
+.aviso-red { position: fixed; left: 16px; right: 16px; bottom: calc(var(--alto-pie-fijo) + 72px + env(safe-area-inset-bottom)); z-index: var(--z-red); display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; max-width: 520px; margin: 0 auto; padding: 14px 16px; border-radius: var(--radio); background: var(--tinta); color: var(--blanco); }
+.aviso-red span { flex: 1 1 12rem; min-width: 0; }
+.aviso-red .btn--linea { color: var(--blanco); border-color: var(--blanco); }
+@media (hover: hover) { .aviso-red .btn--linea:hover { background: var(--velo-claro); } }
+
+/* fotos que fallan */
+.lugar__estado { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; margin: -16px 0 24px; padding: 14px 16px; border-radius: var(--radio); background: var(--niebla); color: var(--error); font-weight: 500; }
+.lugar__estado span { flex: 1 1 14rem; min-width: 0; }
+
+/* cargando: seis filas rectangulares sin texto, con la misma altura que la lista */
+html[data-estado="cargando"] .esqueleto { display: block; border-top: 1px solid var(--filete); }
+html[data-estado="cargando"] .acc[data-acc-tipo="trat"] { display: none; }
+.esqueleto span { display: block; height: 65px; border-bottom: 1px solid var(--filete); background: var(--porcelana); }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-estado="cargando"] .esqueleto span { animation: respirar 1.3s ease-in-out infinite alternate; }
+  @keyframes respirar { from { opacity: 1; } to { opacity: 0.45; } }
+}

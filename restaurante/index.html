@@ -1,65 +1,649 @@
 <!doctype html>
-<html lang="es-PY" data-tema="restaurante" data-base="../">
+<html lang="es-PY">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'">
 <meta name="robots" content="noindex, nofollow">
-<title>Comedor Tape Porã (Demo) | Ejemplo de web para restaurante</title>
-<meta name="description" content="Demo de página web para un restaurante: carta con fotos, pedido de prueba, horarios y WhatsApp. Es un ejemplo de Presencia Multitec.">
-<meta name="theme-color" content="#ffffff">
+<title>La Ajicera (Demo) | Cocina a la brasa y ají de la casa</title>
+<meta name="description" content="Demo de una web para restaurante hecha por Multitec: carta, pedido y reserva de ejemplo.">
+<meta name="theme-color" content="#C2361A">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_PY">
-<meta property="og:site_name" content="Presencia Multitec (Demo)">
-<meta property="og:title" content="Comedor Tape Porã (Demo) | Ejemplo de web para restaurante">
-<meta property="og:description" content="Demo de página web para un restaurante: carta con fotos, pedido de prueba, horarios y WhatsApp. Es un ejemplo de Presencia Multitec.">
+<meta property="og:title" content="La Ajicera (Demo) | Cocina a la brasa y ají de la casa">
+<meta property="og:description" content="Demo de una web para restaurante hecha por Multitec: carta, pedido y reserva de ejemplo.">
 <meta property="og:url" content="https://fabian-acu.github.io/presencia-multitec-demo/restaurante/">
-<meta property="og:image" content="https://fabian-acu.github.io/presencia-multitec-demo/fotos/restaurante/og.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Milanesa dorada con ensalada fresca en plato blanco">
+<meta property="og:image" content="https://fabian-acu.github.io/presencia-multitec-demo/restaurante/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" as="font" type="font/woff2" href="../fonts/bricolage-700.woff2" crossorigin>
-<link rel="preload" as="image" imagesrcset="../fotos/restaurante/portada-480.webp 480w, ../fotos/restaurante/portada-720.webp 720w, ../fotos/restaurante/portada-960.webp 960w" imagesizes="(min-width: 900px) 520px, 100vw" fetchpriority="high">
-<link rel="icon" type="image/png" sizes="32x32" href="../fotos/marca/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="../fotos/marca/favicon-48.png">
-<link rel="apple-touch-icon" href="../fotos/marca/apple-touch-180.png">
-<style> @font-face{font-family:"Bricolage Grotesque";font-weight:700;font-style:normal;font-display:swap;src:url("../fonts/bricolage-700.woff2") format("woff2");}@font-face{font-family:"Figtree";font-weight:400;font-style:normal;font-display:swap;src:url("../fonts/figtree-400.woff2") format("woff2");}@font-face{font-family:"Figtree";font-weight:600;font-style:normal;font-display:swap;src:url("../fonts/figtree-600.woff2") format("woff2");}:root,[data-tema="selector"]{--bg:#ffffff;--surface:#ffffff;--surface-2:#f4f4f5;--ink:#18181b;--ink-2:#52525b;--line:#e4e4e7;--acento:#18181b;--acento-ink:#ffffff;--acento-txt:#18181b;--r:12px;--rb:12px;--font:"Figtree",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Bricolage Grotesque",var(--font);--h-peso:700;--h-caso:none;--h-track:-0.02em;--btn-peso:600;--wa:#0A7D5E;--wa-ink:#ffffff;--wa-fondo-chat:#eaf0ed;--chat-burbuja:#ffffff;--chat-txt:#18181b;--chat-txt-2:#52525b;--chat-linea:#d3dcd8;--chat-hueco:#e4e8e6;--ico-anillo:transparent;--ease-out:cubic-bezier(0.23,1,0.32,1);--dur-micro:160ms;--dur-ui:240ms;--dur-hero:600ms;--dur-globo:220ms;}[data-tema="restaurante"]{--acento:#c2410c;--acento-ink:#ffffff;--acento-txt:#c2410c;}[data-tema="panaderia"]{--bg:#ffffff;--surface:#ffffff;--surface-2:#f5f5f4;--ink:#1f1f1f;--ink-2:#555555;--line:#e5e5e3;--acento:#f2b705;--acento-ink:#1f1f1f;--acento-txt:#8a5a00;--ico-anillo:var(--ink);--r:16px;--rb:16px;--font:"Work Sans",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Young Serif",Georgia,serif;--h-peso:400;--h-track:-0.01em;}[data-tema="carnes"]{--bg:#141414;--surface:#1f1f1f;--surface-2:#1b1b1b;--ink:#f2f2f2;--ink-2:#b8b8b8;--line:#333333;--acento:#c62828;--acento-ink:#ffffff;--acento-txt:#ff6b63;--r:6px;--rb:6px;--font:"Archivo",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Anton",Impact,"Arial Narrow",sans-serif;--h-peso:400;--h-caso:uppercase;--h-track:0.01em;}[data-tema="materiales"]{--bg:#f4f4f5;--surface:#ffffff;--surface-2:#e8e8ea;--ink:#111111;--ink-2:#4b4b52;--line:#d4d4d8;--acento:#ffcc00;--acento-ink:#111111;--acento-txt:#111111;--ico-anillo:var(--ink);--r:4px;--rb:4px;--font:"Barlow",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Barlow Semi Condensed","Arial Narrow",var(--font);--h-peso:700;--h-track:-0.005em;}[data-tema="ropa"]{--acento:#c2185b;--acento-ink:#ffffff;--acento-txt:#c2185b;--ink:#111111;--r:0px;--rb:999px;--font:"Outfit",system-ui,"Segoe UI",Arial,sans-serif;--font-h:var(--font);--h-peso:600;--h-track:-0.02em;}[data-tema="salon"]{--acento:#2b47b8;--acento-ink:#ffffff;--acento-txt:#2b47b8;--r:14px;--rb:999px;}[data-tema="odontologia"]{--bg:#ffffff;--surface:#ffffff;--surface-2:#f2f6f6;--ink:#182022;--ink-2:#4a5658;--line:#dde5e6;--acento:#00707a;--acento-ink:#ffffff;--acento-txt:#00707a;--r:10px;--rb:10px;--font-h:var(--font);--h-peso:600;--h-track:-0.015em;}[data-tema="taller"]{--bg:#17181a;--surface:#212326;--surface-2:#1d1f21;--ink:#f1f1f0;--ink-2:#b5b8bb;--line:#34373b;--acento:#f26b21;--acento-ink:#151617;--acento-txt:#f26b21;--r:6px;--rb:6px;--font:"Barlow",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Barlow Semi Condensed","Arial Narrow",var(--font);--h-peso:700;--h-caso:uppercase;--h-track:0.01em;}*,*::before,*::after{box-sizing:border-box;}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:1rem;line-height:1.55;padding-bottom:calc(112px + env(safe-area-inset-bottom));}h1,h2,h3,p,ul,figure,dl,dd{margin:0;}ul{padding:0;list-style:none;}img{display:block;max-width:100%;height:auto;}a{color:inherit;}.ancho{width:100%;max-width:1120px;margin-inline:auto;padding-inline:20px;}:focus-visible{outline:3px solid var(--acento-txt);outline-offset:3px;}.solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}.saltar{position:absolute;left:8px;top:-60px;z-index:100;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:var(--r);}.saltar:focus{top:8px;}h1,h2,h3,.marca{font-family:var(--font-h);font-weight:var(--h-peso);letter-spacing:var(--h-track);text-transform:var(--h-caso);text-wrap:balance;}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;background:var(--acento);color:var(--acento-ink);border:2px solid var(--acento);border-radius:var(--rb);font:inherit;font-weight:var(--btn-peso);text-decoration:none;text-align:center;cursor:pointer;touch-action:manipulation;transition:transform .12s cubic-bezier(.16,1,.3,1),filter .15s;}.btn:hover{filter:brightness(1.07);}.btn:active{transform:scale(.98);}.btn .ico{box-sizing:content-box;width:20px;height:20px;padding:4px;flex:none;color:var(--wa);background:var(--wa-ink);border-radius:50%;box-shadow:0 0 0 1.5px var(--ico-anillo);}.btn-grande{min-height:56px;padding:0 32px;font-size:1.0625rem;}.btn-chico{min-height:44px;padding:0 18px;}.btn-borde{background:transparent;color:var(--ink);border-color:var(--ink);}.btn[hidden]{display:none;}.btn[disabled]{opacity:.5;cursor:not-allowed;}.enlace{display:inline-flex;align-items:center;min-height:44px;font-weight:600;text-underline-offset:4px;text-decoration-thickness:2px;text-decoration-color:var(--acento-txt);}.demo-franja{background:var(--ink);color:var(--bg);text-align:center;font-size:.8125rem;font-weight:600;padding:8px 12px;line-height:1.3;}.demo-franja a{text-decoration-thickness:2px;text-underline-offset:3px;padding-block:6px;}.cab{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);}.cab-in{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;}.marca{font-size:1rem;line-height:1.2;text-decoration:none;display:inline-flex;align-items:center;min-height:44px;}.cab-der{display:flex;align-items:center;gap:14px;flex:0 1 auto;max-width:48%;}.estado{font-size:.8125rem;font-weight:600;color:var(--ink-2);text-align:right;line-height:1.25;}.estado.abierto{color:var(--ink);}.estado.abierto::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--wa);margin-right:6px;}.cab-wa{display:none;}.portada{display:grid;gap:0;}.portada-foto{margin-inline:calc(-1 * 20px);aspect-ratio:4 / 3;background:var(--surface-2);overflow:hidden;order:-1;}.portada-foto img{width:100%;height:100%;object-fit:cover;}.portada-txt{display:grid;gap:14px;padding-block:24px 32px;align-content:center;}.rubro{color:var(--acento-txt);font-weight:600;}h1{font-size:clamp(2rem,1.1rem + 4.4vw,3.75rem);line-height:1.05;}.sub{font-size:1.0625rem;color:var(--ink-2);max-width:46ch;text-wrap:pretty;}.acciones{display:flex;flex-wrap:wrap;align-items:center;gap:4px 24px;margin-top:6px;}.acciones-par{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;max-width:380px;}.acciones-par .btn{width:100%;}.nota-demo{font-size:.8125rem;color:var(--ink-2);}section[id]{scroll-margin-top:80px;}.sec{padding-block:48px;}.sec-titulo{font-size:clamp(1.625rem,1rem + 2.4vw,2.5rem);line-height:1.12;margin-bottom:10px;}.sec-sub{color:var(--ink-2);margin-bottom:24px;max-width:56ch;}.sec-alt{background:var(--surface-2);}.tarjetas{display:grid;gap:20px;}.tarjeta{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;}.tarjeta-foto{aspect-ratio:4 / 3;background:var(--surface-2);overflow:hidden;}.tarjeta-foto img{width:100%;height:100%;object-fit:cover;}.tarjeta-txt{padding:16px 18px 18px;display:grid;gap:6px;align-content:start;flex:1;}.tarjeta h3{font-size:1.25rem;line-height:1.2;}.tarjeta p{color:var(--ink-2);font-size:.9688rem;}.precio{white-space:nowrap;color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;}.tarjeta-pie{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:10px;flex-wrap:wrap;}.tarjeta[hidden],.ficha[hidden]{display:none;}.filas{display:grid;gap:10px;}.fila{display:grid;grid-template-columns:104px 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px;align-items:stretch;}.fila[hidden]{display:none;}.fila-foto{width:104px;height:104px;border-radius:calc(var(--r) - 4px);overflow:hidden;background:var(--surface-2);align-self:center;}.fila-foto img{width:100%;height:100%;object-fit:cover;}.fila-txt{display:flex;flex-direction:column;min-width:0;}.fila h3{font-size:1.0625rem;line-height:1.2;}.fila p{color:var(--ink-2);font-size:.875rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}.fila .tarjeta-pie{margin-top:auto;padding-top:6px;min-height:52px;flex-wrap:nowrap;}.chips-fijos{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;position:sticky;top:60px;z-index:15;background:var(--bg);padding-block:10px;margin-block:0 8px;}.tarjetas-2{grid-template-columns:repeat(2,1fr);gap:12px;}@media (max-width:639px){.tarjetas-2 .tarjeta-txt{padding:12px;}.tarjetas-2 h3{font-size:1.0625rem;}.tarjetas-2 .tarjeta-pie{flex-direction:column;align-items:stretch;}.tarjetas-2 .btn{width:100%;}}.servicios{display:grid;gap:10px;}.servicio{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px 12px 18px;}.servicio[hidden]{display:none;}.servicio>div{min-width:0;}.servicio h3{font-size:1.0625rem;line-height:1.2;}.servicio p{color:var(--ink-2);font-size:.9375rem;margin-top:2px;}.servicio .btn{flex:none;background:transparent;color:var(--acento-txt);border-color:var(--acento-txt);}.servicios-uno{max-width:720px;}.galeria{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}.galeria li{position:relative;overflow:hidden;aspect-ratio:4 / 5;border-radius:var(--r);background:var(--surface-2);}.galeria li:first-child{grid-column:1 / -1;aspect-ratio:4 / 3;}.galeria img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}.chip{flex:none;min-height:44px;padding:0 18px;border:2px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-weight:600;cursor:pointer;touch-action:manipulation;}.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);}.buscador{display:grid;gap:8px;margin-bottom:16px;}.buscador label{font-weight:600;}.buscador input{width:100%;min-height:52px;padding:0 16px;font:inherit;font-size:1.0625rem;color:var(--ink);background:var(--surface);border:2px solid var(--ink);border-radius:var(--r);}.contador{color:var(--ink-2);font-size:.875rem;margin-bottom:12px;}.vacio{padding:28px;border:2px dashed var(--line);border-radius:var(--r);display:grid;gap:14px;justify-items:start;}.vacio[hidden]{display:none;}.fichas{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}.ficha{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);display:flex;flex-direction:column;overflow:hidden;}.ficha-foto{aspect-ratio:1;background:var(--surface-2);}.ficha-foto img{width:100%;height:100%;object-fit:cover;}.ficha-txt{padding:12px;display:grid;gap:8px;flex:1;align-content:space-between;}.ficha h3{font-size:1.0625rem;line-height:1.2;}.ficha .btn{width:100%;min-height:44px;padding:0 10px;font-size:.9375rem;}.vidriera{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 12px;}.prenda-foto{aspect-ratio:4 / 5;background:var(--surface-2);overflow:hidden;}.prenda-foto img{width:100%;height:100%;object-fit:cover;}.prenda h3{font-size:1.0625rem;margin-top:10px;line-height:1.2;}.prenda p{color:var(--ink-2);font-size:.9063rem;margin:2px 0 8px;}.prenda .btn{width:100%;min-height:44px;padding:0 8px;font-size:.9375rem;}.banda{display:grid;gap:20px;align-items:center;}.banda-foto{overflow:hidden;border-radius:var(--r);background:var(--surface-2);aspect-ratio:4 / 3;}.banda-foto img{width:100%;height:100%;object-fit:cover;}.banda-txt{display:grid;gap:14px;justify-items:start;}.banda-txt p{color:var(--ink-2);max-width:52ch;}.duo{display:grid;gap:12px;}.duo .banda-foto{aspect-ratio:4 / 3;}.horneadas{display:grid;gap:0;background:var(--surface-2);color:var(--ink);border:1px solid var(--line);border-radius:var(--r);padding:4px 20px;}.horneadas li{display:flex;justify-content:space-between;gap:16px;padding-block:14px;}.horneadas li + li{border-top:1px solid var(--line);}.horneadas b{font-variant-numeric:tabular-nums;color:var(--acento-txt);}.pasos{display:grid;gap:10px;counter-reset:p;}.pasos li{padding-left:0;color:var(--ink-2);}.pasos li strong{color:var(--ink);}.calif{display:grid;gap:20px;}.calif-res{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}.calif-num{font-family:var(--font-h);font-size:3rem;line-height:1;font-weight:var(--h-peso);}.estrellas{color:#b45309;letter-spacing:2px;font-size:1.125rem;line-height:1;}.calif-cant{color:var(--ink-2);font-size:.9063rem;}.resenas{display:grid;gap:12px;}.resena{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:grid;gap:6px;}.resena-cab{display:flex;align-items:center;gap:10px;font-weight:600;}.resena-ini{width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:.875rem;}.resena p{color:var(--ink-2);font-size:.9688rem;}.sec-alt .resena{background:var(--bg);}.dos{display:grid;gap:40px;}.horarios li{display:flex;justify-content:space-between;gap:16px;padding:13px 10px;border-radius:var(--r);}.horarios li + li{border-top:1px solid var(--line);}.horarios li.hoy{background:var(--surface-2);font-weight:600;}.hora{font-variant-numeric:tabular-nums;font-weight:600;text-align:right;}.lugar{display:grid;gap:14px;align-content:start;justify-items:start;}.mapa-fachada{position:relative;width:100%;aspect-ratio:4 / 3;border-radius:var(--r);overflow:hidden;background:var(--surface-2);border:1px solid var(--line);}.mapa-fachada img{width:100%;height:100%;object-fit:cover;}.mapa-fachada iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}.mapa-pin{position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--acento);border:3px solid #fff;box-shadow:0 2px 8px rgb(0 0 0 / .4);}.mapa-leyenda{position:absolute;left:10px;top:10px;background:#fff;color:#111;font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:999px;}.mapa-boton{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);}.mapa-attr{font-size:.75rem;color:var(--ink-2);}.mapa-attr a{padding-block:10px;display:inline-block;}.dir{font-size:1.0625rem;}.cierre{background:var(--ink);color:var(--bg);padding-block:64px;}.cierre .ancho{display:grid;gap:22px;justify-items:start;}.cierre-titulo{font-size:clamp(1.875rem,1rem + 3.4vw,3.25rem);line-height:1.08;max-width:18ch;}.cierre .btn-borde{color:var(--bg);border-color:var(--bg);}.pie{padding-block:32px;color:var(--ink-2);font-size:.875rem;}.pie .ancho{display:grid;gap:4px;}.pie a{text-underline-offset:3px;}.pie .enlaces a{display:inline-block;padding-block:10px;}.pie .enlaces{display:flex;flex-wrap:wrap;gap:0 20px;}.barra-wa{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line);box-shadow:0 -6px 18px rgb(0 0 0 / .08);}.barra-wa .btn{width:100%;}.barra-wa small{display:block;text-align:center;font-size:.75rem;color:var(--ink-2);margin-top:6px;}.barra-wa.con-js{transform:translateY(100%);visibility:hidden;transition:transform .3s cubic-bezier(.16,1,.3,1),visibility 0s .3s;}.barra-wa.con-js.visible{transform:none;visibility:visible;transition:transform .3s cubic-bezier(.16,1,.3,1);}dialog#hoja{border:0;border-radius:var(--r);padding:24px;max-width:min(92vw,420px);background:var(--bg);color:var(--ink);}dialog#hoja::backdrop{background:rgb(0 0 0 / .55);}dialog#hoja .hoja-msg{margin-block:12px 18px;padding:14px 16px;background:var(--surface-2);border-radius:var(--r);font-weight:600;}dialog#hoja .acciones{display:grid;gap:8px;}.sec-chat{border-top:1px solid var(--line);scroll-margin-top:72px;}.chat-sec{display:grid;gap:24px;grid-template-areas:"intro" "chat" "cta";}.chat-intro{grid-area:intro;}.chat-col{grid-area:chat;}.chat-cta{grid-area:cta;display:grid;gap:10px;justify-items:start;}.chat-intro .sec-sub{margin-bottom:0;}.chat{max-width:420px;background:var(--wa-fondo-chat);border:1px solid var(--chat-linea);border-radius:var(--r);overflow:hidden;color:var(--chat-txt);}.chat-cab{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--chat-burbuja);border-bottom:1px solid var(--chat-linea);}.chat-av{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:var(--acento);color:var(--acento-ink);font-family:var(--font-h);font-weight:var(--h-peso);font-size:1.125rem;line-height:1;}.chat-av img{width:100%;height:100%;object-fit:cover;}.chat-quien{display:grid;gap:2px;min-width:0;}.chat-quien strong{font-size:1rem;line-height:1.2;color:var(--chat-txt);}.chat-quien small{font-size:.8125rem;line-height:1.3;color:var(--chat-txt-2);}.chat-lista{display:grid;gap:10px;padding:16px 14px 18px;}.g{position:relative;display:flex;}.g-c{justify-content:flex-end;}.g-sep{justify-content:center;}.g-cont{display:flex;flex-direction:column;gap:4px;max-width:88%;}.g-c .g-cont{align-items:flex-end;}.g-a .g-cont{align-items:flex-start;}.g-txt{padding:10px 14px;font-size:1rem;line-height:1.4;text-wrap:pretty;border-radius:var(--r);}.g-c .g-txt{background:var(--chat-burbuja);color:var(--chat-txt);border:1px solid var(--chat-linea);border-top-right-radius:calc(var(--r) / 3);}.g-a .g-txt{background:var(--wa);color:var(--wa-ink);border-top-left-radius:calc(var(--r) / 3);}.g-meta{font-size:.75rem;line-height:1.3;color:var(--chat-txt-2);}.g-chip{padding:2px 10px;border:1px solid var(--chat-linea);border-radius:999px;background:var(--chat-burbuja);}.g-hueco{padding:0 6px;border-radius:6px;background:var(--chat-hueco);color:var(--chat-txt);box-decoration-break:clone;-webkit-box-decoration-break:clone;}.g-chips .g-cont{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;max-width:100%;}.chat-chip{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:6px 12px;line-height:1.25;text-align:center;background:var(--chat-burbuja);color:var(--wa);border:2px solid var(--wa);border-radius:999px;font-weight:600;text-decoration:none;touch-action:manipulation;transition:transform var(--dur-micro) var(--ease-out);}.chat-chip:active{transform:scale(.97);}.chat-chip:focus-visible,.chat-otra:focus-visible{outline-color:var(--chat-txt);}.btn-wa{background:var(--wa);border-color:var(--wa);color:var(--wa-ink);}.chat-cta .btn{width:100%;padding:0 20px;font-size:1rem;}.chat-pie{display:flex;justify-content:flex-end;min-height:44px;padding:0 8px 8px;}.chat-otra{visibility:hidden;opacity:0;min-height:44px;padding:0 12px;background:none;border:0;color:var(--chat-txt-2);font:inherit;font-weight:600;text-decoration:underline;text-underline-offset:4px;cursor:pointer;touch-action:manipulation;}.chat-pie.lista .chat-otra{visibility:visible;opacity:1;transition:opacity var(--dur-micro) var(--ease-out);}.g-typing{display:none;position:absolute;left:0;top:0;gap:5px;padding:15px 16px;background:var(--wa);border-radius:var(--r);border-top-left-radius:calc(var(--r) / 3);}.g-typing i{width:7px;height:7px;border-radius:50%;background:var(--wa-ink);}@media (min-width:900px){.chat-sec{grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;grid-template-areas:"intro chat" "cta chat";column-gap:56px;row-gap:28px;align-items:start;}.chat-intro{align-self:end;}.chat-col{justify-self:end;width:100%;max-width:420px;}.chat-cta .btn{width:auto;}}.rubros{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}.rubros li{display:flex;}.rubro-card{display:block;width:100%;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;}.rubro-card .tarjeta-foto{aspect-ratio:4 / 5;}.rubro-card .rc-nom{display:block;padding:14px 14px 2px;font-family:var(--font-h);font-weight:700;font-size:1.0625rem;line-height:1.2;}.rubro-card small{display:block;padding:0 14px 16px;color:var(--ink-2);font-size:.875rem;line-height:1.35;}.rubro-card:hover{border-color:var(--ink);}.sel-cab{padding-block:40px 28px;display:grid;gap:12px;}.sel-cab .enlace{justify-self:start;}@media (min-width:640px){.ancho{padding-inline:32px;}.portada-foto{margin-inline:-32px;}.tarjetas{grid-template-columns:repeat(2,1fr);}.filas{grid-template-columns:repeat(2,1fr);gap:12px;}.fichas{grid-template-columns:repeat(3,1fr);gap:16px;}.vidriera{grid-template-columns:repeat(3,1fr);gap:20px 16px;}.rubros{grid-template-columns:repeat(3,1fr);}.rubros.rubros-4{grid-template-columns:repeat(4,1fr);}.resenas{grid-template-columns:repeat(3,1fr);}.servicios{grid-template-columns:repeat(2,1fr);gap:12px;}.servicios.servicios-uno{grid-template-columns:1fr;}.galeria{grid-template-columns:repeat(3,1fr);gap:16px;}.galeria li:first-child{grid-column:span 2;aspect-ratio:auto;}.duo{grid-template-columns:1fr 1fr;}}@media (min-width:900px){body{padding-bottom:0;}.barra-wa{display:none;}.cab-wa{display:inline-flex;}.portada{grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding-block:40px 56px;}.portada-foto{margin-inline:0;aspect-ratio:5 / 4;border-radius:var(--r);order:0;}.portada-txt{padding-block:0;}.sec{padding-block:80px;}.tarjetas{grid-template-columns:repeat(3,1fr);gap:24px;}.tarjetas-2{grid-template-columns:repeat(3,1fr);}.fichas{grid-template-columns:repeat(4,1fr);}.vidriera{grid-template-columns:repeat(4,1fr);}.rubros{grid-template-columns:repeat(5,1fr);}.rubros.rubros-3{grid-template-columns:repeat(3,1fr);}.banda{grid-template-columns:1fr 1fr;gap:56px;}.dos{grid-template-columns:1fr 1fr;gap:72px;}.calif{grid-template-columns:240px 1fr;gap:48px;align-items:start;}.resenas{grid-template-columns:repeat(3,1fr);}.cierre{padding-block:96px;}}@media (prefers-reduced-motion:no-preference){.rv{opacity:0;transform:translateY(10px);}.rv.in{opacity:1;transform:none;transition:opacity .35s ease-out var(--d,0ms),transform .4s cubic-bezier(.25,1,.5,1) var(--d,0ms);}}@media (prefers-reduced-motion:no-preference){.chat.anim .g-cont{opacity:0;transform:translateY(8px);}.chat.anim .g-chips:not(.in) .g-cont{visibility:hidden;}.chat.anim .g.in .g-cont{opacity:1;transform:none;transition:opacity var(--dur-globo) var(--ease-out),transform var(--dur-globo) var(--ease-out);}.chat.anim .g.escribiendo .g-typing{display:flex;}.g-typing i{animation:chat-punto 1s ease-in-out infinite;}.g-typing i:nth-child(2){animation-delay:.15s;}.g-typing i:nth-child(3){animation-delay:.3s;}}@keyframes chat-punto{0%,60%,100%{transform:translateY(0);opacity:.5;}30%{transform:translateY(-4px);opacity:1;}}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}.btn,.barra-wa.con-js,.barra-wa.con-js.visible,.chat-chip,.chat-pie.lista .chat-otra{transition:none;}.g-typing{display:none !important;}}</style>
+<link rel="icon" href="data:,">
+<link rel="preload" href="fuentes/anybody-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="fotos/hero-brasa-720.webp" imagesrcset="fotos/hero-brasa-720.webp 720w, fotos/hero-brasa-1080.webp 1080w" imagesizes="(min-width: 900px) 440px, 100vw" fetchpriority="high">
+<link rel="stylesheet" href="cinta/cinta.css?v=20261122">
+<link rel="stylesheet" href="css/base.css?v=20261122">
+<link rel="stylesheet" href="css/carta.css?v=20261122">
+<link rel="stylesheet" href="css/hojas.css?v=20261122">
+<link rel="stylesheet" href="css/pedido.css?v=20261122">
+<link rel="stylesheet" href="css/checkout.css?v=20261122">
+<link rel="stylesheet" href="css/seguimiento.css?v=20261122">
 </head>
 <body>
-<a class="saltar" href="#contenido">Saltar al contenido</a>
-<div class="demo-franja" role="note">Ejemplo: este negocio no existe. <a href="../">Ver otros rubros</a></div>
-<header class="cab"><div class="ancho cab-in">
-<a class="marca" href="#contenido">Comedor Tape Porã (Demo)</a>
-<div class="cab-der"><span class="estado" id="estado" aria-live="polite"></span>
-<a class="btn btn-chico cab-wa" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20restaurante%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Escribinos por WhatsApp</span></a></div>
-</div></header>
-<main id="contenido">
-<section class="portada ancho" aria-labelledby="h-portada">
-<div class="portada-foto"><img src="../fotos/restaurante/portada-720.webp" srcset="../fotos/restaurante/portada-480.webp 480w, ../fotos/restaurante/portada-720.webp 720w, ../fotos/restaurante/portada-960.webp 960w" sizes="(min-width: 900px) 520px, 100vw" width="720" height="540" alt="Milanesa dorada con ensalada fresca en plato blanco" fetchpriority="high"></div>
-<div class="portada-txt">
-<p class="rubro">Restaurante</p>
-<h1 id="h-portada">Almuerzo casero, listo a las 11:30.</h1>
-<p class="sub">Milanesas, pastas y parrilla. Mirá la carta y armá tu pedido.</p>
-<div class="acciones acciones-par"><a class="btn btn-grande" href="#carta">Ver la carta y pedir</a><a class="btn btn-grande btn-borde" id="wa-portada" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20restaurante%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Escribinos por WhatsApp</span></a></div>
-<p class="nota-demo">En esta demo, el botón te comunica con Multitec.</p>
-</div>
-</section>
-<section class="sec" id="carta" aria-labelledby="h-carta"><div class="ancho"><h2 class="sec-titulo" id="h-carta">La carta de hoy</h2><p class="sec-sub">Precios de ejemplo en guaraníes (demo). Armá un pedido de prueba: no se hace ningún pedido real.</p><div class="chips chips-fijos" role="group" aria-label="Categorías de la carta"><button class="chip" type="button" data-chip="todo" aria-pressed="true">Todo</button><button class="chip" type="button" data-chip="platos" aria-pressed="false">Platos</button><button class="chip" type="button" data-chip="parrilla" aria-pressed="false">Parrilla</button><button class="chip" type="button" data-chip="compartir" aria-pressed="false">Para compartir</button></div><ul class="filas" data-filtrable><li class="fila" data-rv data-cat="platos"><div class="fila-foto"><img src="../fotos/restaurante/milanesa-limon-800.webp" srcset="../fotos/restaurante/milanesa-limon-480.webp 480w, ../fotos/restaurante/milanesa-limon-800.webp 800w" sizes="104px" width="800" height="600" alt="Milanesa dorada con limón sobre tabla de madera" loading="lazy" decoding="async"></div><div class="fila-txt"><h3>Milanesa con limón</h3><p>Milanesa de carne dorada, con limón y ensalada.</p><div class="tarjeta-pie"><span class="precio">Gs. 38.000</span><button class="btn btn-chico" type="button" data-pedido data-id="milanesa-limon" data-nombre="Milanesa con limón" data-precio="38000" aria-label="Agregar Milanesa con limón al pedido">Agregar</button></div></div></li><li class="fila" data-rv data-cat="platos"><div class="fila-foto"><img src="../fotos/restaurante/milanesa-papas-800.webp" srcset="../fotos/restaurante/milanesa-papas-480.webp 480w, ../fotos/restaurante/milanesa-papas-800.webp 800w" sizes="104px" width="800" height="600" alt="Milanesa con papas fritas en plato blanco" loading="lazy" decoding="async"></div><div class="fila-txt"><h3>Milanesa con papas fritas</h3><p>Con papas fritas caseras, el plato de todos los días.</p><div class="tarjeta-pie"><span class="precio">Gs. 42.000</span><button class="btn btn-chico" type="button" data-pedido data-id="milanesa-papas" data-nombre="Milanesa con papas fritas" data-precio="42000" aria-label="Agregar Milanesa con papas fritas al pedido">Agregar</button></div></div></li><li class="fila" data-rv data-cat="platos"><div class="fila-foto"><img src="../fotos/restaurante/pasta-800.webp" srcset="../fotos/restaurante/pasta-480.webp 480w, ../fotos/restaurante/pasta-800.webp 800w" sizes="104px" width="800" height="600" alt="Plato de fideos con salsa de tomate" loading="lazy" decoding="async"></div><div class="fila-txt"><h3>Pasta con tomate</h3><p>Fideos con salsa de tomate, bien servidos.</p><div class="tarjeta-pie"><span class="precio">Gs. 36.000</span><button class="btn btn-chico" type="button" data-pedido data-id="pasta" data-nombre="Pasta con tomate" data-precio="36000" aria-label="Agregar Pasta con tomate al pedido">Agregar</button></div></div></li><li class="fila" data-rv data-cat="platos"><div class="fila-foto"><img src="../fotos/restaurante/sopa-800.webp" srcset="../fotos/restaurante/sopa-480.webp 480w, ../fotos/restaurante/sopa-800.webp 800w" sizes="104px" width="800" height="600" alt="Sopa cremosa con crutones en un bol" loading="lazy" decoding="async"></div><div class="fila-txt"><h3>Sopa del día</h3><p>Sopa caliente de la casa, con crutones.</p><div class="tarjeta-pie"><span class="precio">Gs. 22.000</span><button class="btn btn-chico" type="button" data-pedido data-id="sopa" data-nombre="Sopa del día" data-precio="22000" aria-label="Agregar Sopa del día al pedido">Agregar</button></div></div></li><li class="fila" data-rv data-cat="parrilla"><div class="fila-foto"><img src="../fotos/restaurante/asado-de-tira-800.webp" srcset="../fotos/restaurante/asado-de-tira-480.webp 480w, ../fotos/restaurante/asado-de-tira-800.webp 800w" sizes="104px" width="800" height="600" alt="Costillas asadas sobre tabla con pan" loading="lazy" decoding="async"></div><div class="fila-txt"><h3>Asado de tira</h3><p>Costillas a la parrilla, con pan.</p><div class="tarjeta-pie"><span class="precio">Gs. 65.000</span><button class="btn btn-chico" type="button" data-pedido data-id="asado-de-tira" data-nombre="Asado de tira" data-precio="65000" aria-label="Agregar Asado de tira al pedido">Agregar</button></div></div></li><li class="fila" data-rv data-cat="parrilla"><div class="fila-foto"><img src="../fotos/restaurante/parrillada-800.webp" srcset="../fotos/restaurante/parrillada-480.webp 480w, ../fotos/restaurante/parrillada-800.webp 800w" sizes="104px" width="800" height="600" alt="Cortes de carne y limones sobre la parrilla" loading="lazy" decoding="async"></div><div class="fila-txt"><h3>Parrillada para dos</h3><p>Cortes variados a la parrilla, para compartir.</p><div class="tarjeta-pie"><span class="precio">Gs. 120.000</span><button class="btn btn-chico" type="button" data-pedido data-id="parrillada" data-nombre="Parrillada para dos" data-precio="120000" aria-label="Agregar Parrillada para dos al pedido">Agregar</button></div></div></li><li class="fila" data-rv data-cat="compartir"><div class="fila-foto"><img src="../fotos/restaurante/empanadas-800.webp" srcset="../fotos/restaurante/empanadas-480.webp 480w, ../fotos/restaurante/empanadas-800.webp 800w" sizes="104px" width="800" height="600" alt="Empanadas horneadas sobre tabla de madera" loading="lazy" decoding="async"></div><div class="fila-txt"><h3>Empanadas (media docena)</h3><p>Horneadas, con salsa verde.</p><div class="tarjeta-pie"><span class="precio">Gs. 30.000</span><button class="btn btn-chico" type="button" data-pedido data-id="empanadas" data-nombre="Empanadas (media docena)" data-precio="30000" aria-label="Agregar Empanadas (media docena) al pedido">Agregar</button></div></div></li></ul></div></section><section class="sec sec-chat" id="chat" aria-labelledby="h-chat"><div class="ancho chat-sec"><div class="chat-intro"><h2 class="sec-titulo" id="h-chat">Probalo con tu propio mensaje</h2><p class="sec-sub">Así contestaría el asistente de un restaurante. Para probarlo, escribile a Multitec por WhatsApp.</p></div><div class="chat-col"><figure class="chat" data-chat aria-label="Conversación de ejemplo"><figcaption class="chat-cab"><span class="chat-av" aria-hidden="true">C</span><span class="chat-quien"><strong>Asistente de Comedor Tape Porã</strong><small>Conversación de ejemplo · se arma para tu negocio</small></span></figcaption><ol class="chat-lista"><li class="g g-c"><div class="g-cont"><p class="g-txt">Hola, ¿hasta qué hora están hoy?</p></div></li><li class="g g-a"><div class="g-cont"><p class="g-txt">¡Hola! Soy el asistente de Comedor Tape Porã y hoy atendemos hasta las 23:00. ¿Qué te gustaría saber del menú?</p><p class="g-meta g-chip">Contesta a cualquier hora</p></div></li><li class="g g-c"><div class="g-cont"><p class="g-txt">¿Tienen algo sin gluten?</p></div></li><li class="g g-a"><div class="g-cont"><p class="g-txt">Eso lo confirma una persona del local. Se lo paso.</p></div></li><li class="g g-sep"><div class="g-cont"><p class="g-meta">unos minutos después</p></div></li><li class="g g-a"><div class="g-cont"><p class="g-txt">Ahora hay mucho movimiento, en breve te atienden. Mientras, si tenés alguna consulta, contame.</p></div></li></ol></figure></div><div class="chat-cta"><a class="btn btn-grande btn-wa" id="wa-chat" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20restaurante%20y%20quiero%20probar%20el%20agente" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Probá el agente de Multitec</span></a><p class="nota-demo">En esta demo, el botón te comunica con Multitec.</p></div></div></section><section class="sec sec-alt" aria-labelledby="h-par"><div class="ancho banda"><div class="banda-foto"><img src="../fotos/restaurante/costillar-800.webp" srcset="../fotos/restaurante/costillar-480.webp 480w, ../fotos/restaurante/costillar-800.webp 800w" sizes="(min-width: 900px) 520px, 100vw" width="800" height="1000" alt="Costillares asados sobre brasas" loading="lazy" decoding="async"></div><div class="banda-txt"><h2 class="sec-titulo" id="h-par">Desde la parrilla</h2><p>El fuego se prende de martes a domingo. Para el fin de semana, preguntá por la parrillada para compartir.</p><a class="btn" href="#carta">Ver la carta</a></div></div></section><section class="sec sec-alt" aria-labelledby="h-op"><div class="ancho"><h2 class="sec-titulo" id="h-op">Opiniones de ejemplo</h2><p class="sec-sub">Así se vería la calificación de tu negocio en Google Maps. Los nombres, el promedio y la cantidad son inventados.</p><div class="calif"><div><div class="calif-res"><span class="calif-num">4,6</span><div><div role="img" aria-label="4,6 de 5 estrellas"><span class="estrellas" aria-hidden="true">★★★★★</span></div><div class="calif-cant">128 opiniones (ejemplo)</div></div></div></div><ul class="resenas"><li class="resena"><div class="resena-cab"><span class="resena-ini" aria-hidden="true">M</span>Marcos A. (ejemplo)</div><div role="img" aria-label="5 de 5 estrellas"><span class="estrellas" aria-hidden="true">★★★★★</span></div><p>La milanesa llegó caliente y abundante. Volvemos el domingo.</p></li><li class="resena"><div class="resena-cab"><span class="resena-ini" aria-hidden="true">L</span>Lorena G. (ejemplo)</div><div role="img" aria-label="5 de 5 estrellas"><span class="estrellas" aria-hidden="true">★★★★★</span></div><p>Atención rápida y buena parrilla. Fuimos con los chicos y la pasamos bien.</p></li><li class="resena"><div class="resena-cab"><span class="resena-ini" aria-hidden="true">S</span>Sergio P. (ejemplo)</div><div role="img" aria-label="5 de 5 estrellas"><span class="estrellas" aria-hidden="true">★★★★★</span></div><p>Buen almuerzo del día, bien servido. El local está siempre limpio.</p></li></ul></div></div></section>
-<section class="sec" id="ubicacion" aria-labelledby="h-hor"><div class="ancho dos"><div><h2 class="sec-titulo" id="h-hor">Horarios</h2><ul class="horarios"><li data-dias="2,3,4,5,6,0" data-abre="11:30" data-cierra="23:00"><span>Martes a domingo</span><span class="hora">11:30 a 23:00</span></li><li data-dias="1"><span>Lunes</span><span class="hora">Cerrado</span></li></ul></div><div class="lugar"><h2 class="sec-titulo">Dónde estamos</h2><p class="dir">Ciudad del Este (dirección de ejemplo)</p><div class="mapa-fachada" data-src="https://www.openstreetmap.org/export/embed.html?bbox=-54.6171%2C-25.5137%2C-54.6051%2C-25.5057&layer=mapnik&marker=-25.5097%2C-54.6111"><img src="../fotos/mapa-cde.webp" width="600" height="450" loading="lazy" decoding="async" alt="Mapa del centro de Ciudad del Este"><span class="mapa-pin" style="top:39.7%" aria-hidden="true"></span><span class="mapa-leyenda">Ubicación de ejemplo</span><button class="btn btn-chico mapa-boton" type="button" id="ver-mapa">Ver mapa</button></div><p class="mapa-attr">Mapa: © <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">colaboradores de OpenStreetMap<span class="solo-lector"> (se abre en otra pestaña)</span></a></p></div></div></section>
-<section class="cierre"><div class="ancho"><h2 class="cierre-titulo">¿Reservamos tu mesa?</h2>
-<a class="btn btn-grande" id="wa-cierre" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20restaurante%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Escribinos por WhatsApp</span></a>
-<p class="nota-demo" style="color:inherit;opacity:.8">En esta demo, el botón te comunica con Multitec.</p></div></section>
-</main>
-<footer class="pie"><div class="ancho">
-<p>© 2026 Comedor Tape Porã (Demo). Negocio de ejemplo.</p>
-<p>Fotos de Pexels (licencia Pexels, uso libre): <a href="https://www.pexels.com/photo/crispy-schnitzel-with-fresh-salad-on-plate-34636425/" rel="noopener" target="_blank">Novkov Visuals<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/meat-and-lemons-18275671/" rel="noopener" target="_blank">Gonzalo Ruiz<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/cooked-food-on-white-ceramic-plate-12308027/" rel="noopener" target="_blank">fadhil wy_<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/close-up-of-spaghetti-with-tomato-sauce-on-plate-31637793/" rel="noopener" target="_blank">Gu Ko<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/a-yellow-soup-decorated-with-leaves-in-a-bowl-beside-a-bowl-of-croutons-8743888/" rel="noopener" target="_blank">Farhad Ibrahimzade<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/close-up-shot-of-delicious-empanadas-on-wooden-chopping-board-13689919/" rel="noopener" target="_blank">Daniel Torobekov<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/meat-on-the-grill-9292084/" rel="noopener" target="_blank">Diego Moreno<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/traditional-argentine-asado-grilled-steak-31917730/" rel="noopener" target="_blank">Raul Corrado<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/traditional-argentinian-asado-barbecue-grilling-37126417/" rel="noopener" target="_blank">Andres Idda Bianchi<span class="solo-lector"> (se abre en otra pestaña)</span></a>.</p>
-<p>Letras: Bricolage Grotesque y Figtree (licencia SIL OFL 1.1), alojadas en este sitio.</p>
-<p>Web hecha con Presencia Multitec</p>
-<div class="enlaces"><a href="../privacidad.html">Privacidad</a><a href="../">Ver otros rubros</a></div>
-</div></footer>
-<div class="barra-wa"><a class="btn btn-grande" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20restaurante%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Escribinos por WhatsApp</span></a><small>En esta demo, el botón te comunica con Multitec.</small></div>
+<a class="saltar" href="#carta">Saltar a la carta</a>
 
-<script src="../js/pro.js" defer></script>
-<script src="../js/chat.js?v=20261122" defer></script>
+<aside class="cinta" data-cinta data-rubro="La Ajicera" aria-label="Aviso de demo">
+  <div class="cinta__marca">
+    <img class="cinta__logo" src="cinta/logo-m.png" width="24" height="24" alt="Multitec">
+    <p class="cinta__texto">(Demo) Web de ejemplo hecha por Multitec</p>
+  </div>
+  <div class="cinta__acciones">
+    <a class="cinta__boton" data-cinta-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20La%20Ajicera%20y%20quiero%20una%20web%20as%C3%AD.">Quiero una web así</a>
+    <button class="cinta__cerrar" type="button" data-cinta-cerrar hidden aria-label="Cerrar aviso">
+      <svg viewBox="0 0 256 256" aria-hidden="true" focusable="false"><use href="iconos.svg#i-x"/></svg>
+    </button>
+  </div>
+</aside>
+<a class="cinta-flotante" data-cinta-flotante data-cinta-wa hidden target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20La%20Ajicera%20y%20quiero%20una%20web%20as%C3%AD.">Quiero una web así</a>
+
+<main id="contenido">
+  <div class="aviso-cerrado" id="aviso-cerrado" hidden>
+    <p>Ahora estamos cerrados. Abrimos <span data-abre>hoy</span> a las 11:00.</p>
+  </div>
+
+  <section class="hero" aria-labelledby="titulo-local">
+    <div class="hero__texto">
+      <h1 id="titulo-local">La Ajicera</h1>
+      <p class="hero__linea">Cocina a la brasa y ají de la casa. Armá tu pedido desde el celular.</p>
+      <p class="hero__dato"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-clock"/></svg> <span class="hero__dato-txt"><span>Todos los días, 11:00 a 23:00</span><span>Zona Centro</span></span></p>
+      <div class="hero__botones">
+        <a class="boton boton--blanco" href="#carta" data-accion="armar">Armar mi pedido</a>
+        <a class="boton boton--contorno" href="#reserva" data-accion="reservar">Reservar mesa</a>
+      </div>
+    </div>
+    <figure class="hero__foto" data-ranura="video">
+      <img src="fotos/hero-brasa-720.webp" srcset="fotos/hero-brasa-720.webp 720w, fotos/hero-brasa-1080.webp 1080w" sizes="(min-width: 900px) 440px, 100vw" width="720" height="720" alt="Carne asándose sobre las brasas de una parrilla a leña" fetchpriority="high">
+      <figcaption>Parrilla a la leña</figcaption>
+    </figure>
+  </section>
+
+  <nav class="riel" aria-label="Categorías de la carta">
+    <div class="riel__pista">
+      <ul class="riel__lista">
+        <li><a href="#parrilla">Parrilla</a></li>
+        <li><a href="#platos">Platos</a></li>
+        <li><a href="#entradas">Entradas</a></li>
+        <li><a href="#postres">Postres</a></li>
+        <li><a href="#bebidas">Bebidas</a></li>
+      </ul>
+      <span class="riel__indicador" aria-hidden="true"></span>
+    </div>
+  </nav>
+
+  <section class="carta" id="carta" aria-labelledby="titulo-carta">
+    <div class="carta__cabeza">
+      <h2 id="titulo-carta">La carta</h2>
+      <p class="carta__bajada">Precios de ejemplo (Demo).</p>
+    </div>
+    <div class="carta-error" id="carta-error" role="alert" hidden>
+      <p>No pudimos cargar la carta. Probá de nuevo en un rato.</p>
+      <button class="boton boton--aji" type="button" id="reintentar">Reintentar</button>
+    </div>
+
+    <section class="categoria" id="parrilla" aria-labelledby="h-parrilla" data-categoria>
+      <h3 class="categoria__titulo" id="h-parrilla">Parrilla</h3>
+      <ul class="platos">
+        <li class="plato" id="plato-asado" data-id="asado" data-nombre="Asado de tira a la leña" data-precio="78000" data-opciones="coccion">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-asado">Asado de tira a la leña</a></h4>
+            <p class="plato__desc">Costilla a la brasa, sal gruesa y limón. Con mandioca.</p>
+            <p class="plato__precio num">Gs. 78.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/asado-de-tira-240.webp" srcset="fotos/asado-de-tira-240.webp 240w, fotos/asado-de-tira-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/asado-de-tira.webp" width="240" height="240" alt="Asado de tira sobre tabla de madera" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Asado de tira a la leña"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-vacio" data-id="vacio" data-nombre="Vacío al ají" data-precio="72000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-vacio">Vacío al ají</a></h4>
+            <p class="plato__desc">Corte jugoso con salsa de ají casero.</p>
+            <p class="plato__precio num">Gs. 72.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/vacio-240.webp" srcset="fotos/vacio-240.webp 240w, fotos/vacio-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/vacio.webp" width="240" height="240" alt="Corte de carne a la parrilla con un bol de salsa de ají casero" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Vacío al ají"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-chorizo" data-id="chorizo" data-nombre="Chorizo parrillero" data-precio="32000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-chorizo">Chorizo parrillero</a></h4>
+            <p class="plato__desc">Con pan y vinagreta de la casa.</p>
+            <p class="plato__precio num">Gs. 32.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/chorizo-240.webp" srcset="fotos/chorizo-240.webp 240w, fotos/chorizo-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/chorizo.webp" width="240" height="240" alt="Chorizos parrilleros dorados con mandioca" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Chorizo parrillero"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-surubi" data-id="surubi" data-nombre="Surubí a la parrilla" data-precio="85000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-surubi">Surubí a la parrilla</a></h4>
+            <p class="plato__desc">Del río, con limón y ensalada fresca.</p>
+            <p class="plato__precio num">Gs. 85.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/surubi-240.webp" srcset="fotos/surubi-240.webp 240w, fotos/surubi-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/surubi.webp" width="240" height="240" alt="Pescado a la parrilla con limón y ensalada fresca" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Surubí a la parrilla"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-parrillada" data-id="parrillada" data-nombre="Parrillada para dos" data-precio="185000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-parrillada">Parrillada para dos</a></h4>
+            <p class="plato__desc">Asado, vacío, chorizo y mandioca para compartir.</p>
+            <p class="plato__precio num">Gs. 185.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/parrillada-240.webp" srcset="fotos/parrillada-240.webp 240w, fotos/parrillada-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/parrillada.webp" width="240" height="240" alt="Cortes de carne y limones sobre la parrilla" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Parrillada para dos"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+      </ul>
+    </section>
+
+    <section class="categoria" id="platos" aria-labelledby="h-platos" data-categoria>
+      <h3 class="categoria__titulo" id="h-platos">Platos</h3>
+      <ul class="platos">
+        <li class="plato" id="plato-milanesa" data-id="milanesa" data-nombre="Milanesa a la napolitana" data-precio="58000" data-opciones="guarnicion">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-milanesa">Milanesa a la napolitana</a></h4>
+            <p class="plato__desc">Crocante, con jamón, queso y salsa. Con papas.</p>
+            <p class="plato__precio num">Gs. 58.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/milanesa-240.webp" srcset="fotos/milanesa-240.webp 240w, fotos/milanesa-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/milanesa.webp" width="240" height="240" alt="Milanesa a la napolitana con queso y salsa, con papas" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Milanesa a la napolitana"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-locro" data-id="locro" data-nombre="Locro" data-precio="45000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-locro">Locro</a></h4>
+            <p class="plato__desc">Maíz, carne y zapallo, bien servido.</p>
+            <p class="plato__precio num">Gs. 45.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/locro-240.webp" srcset="fotos/locro-240.webp 240w, fotos/locro-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/locro.webp" width="240" height="240" alt="Sopa de maíz con carne en un bol blanco" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Locro"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-pollo" data-id="pollo" data-nombre="Pollo a la brasa" data-precio="52000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-pollo">Pollo a la brasa</a></h4>
+            <p class="plato__desc">Medio pollo con ensalada de la casa.</p>
+            <p class="plato__precio num">Gs. 52.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/pollo-240.webp" srcset="fotos/pollo-240.webp 240w, fotos/pollo-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/pollo.webp" width="240" height="240" alt="Pollo a la brasa dorado en la parrilla" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Pollo a la brasa"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-arroz" data-id="arroz" data-nombre="Arroz con pollo" data-precio="48000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-arroz">Arroz con pollo</a></h4>
+            <p class="plato__desc">Con verduras, bien servido.</p>
+            <p class="plato__precio num">Gs. 48.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/arroz-240.webp" srcset="fotos/arroz-240.webp 240w, fotos/arroz-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/arroz.webp" width="240" height="240" alt="Arroz con pollo y verduras en un plato" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Arroz con pollo"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+      </ul>
+    </section>
+
+    <section class="categoria" id="entradas" aria-labelledby="h-entradas" data-categoria>
+      <h3 class="categoria__titulo" id="h-entradas">Entradas</h3>
+      <ul class="platos">
+        <li class="plato" id="plato-empanadas" data-id="empanadas" data-nombre="Empanadas de carne (3)" data-precio="30000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-empanadas">Empanadas de carne (3)</a></h4>
+            <p class="plato__desc">Al horno, con ají suave aparte.</p>
+            <p class="plato__precio num">Gs. 30.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/empanadas-240.webp" srcset="fotos/empanadas-240.webp 240w, fotos/empanadas-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/empanadas.webp" width="240" height="240" alt="Empanadas doradas sobre tabla de madera con salsa" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Empanadas de carne (3)"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-chipa" data-id="chipa" data-nombre="Chipa" data-precio="24000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-chipa">Chipa</a></h4>
+            <p class="plato__desc">De queso, recién horneada.</p>
+            <p class="plato__precio num">Gs. 24.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/chipa-240.webp" srcset="fotos/chipa-240.webp 240w, fotos/chipa-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/chipa.webp" width="240" height="240" alt="Chipas de queso doradas en una canasta" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Chipa"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-mandioca" data-id="mandioca" data-nombre="Mandioca frita" data-precio="20000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-mandioca">Mandioca frita</a></h4>
+            <p class="plato__desc">Dorada, con salsa de ajo.</p>
+            <p class="plato__precio num">Gs. 20.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/mandioca-240.webp" srcset="fotos/mandioca-240.webp 240w, fotos/mandioca-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/mandioca.webp" width="240" height="240" alt="Mandioca frita dorada" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Mandioca frita"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-sopa" data-id="sopa" data-nombre="Sopa paraguaya" data-precio="22000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-sopa">Sopa paraguaya</a></h4>
+            <p class="plato__desc">Porción tibia, con queso y cebolla.</p>
+            <p class="plato__precio num">Gs. 22.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/sopa-240.webp" srcset="fotos/sopa-240.webp 240w, fotos/sopa-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/sopa.webp" width="240" height="240" alt="Porción de torta de maíz y queso en un plato decorado" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Sopa paraguaya"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+      </ul>
+    </section>
+
+    <section class="categoria" id="postres" aria-labelledby="h-postres" data-categoria>
+      <h3 class="categoria__titulo" id="h-postres">Postres</h3>
+      <ul class="platos">
+        <li class="plato" id="plato-flan" data-id="flan" data-nombre="Flan casero" data-precio="25000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-flan">Flan casero</a></h4>
+            <p class="plato__desc">Con dulce de leche y crema.</p>
+            <p class="plato__precio num">Gs. 25.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/flan-240.webp" srcset="fotos/flan-240.webp 240w, fotos/flan-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/flan.webp" width="240" height="240" alt="Porciones de flan casero con caramelo" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Flan casero"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-helado" data-id="helado" data-nombre="Helado de crema" data-precio="22000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-helado">Helado de crema</a></h4>
+            <p class="plato__desc">Dos bochas, bien frío.</p>
+            <p class="plato__precio num">Gs. 22.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/helado-240.webp" srcset="fotos/helado-240.webp 240w, fotos/helado-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/helado.webp" width="240" height="240" alt="Copa de helado de crema" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Helado de crema"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-banana" data-id="banana" data-nombre="Banana asada" data-precio="26000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-banana">Banana asada</a></h4>
+            <p class="plato__desc">Con helado de crema.</p>
+            <p class="plato__precio num">Gs. 26.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/banana-240.webp" srcset="fotos/banana-240.webp 240w, fotos/banana-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/banana.webp" width="240" height="240" alt="Bananas caramelizadas con una bocha de helado de crema" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Banana asada"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+      </ul>
+    </section>
+
+    <section class="categoria" id="bebidas" aria-labelledby="h-bebidas" data-categoria>
+      <h3 class="categoria__titulo" id="h-bebidas">Bebidas</h3>
+      <ul class="platos">
+        <li class="plato" id="plato-limonada-vaso" data-id="limonada-vaso" data-nombre="Limonada de la casa (vaso)" data-precio="15000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-limonada-vaso">Limonada de la casa (vaso)</a></h4>
+            <p class="plato__desc">Con menta, bien fría.</p>
+            <p class="plato__precio num">Gs. 15.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/limonada-vaso-240.webp" srcset="fotos/limonada-vaso-240.webp 240w, fotos/limonada-vaso-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/limonada-vaso.webp" width="240" height="240" alt="Vaso de limonada con rodaja de limón y menta" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Limonada de la casa (vaso)"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-limonada-jarra" data-id="limonada-jarra" data-nombre="Limonada de la casa (jarra)" data-precio="38000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-limonada-jarra">Limonada de la casa (jarra)</a></h4>
+            <p class="plato__desc">Para compartir, con menta.</p>
+            <p class="plato__precio num">Gs. 38.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/limonada-jarra-240.webp" srcset="fotos/limonada-jarra-240.webp 240w, fotos/limonada-jarra-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/limonada-jarra.webp" width="240" height="240" alt="Jarra y vaso de limonada con limones y menta" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Limonada de la casa (jarra)"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-naranja" data-id="naranja" data-nombre="Jugo de naranja" data-precio="14000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-naranja">Jugo de naranja</a></h4>
+            <p class="plato__desc">Exprimido, bien frío.</p>
+            <p class="plato__precio num">Gs. 14.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/naranja-240.webp" srcset="fotos/naranja-240.webp 240w, fotos/naranja-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/naranja.webp" width="240" height="240" alt="Vaso de jugo de naranja con naranjas sobre una mesa de madera" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Jugo de naranja"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-gaseosa" data-id="gaseosa" data-nombre="Gaseosa" data-precio="12000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-gaseosa">Gaseosa</a></h4>
+            <p class="plato__desc">Vaso grande, con hielo.</p>
+            <p class="plato__precio num">Gs. 12.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/gaseosa-240.webp" srcset="fotos/gaseosa-240.webp 240w, fotos/gaseosa-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/gaseosa.webp" width="240" height="240" alt="Vaso grande de gaseosa con hielo" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Gaseosa"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+        <li class="plato" id="plato-agua" data-id="agua" data-nombre="Agua mineral" data-precio="9000">
+          <div class="plato__texto">
+            <h4 class="plato__nombre"><a href="#plato-agua">Agua mineral</a></h4>
+            <p class="plato__desc">Con o sin gas.</p>
+            <p class="plato__precio num">Gs. 9.000</p>
+          </div>
+          <div class="plato__foto"><img src="fotos/agua-240.webp" srcset="fotos/agua-240.webp 240w, fotos/agua-360.webp 360w" sizes="(min-width: 900px) 160px, 112px" data-grande="fotos/agua.webp" width="240" height="240" alt="Vaso de agua con hielo visto desde arriba" loading="lazy"></div>
+          <button class="mas" type="button" aria-label="Agregar Agua mineral"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </li>
+      </ul>
+    </section>
+  </section>
+
+  <section class="opiniones" aria-labelledby="titulo-opiniones">
+    <h2 id="titulo-opiniones">Lo que dicen</h2>
+    <ul class="opiniones__lista">
+      <li class="opinion">
+        <div class="opinion__cabeza">
+          <span class="opinion__avatar" aria-hidden="true">R</span>
+          <div>
+            <p class="opinion__quien">Rocío B. (ejemplo)</p>
+            <p class="opinion__estrellas"><span class="solo-lector">5 de 5 estrellas</span><span aria-hidden="true"><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg></span> hace 2 semanas</p>
+          </div>
+        </div>
+        <p class="opinion__texto">El asado de tira vino jugoso y la mandioca bien dorada. Pedimos para cuatro y llegó todo caliente.</p>
+      </li>
+      <li class="opinion">
+        <div class="opinion__cabeza">
+          <span class="opinion__avatar" aria-hidden="true">M</span>
+          <div>
+            <p class="opinion__quien">Marcos A. (ejemplo)</p>
+            <p class="opinion__estrellas"><span class="solo-lector">4 de 5 estrellas</span><span aria-hidden="true"><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg><svg class="icono icono--apagado"><use href="iconos.svg#i-star-fill"/></svg></span> hace 2 semanas</p>
+          </div>
+        </div>
+        <p class="opinion__texto">Rico el locro y rápido el servicio. La mesa se llenó el sábado, conviene reservar.</p>
+      </li>
+      <li class="opinion">
+        <div class="opinion__cabeza">
+          <span class="opinion__avatar" aria-hidden="true">L</span>
+          <div>
+            <p class="opinion__quien">Lucía G. (ejemplo)</p>
+            <p class="opinion__estrellas"><span class="solo-lector">5 de 5 estrellas</span><span aria-hidden="true"><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg><svg class="icono"><use href="iconos.svg#i-star-fill"/></svg></span> hace 2 semanas</p>
+          </div>
+        </div>
+        <p class="opinion__texto">La milanesa napolitana, enorme. Los postres de la casa también estaban ricos.</p>
+      </li>
+    </ul>
+    <p class="opiniones__pie">Opiniones de ejemplo.</p>
+  </section>
+
+  <section class="local" aria-labelledby="titulo-local-datos">
+    <div class="local__texto">
+      <h2 id="titulo-local-datos">Dónde estamos</h2>
+      <p>Zona Centro (Demo). Dirección de ejemplo.</p>
+      <p>Todos los días, 11:00 a 23:00 (Demo).</p>
+      <a class="boton boton--aji" target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20La%20Ajicera%20y%20quiero%20una%20web%20as%C3%AD."><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-whatsapp-logo"/></svg> Escribinos por WhatsApp</a>
+      <p class="nota">(Demo) Te lleva al WhatsApp de Multitec</p>
+    </div>
+    <figure class="local__mapa">
+      <div class="mapa-sim__lienzo">
+        <img src="fotos/mapa-gris.webp" width="600" height="450" alt="Mapa de ejemplo de la zona, con el local marcado" loading="lazy">
+        <svg class="icono mapa-sim__pin" aria-hidden="true"><use href="iconos.svg#i-map-pin"/></svg>
+      </div>
+      <figcaption>Mapa de ejemplo (Demo).</figcaption>
+    </figure>
+  </section>
+</main>
+
+<footer class="pie">
+  <p class="pie__demo">(Demo) Los datos de esta página son de ejemplo.</p>
+  <p class="pie__creditos"><span>Fotos de Pexels:</span> <a href="https://www.pexels.com/photo/traditional-argentinian-asado-barbecue-grilling-37126417/" target="_blank" rel="noopener">Andres Idda Bianchi</a>, <a href="https://www.pexels.com/photo/traditional-argentine-asado-grilled-steak-31917730/" target="_blank" rel="noopener">Raul Corrado</a>, <a href="https://www.pexels.com/photo/meat-on-the-grill-9292084/" target="_blank" rel="noopener">Diego Moreno</a>, <a href="https://www.pexels.com/photo/close-up-shot-of-delicious-empanadas-on-wooden-chopping-board-13689919/" target="_blank" rel="noopener">Daniel Torobekov</a>, <a href="https://www.pexels.com/photo/grilled-steak-with-chimichurri-on-blue-plate-39836881/" target="_blank" rel="noopener">Alexander Mass</a>, <a href="https://www.pexels.com/photo/grilled-sausages-and-potato-wedges-on-a-black-plate-27643034/" target="_blank" rel="noopener">Nano Erdozain</a>, <a href="https://www.pexels.com/photo/grilled-fish-with-fresh-salad-and-lemon-slice-33991134/" target="_blank" rel="noopener">Busenur Demirkan</a>, <a href="https://www.pexels.com/photo/delicious-chicken-corn-soup-in-white-bowl-29538427/" target="_blank" rel="noopener">Nano Erdozain</a>, <a href="https://www.pexels.com/photo/roasted-chicken-13458086/" target="_blank" rel="noopener">SMAT MARKETING</a>, <a href="https://www.pexels.com/photo/chicken-with-rice-served-on-plate-21821575/" target="_blank" rel="noopener">Andres Alaniz</a>, <a href="https://www.pexels.com/photo/delicious-homemade-corn-cake-slice-on-traditional-plate-34638000/" target="_blank" rel="noopener">Alejandro JV</a>, <a href="https://www.pexels.com/photo/delicious-slice-of-creamy-flan-dessert-34474034/" target="_blank" rel="noopener">Laura Oliveira</a>, <a href="https://www.pexels.com/photo/delicious-french-dessert-plate-with-vanilla-ice-cream-34440916/" target="_blank" rel="noopener">Arun M</a>, <a href="https://www.pexels.com/photo/refreshing-glass-of-lemonade-with-fresh-lemons-33107433/" target="_blank" rel="noopener">Beyza Şükran DEMİRBAŞ</a>, <a href="https://www.pexels.com/photo/zitronen-getraenk-27291733/" target="_blank" rel="noopener">Gundula Vogel</a>, <a href="https://www.pexels.com/photo/a-glass-of-iced-cola-8879617/" target="_blank" rel="noopener">Ron Lach</a>, <a href="https://www.pexels.com/photo/a-close-up-shot-of-a-glass-of-water-with-ice-12987480/" target="_blank" rel="noopener">Srattha Nualsate</a>, <a href="https://www.pexels.com/photo/delicious-brazilian-chicken-parmigiana-with-chips-32449863/" target="_blank" rel="noopener">lucas souza</a>, <a href="https://www.pexels.com/photo/basket-of-traditional-brazilian-pao-de-queijo-34259860/" target="_blank" rel="noopener">Nathalia Crispim</a>, <a href="https://www.pexels.com/photo/close-up-of-french-fries-18303016/" target="_blank" rel="noopener">Matheus Alves</a>, <a href="https://www.pexels.com/photo/close-up-photo-of-a-bowl-of-ice-cream-2586924/" target="_blank" rel="noopener">Krisztina Papp</a> y <a href="https://www.pexels.com/photo/glass-of-orange-juice-and-slices-of-orange-on-a-wooden-surface-7655897/" target="_blank" rel="noopener">Cup of Couple</a>.</p>
+  <p class="pie__creditos">Mapa: © colaboradores de <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>. Íconos: Phosphor Icons, con licencia MIT. Letras: Anybody (The Anybody Project Authors) y Albert Sans (The Albert Sans Project Authors), con licencia SIL Open Font License 1.1.</p>
+  <p class="pie__creditos"><a href="https://fabian-acu.github.io/presencia-multitec-demo/">Demos de Multitec</a></p>
+</footer>
+
+<noscript>
+  <div class="sin-js">
+    <p>Pedí por WhatsApp. En esta demo el botón te escribe a Multitec.</p>
+    <a href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20La%20Ajicera%20y%20quiero%20una%20web%20as%C3%AD.">Pedí por WhatsApp</a>
+  </div>
+</noscript>
+
+<div id="anuncio" class="solo-lector" role="status" aria-live="polite"></div>
+
+<dialog class="hoja" id="hoja-detalle" aria-labelledby="det-titulo">
+  <div class="hoja__panel">
+    <div class="hoja__cabeza">
+      <span class="hoja__asa" aria-hidden="true"></span>
+      <button class="hoja__cerrar" type="button" data-cerrar aria-label="Cerrar"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-x"/></svg></button>
+    </div>
+    <div class="hoja__cuerpo">
+      <div class="det__foto" id="det-foto"></div>
+      <div class="det__titulo">
+        <h2 id="det-titulo"></h2>
+        <p class="det__precio num" id="det-precio"></p>
+      </div>
+      <p class="det__desc" id="det-desc"></p>
+      <div class="campo" id="det-opciones" hidden>
+        <fieldset>
+          <legend id="det-opciones-titulo"></legend>
+          <div class="fichas" id="det-fichas"></div>
+        </fieldset>
+        <p class="error" id="det-error" role="alert" hidden><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-warning-circle"/></svg><span></span></p>
+      </div>
+      <div class="campo">
+        <label for="det-nota">Algo para la cocina</label>
+        <textarea id="det-nota" maxlength="80" rows="2" placeholder="Ej: sin cebolla" autocomplete="off"></textarea>
+        <p class="campo__ayuda campo__ayuda--der num" id="det-contador">0/80</p>
+      </div>
+      <div class="cantidad">
+        <span class="campo__etiqueta" id="det-cant-etiqueta">Cantidad</span>
+        <div class="cantidad__control" role="group" aria-labelledby="det-cant-etiqueta">
+          <button class="cantidad__btn" type="button" id="det-menos" aria-label="Quitar uno"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-minus"/></svg></button>
+          <output class="cantidad__num" id="det-cant" for="det-menos det-mas"><span>1</span></output>
+          <button class="cantidad__btn" type="button" id="det-mas" aria-label="Sumar uno"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+        </div>
+      </div>
+      <p class="error" id="det-max" role="alert" hidden><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-warning-circle"/></svg><span>Máximo 20 por plato en esta demo.</span></p>
+    </div>
+    <div class="hoja__pie">
+      <p class="campo__ayuda">Precios de ejemplo (Demo).</p>
+      <button class="boton boton--aji boton--ancho" type="button" id="det-agregar"><span class="boton__texto">Agregar al pedido · Gs. <span class="num" id="det-total">0</span></span></button>
+    </div>
+  </div>
+</dialog>
+
+<div class="barra-pedido" id="barra-pedido" hidden>
+  <button class="barra-pedido__btn" type="button" id="abrir-pedido">
+    <svg class="icono" aria-hidden="true"><use href="iconos.svg#i-shopping-bag"/></svg>
+    <span>Ver pedido (<span class="num barra-pedido__n" id="bp-n">0</span>) · Gs. <span class="num" id="bp-total">0</span></span>
+  </button>
+</div>
+
+<dialog class="hoja" id="hoja-pedido" aria-labelledby="ped-titulo">
+  <div class="hoja__panel">
+    <div class="hoja__cabeza">
+      <span class="hoja__asa" aria-hidden="true"></span>
+      <button class="hoja__cerrar" type="button" data-cerrar aria-label="Cerrar"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-x"/></svg></button>
+    </div>
+    <div class="hoja__cuerpo">
+      <h2 id="ped-titulo">Tu pedido</h2>
+      <div id="ped-lleno" hidden>
+        <ul class="lineas" id="ped-lineas"></ul>
+        <dl class="totales">
+          <div><dt>Subtotal</dt><dd id="ped-sub">Gs. 0</dd></div>
+          <div><dt>Envío</dt><dd id="ped-env">Gs. 0</dd></div>
+          <div class="totales__total"><dt>Total</dt><dd id="ped-tot">Gs. 0</dd></div>
+        </dl>
+      </div>
+      <div class="vacio" id="ped-vacio">
+        <p>Todavía no agregaste nada.</p>
+        <button class="boton boton--aji" type="button" id="ped-volver">Volver a la carta</button>
+      </div>
+    </div>
+    <div class="hoja__pie" id="ped-pie-lleno" hidden>
+      <p class="campo__ayuda">Precios de ejemplo (Demo).</p>
+      <button class="boton boton--aji boton--ancho" type="button" id="ped-continuar">Continuar</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="hoja" id="hoja-datos" aria-labelledby="dat-titulo">
+  <div class="hoja__panel">
+    <div class="hoja__cabeza">
+      <span class="hoja__asa" aria-hidden="true"></span>
+      <button class="hoja__cerrar" type="button" data-cerrar aria-label="Cerrar"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-x"/></svg></button>
+    </div>
+    <form class="hoja__form" id="form-datos" novalidate>
+      <div class="hoja__cuerpo">
+        <h2 id="dat-titulo">Datos y entrega</h2>
+        <p class="error" id="dat-resumen" role="alert" hidden tabindex="-1"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-warning-circle"/></svg><span></span></p>
+
+        <div class="campo">
+          <fieldset>
+            <legend>Cómo lo querés</legend>
+            <div class="fichas">
+              <label class="ficha"><input type="radio" name="modo" value="delivery" checked><span><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-motorcycle"/></svg>&nbsp;Delivery</span></label>
+              <label class="ficha"><input type="radio" name="modo" value="retiro"><span><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-storefront"/></svg>&nbsp;Retiro en el local</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="campo">
+          <label for="dat-nombre">Tu nombre</label>
+          <input type="text" id="dat-nombre" name="nombre" autocomplete="off" maxlength="60" aria-describedby="dat-nombre-error">
+          <p class="error" id="dat-nombre-error" hidden><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-warning-circle"/></svg><span></span></p>
+        </div>
+
+        <div class="campo">
+          <label for="dat-tel">Tu teléfono</label>
+          <input type="tel" id="dat-tel" name="telefono" inputmode="numeric" autocomplete="off" maxlength="20" aria-describedby="dat-tel-ayuda dat-tel-error">
+          <p class="campo__ayuda" id="dat-tel-ayuda">Es una demo: este dato no se guarda ni se envía.</p>
+          <p class="error" id="dat-tel-error" hidden><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-warning-circle"/></svg><span></span></p>
+        </div>
+
+        <div class="entrega" id="dat-entrega">
+          <div class="campo">
+            <label for="dat-zona">Tu zona</label>
+            <select id="dat-zona" name="zona" aria-describedby="dat-zona-error dat-zona-aviso">
+              <option value="">Elegí una zona</option>
+              <option value="centro" data-envio="10000">Zona Centro (Demo) · envío Gs. 10.000</option>
+              <option value="norte" data-envio="15000">Zona Norte (Demo) · envío Gs. 15.000</option>
+              <option value="sur" data-envio="20000">Zona Sur (Demo) · envío Gs. 20.000</option>
+            </select>
+            <p class="error" id="dat-zona-error" hidden><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-warning-circle"/></svg><span></span></p>
+            <p class="campo__ayuda" id="dat-zona-aviso" aria-live="polite"></p>
+          </div>
+          <figure class="mapa-sim">
+            <div class="mapa-sim__lienzo">
+              <img src="fotos/mapa-gris.webp" width="600" height="450" alt="" loading="lazy">
+              <svg class="icono mapa-sim__pin" aria-hidden="true"><use href="iconos.svg#i-map-pin"/></svg>
+            </div>
+            <figcaption class="campo__ayuda">Mapa de ejemplo (Demo).</figcaption>
+          </figure>
+        </div>
+
+        <div class="campo">
+          <fieldset>
+            <legend>Cómo pagás</legend>
+            <div class="fichas">
+              <label class="ficha"><input type="radio" name="pago" value="efectivo" checked><span>Efectivo al recibir</span></label>
+              <label class="ficha"><input type="radio" name="pago" value="transferencia"><span>Transferencia</span></label>
+            </div>
+          </fieldset>
+          <p class="campo__ayuda">Pago simulado: en la demo no se cobra nada.</p>
+        </div>
+      </div>
+      <div class="hoja__pie">
+        <p class="campo__ayuda">Precios de ejemplo (Demo).</p>
+        <p class="pie-total"><span>Total</span> <strong class="num" id="dat-total">Gs. 0</strong></p>
+        <button class="boton boton--aji boton--ancho" type="submit" id="dat-enviar">Enviar pedido de ejemplo</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<dialog class="hoja hoja--ancha" id="hoja-seguimiento" aria-labelledby="seg-titulo">
+  <div class="hoja__panel">
+    <div class="hoja__cabeza">
+      <span class="hoja__asa" aria-hidden="true"></span>
+      <button class="hoja__cerrar" type="button" data-cerrar aria-label="Cerrar"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-x"/></svg></button>
+    </div>
+    <div class="hoja__cuerpo">
+      <div class="seg__cabeza">
+        <h2 id="seg-titulo">Recibimos tu pedido de ejemplo</h2>
+        <p class="seg__numero num">Pedido #A-0417</p>
+        <p class="seg__cartel"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-warning-circle"/></svg><strong>Demo: no se envió ningún pedido.</strong></p>
+      </div>
+
+      <section class="seg__bloque" aria-label="Estado del pedido">
+        <ol class="estepper" id="estepper"></ol>
+        <p class="seg__estado" id="seg-estado" role="status" aria-live="polite"></p>
+        <p class="campo__ayuda">Los tiempos de esta demo van acelerados.</p>
+      </section>
+
+      <section class="seg__bloque chat" aria-labelledby="chat-marco">
+        <p class="chat__marco" id="chat-marco">Conversación de ejemplo · se arma para tu negocio</p>
+        <div class="chat__ventana">
+          <p class="chat__rotulo">Asistente de La Ajicera</p>
+          <div class="chat__mensajes" id="chat-mensajes"></div>
+        </div>
+      </section>
+
+      <section class="seg__bloque ruta" id="seg-ruta" aria-label="Mapa del seguimiento">
+        <div class="ruta__lienzo">
+          <img src="fotos/mapa-gris.webp" width="600" height="450" alt="" loading="lazy">
+          <svg class="ruta__linea" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="14,80 14,56 44,56 44,32 78,32 78,22" fill="none" vector-effect="non-scaling-stroke"/></svg>
+          <svg class="icono ruta__destino" aria-hidden="true"><use href="iconos.svg#i-map-pin"/></svg>
+          <span class="ruta__punto" id="ruta-punto"></span>
+        </div>
+        <p class="campo__ayuda">El punto se mueve por una ruta de ejemplo (Demo).</p>
+      </section>
+
+      <details class="seg__plegable">
+        <summary><span>Ver tu pedido, <strong class="num" id="seg-total">Gs. 0</strong></span><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-caret-down"/></svg></summary>
+        <ul class="seg__resumen" id="seg-resumen"></ul>
+      </details>
+
+      <div class="seg__botones">
+        <button class="boton boton--aji" type="button" id="seg-otro">Hacer otro pedido</button>
+        <a class="boton boton--contorno-oscuro" data-cinta-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20La%20Ajicera%20y%20quiero%20una%20web%20as%C3%AD.">Quiero una web así</a>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="hoja" id="hoja-reserva" aria-labelledby="res-titulo">
+  <div class="hoja__panel">
+    <div class="hoja__cabeza">
+      <span class="hoja__asa" aria-hidden="true"></span>
+      <button class="hoja__cerrar" type="button" data-cerrar aria-label="Cerrar"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-x"/></svg></button>
+    </div>
+    <form class="hoja__form" id="form-reserva" novalidate>
+      <div class="hoja__cuerpo">
+        <div>
+          <h2 id="res-titulo">Reservar mesa</h2>
+          <p class="det__desc">Elegí cuándo y cuántos son. El local te confirma por WhatsApp.</p>
+        </div>
+        <p class="error" id="res-resumen" role="alert" hidden tabindex="-1"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-warning-circle"/></svg><span></span></p>
+
+        <div class="campo">
+          <fieldset>
+            <legend>Día</legend>
+            <div class="fichas" id="res-dias"></div>
+          </fieldset>
+          <p class="error" id="res-dia-error" hidden><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-warning-circle"/></svg><span>Elegí un día.</span></p>
+        </div>
+
+        <div class="campo">
+          <fieldset>
+            <legend>Hora</legend>
+            <div class="fichas" id="res-horas"></div>
+          </fieldset>
+          <p class="error" id="res-hora-error" hidden><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-warning-circle"/></svg><span>Elegí una hora.</span></p>
+          <p class="campo__ayuda" id="res-sin-horas" hidden>Hoy ya no tomamos reservas. Probá con mañana.</p>
+        </div>
+
+        <div class="campo">
+          <div class="cantidad">
+            <span class="campo__etiqueta" id="res-pers-etiqueta">Personas</span>
+            <div class="cantidad__control" role="group" aria-labelledby="res-pers-etiqueta">
+              <button class="cantidad__btn" type="button" id="res-menos" aria-label="Restar"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-minus"/></svg></button>
+              <output class="cantidad__num" id="res-n" for="res-menos res-mas"><span>2</span></output>
+              <button class="cantidad__btn" type="button" id="res-mas" aria-label="Sumar"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-plus"/></svg></button>
+            </div>
+          </div>
+          <p class="campo__ayuda" id="res-grupos" role="status" hidden>Para grupos de más de 12, escribinos por WhatsApp.</p>
+        </div>
+
+        <div class="campo">
+          <label for="res-nombre">A nombre de</label>
+          <input type="text" id="res-nombre" name="nombre" autocomplete="off" maxlength="60" aria-describedby="res-nombre-error">
+          <p class="error" id="res-nombre-error" hidden><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-warning-circle"/></svg><span>Falta el nombre para la reserva.</span></p>
+        </div>
+      </div>
+      <div class="hoja__pie">
+        <p class="campo__ayuda">Esto es una demo: no reserva nada.</p>
+        <button class="boton boton--aji boton--ancho" type="submit"><svg class="icono" aria-hidden="true"><use href="iconos.svg#i-whatsapp-logo"/></svg> Pedir reserva por WhatsApp</button>
+        <p class="campo__ayuda">(Demo) Te lleva al WhatsApp de Multitec</p>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<script src="cinta/cinta.js?v=20261122"></script>
+<script src="js/hoja.js?v=20261122" defer></script>
+<script src="js/carta.js?v=20261122" defer></script>
+<script src="js/pedido.js?v=20261122" defer></script>
+<script src="js/checkout.js?v=20261122" defer></script>
+<script src="js/seguimiento.js?v=20261122" defer></script>
+<script src="js/reserva.js?v=20261122" defer></script>
 </body>
 </html>

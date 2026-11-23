@@ -1,0 +1,81 @@
+/* La Primera Hornada (Demo): contador de "Sumar", barra de la bolsa, hoja "Mi pedido", chat de ejemplo y aviso corto. */
+
+/* ---- "Sumar" que se vuelve contador (hereda el color del lugar donde esta) ---- */
+.contador { display: inline-flex; align-items: center; border: 2px solid currentColor; border-radius: var(--r-pill); color: var(--ink); }
+.tablero .contador { color: var(--manteca); }
+.tablero .fila[data-actual] .contador { color: var(--ink); }
+.pieza .contador { color: currentColor; margin-top: var(--s2); }
+.contador[hidden] { display: none; }
+.contador__btn {
+  width: 44px; height: 44px; padding: 0; display: grid; place-items: center; border: 0; border-radius: var(--r-pill);
+  background: transparent; color: inherit; cursor: pointer; touch-action: manipulation; transition: transform 140ms var(--salida);
+}
+.contador__btn:active { transform: scale(0.97); }
+.contador__btn[aria-disabled="true"] { opacity: .45; }
+.contador__num { display: block; min-width: 2.2ch; text-align: center; font: 800 1.125rem/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.tablero .contador :focus-visible { outline-color: var(--bg); }
+.tablero .fila[data-actual] .contador :focus-visible { outline-color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .contador__btn { transition: none; } .contador__btn:active { transform: none; } }
+
+/* ---- barra fija de la bolsa: sube con el primer producto (250 ms, sin rebote) ---- */
+.bolsa-barra {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 35; padding: var(--s2) var(--s3) calc(var(--s2) + env(safe-area-inset-bottom));
+  transform: translateY(110%); transition: transform 250ms var(--salida); pointer-events: none;
+}
+.bolsa-barra.en { transform: translateY(0); }
+.bolsa-barra__boton {
+  pointer-events: auto; display: flex; align-items: center; gap: var(--s3); max-width: 560px; min-height: 56px; margin-inline: auto; padding: 0 var(--s5);
+  border-radius: var(--r-pill); background: var(--ink); color: var(--bg); font-weight: 700; text-decoration: none;
+  box-shadow: 0 8px 24px var(--sombra); touch-action: manipulation;
+}
+.bolsa-barra__txt { display: inline-block; margin-right: auto; }
+.bolsa-barra__total { color: var(--manteca); font: 800 1.125rem/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.bolsa-barra__boton:focus-visible { outline-color: var(--ink); outline-offset: 3px; }
+body:has(.bolsa-barra.en) .pie { padding-bottom: 112px; }
+body:has(.bolsa-barra.en) .cinta-flotante { bottom: 84px; }
+@media (prefers-reduced-motion: reduce) { .bolsa-barra { transition: none; } }
+
+/* ---- aviso corto (maximo por producto) ---- */
+.toast {
+  position: fixed; left: 50%; bottom: 96px; z-index: 36; max-width: min(92vw, 420px); padding: var(--s3) var(--s4);
+  border-radius: var(--r); background: var(--ink); color: var(--bg); font-weight: 600; font-size: .9375rem; text-align: center;
+  opacity: 0; transform: translate(-50%, 8px); pointer-events: none; transition: opacity 200ms var(--salida), transform 200ms var(--salida);
+}
+.toast.en { opacity: 1; transform: translate(-50%, 0); }
+@media (prefers-reduced-motion: reduce) { .toast { transition: none; transform: translate(-50%, 0); } }
+
+/* ---- hoja "Mi pedido" ---- */
+@media (max-width: 899px) { .hoja--bolsa .hoja__cabeza { background: var(--manteca); } }
+.hoja--bolsa .hoja__cuerpo { padding-top: var(--s4); }
+.vacio { display: grid; gap: var(--s4); justify-items: start; padding: var(--s5) 0; }
+.vacio__txt { font: 800 1.75rem/1.1 var(--f-display); }
+.lleno { display: grid; gap: var(--s4); min-width: 0; }
+.lineas { display: grid; }
+.linea { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s2) var(--s3); align-items: center; padding: var(--s3) 0; }
+.linea + .linea { border-top: 1px solid var(--line); }
+.linea__info { display: grid; min-width: 0; }
+.linea__nombre { font-size: 1.0625rem; }
+.linea__nota { font-size: .875rem; color: var(--ink-2); }
+.linea__precio { font: 700 1rem/1.2 var(--f-texto); font-variant-numeric: tabular-nums; text-align: right; }
+.linea .enlace { justify-self: end; }
+.total { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); font: 700 1.125rem/1 var(--f-texto); }
+.total strong { font: 800 1.875rem/1 var(--f-display); font-variant-numeric: tabular-nums; }
+.aviso-cambio { padding: var(--s3) var(--s4); border-radius: var(--r); background: var(--manteca); font-weight: 600; }
+
+/* ---- chat de ejemplo (sin caja para escribir) ---- */
+
+.chat__marco { width: fit-content; padding: 2px var(--s3); border: 2px solid var(--ink); border-radius: var(--r-pill); font-weight: 700; font-size: clamp(.6875rem, 3vw, .875rem); }
+.chat__rotulo { font-weight: 700; }
+.chat__lista { display: grid; gap: var(--s2); }
+.burbuja { max-width: 86%; padding: var(--s2) var(--s3); border-radius: var(--r); font-size: .9375rem; line-height: 1.35; }
+.burbuja--cliente { justify-self: end; background: var(--manteca); }
+.burbuja--asistente { justify-self: start; background: var(--bg); }
+.chat__tiempo { justify-self: center; font-size: .8125rem; color: var(--ink-2); }
+/* los globos aparecen uno por uno al entrar la seccion en pantalla (la clase js-chat solo la pone el JS; sin ella se ven todos) */
+@media (prefers-reduced-motion: no-preference) {
+  .js-chat > * { opacity: 0; transform: translateY(8px); }
+  .js-chat.en > * { opacity: 1; transform: none; transition: opacity 220ms var(--salida), transform 220ms var(--salida); transition-delay: calc(var(--b, 0) * 450ms); }
+  .chat__lista > :nth-child(2) { --b: 1; } .chat__lista > :nth-child(3) { --b: 2; } .chat__lista > :nth-child(4) { --b: 3; }
+  .chat__lista > :nth-child(5) { --b: 4; } .chat__lista > :nth-child(6) { --b: 5; }
+}
+body:has(dialog.hoja[open]) .bolsa-barra { visibility: hidden; }

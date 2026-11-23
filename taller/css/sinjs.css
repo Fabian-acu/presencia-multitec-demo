@@ -1,0 +1,7 @@
+/* Taller Aviso (Demo): sin JavaScript. Se lee todo; lo que necesita JS se esconde. La orden queda como lista y queda el enlace a WhatsApp. */
+.casilla__in, .casilla__caja, .campo, .panel, .contador, .barra__orden, .avisos__sigue { display: none !important; }
+.etapa__flecha, .hoja__x, .hoja__asa { display: none; }
+.hoja { display: block !important; position: static !important; width: auto !important; max-width: none !important; margin: 0 !important; border: 0; background: none; }
+.hoja { height: auto !important; max-height: none !important; }
+.hoja__panel { position: static !important; transform: none !important; opacity: 1 !important; max-height: none !important; border: 0; }
+.casilla { display: block !important; cursor: default; }

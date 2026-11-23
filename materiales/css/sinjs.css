@@ -1,0 +1,4 @@
+/* La Plomada (Demo): sin JavaScript. Se lee todo el catalogo; lo que necesita JS se esconde. */
+.buscador, .calc, .fila__acc, .catalogo__filtrar, .chips--rubros, .barra__lista, .hoja { display: none !important; }
+.hero__h1, .hero__asesor, .servicios { animation: none; }
+body { padding-right: 0 !important; }

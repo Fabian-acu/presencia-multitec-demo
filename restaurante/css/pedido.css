@@ -1,0 +1,66 @@
+/* La Ajicera (Demo): barra "Ver pedido" y hoja del pedido. */
+.barra-pedido {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-barra);
+  padding: var(--s3) var(--s4) calc(var(--s3) + env(safe-area-inset-bottom));
+  background: var(--bg); border-top: 1px solid var(--line);
+}
+.barra-pedido[hidden] { display: none; }
+.barra-pedido__btn {
+  display: flex; align-items: center; justify-content: center; gap: var(--s3);
+  width: 100%; max-width: 560px; min-height: 52px; margin: 0 auto; padding: 0 var(--s5);
+  border: 0; border-radius: var(--r-pill); background: var(--aji); color: var(--on-aji);
+  font: 600 1rem/1.2 var(--f-texto); cursor: pointer; touch-action: manipulation;
+  transition: transform 140ms var(--salida-fuerte), background-color 140ms var(--salida-fuerte);
+}
+.barra-pedido__btn:active { transform: scale(0.97); }
+.barra-pedido__btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.barra-pedido__btn .icono { width: 1.5em; height: 1.5em; }
+.barra-pedido__n { display: inline-block; }
+.barra-pedido__btn span { white-space: nowrap; }
+@media (max-width: 400px) { .barra-pedido__btn { gap: var(--s2); padding: 0 var(--s4); font-size: 0.9375rem; } }
+@media (hover: hover) { .barra-pedido__btn:hover { background: var(--aji-deep); } }
+@media (prefers-reduced-motion: no-preference) {
+  .barra-pedido:not([hidden]) { animation: sube-barra 250ms var(--salida-fuerte); }
+  @keyframes sube-barra { from { transform: translateY(100%); } to { transform: translateY(0); } }
+}
+@media (prefers-reduced-motion: reduce) { .barra-pedido__btn { transition: none; } .barra-pedido__btn:active { transform: none; } }
+/* la cinta flotante de Multitec (abajo a la izquierda) sube para no quedar tapada por la barra */
+.con-barra .cinta-flotante { bottom: 84px; }
+
+/* miniatura que vuela hacia la barra */
+.vuelo {
+  position: fixed; z-index: var(--z-hoja); width: 40px; height: 40px; border-radius: var(--r);
+  overflow: hidden; background: var(--surface); color: var(--aji-deep); pointer-events: none;
+  display: grid; place-items: center; font: 800 1.25rem/1 var(--f-display); box-shadow: 0 2px 8px var(--sombra);
+}
+.vuelo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* hoja del pedido */
+.lineas { display: grid; }
+.linea {
+  display: grid; grid-template-columns: 56px 1fr auto; column-gap: var(--s3); row-gap: var(--s2);
+  align-items: start; padding: var(--s3) 0; border-top: 1px solid var(--line);
+}
+.lineas .linea:first-child { border-top: 0; }
+.linea__foto { width: 56px; height: 56px; border-radius: var(--r); overflow: hidden; background: var(--surface); display: grid; place-items: center; font: 800 1.5rem/1 var(--f-display); color: var(--aji-deep); }
+.linea__foto img { width: 100%; height: 100%; object-fit: cover; }
+.linea__info { min-width: 0; display: grid; gap: var(--s1); }
+.linea__nombre { font-weight: 600; }
+.linea__extra { font-size: 0.875rem; color: var(--ink-2); overflow-wrap: anywhere; }
+.linea__precio { font: 700 1rem/1.3 var(--f-display); font-stretch: 110%; white-space: nowrap; }
+.linea__ctl { grid-column: 2 / 3; display: flex; align-items: center; gap: var(--s2); }
+.linea__num { min-width: 3ch; text-align: center; font-weight: 600; }
+.linea__quitar {
+  grid-column: 3 / 4; justify-self: end; display: inline-flex; align-items: center; gap: var(--s1);
+  min-height: 44px; padding: 0 var(--s3); border: 0; background: transparent; color: var(--aji-deep);
+  font: 600 0.9375rem/1 var(--f-texto); border-radius: var(--r-pill); cursor: pointer; touch-action: manipulation;
+}
+.linea__quitar:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.totales { display: grid; gap: var(--s2); margin: 0; padding-top: var(--s3); border-top: 1px solid var(--line); }
+.totales div { display: flex; justify-content: space-between; gap: var(--s3); }
+.totales dt { color: var(--ink-2); }
+.totales dd { margin: 0; font-variant-numeric: tabular-nums; }
+.totales__total dt, .totales__total dd { color: var(--ink); font: 800 1.25rem/1.2 var(--f-display); font-stretch: 110%; }
+.vacio { display: grid; gap: var(--s4); justify-items: start; padding: var(--s5) 0; }
+.vacio[hidden], .hoja__pie[hidden], .hoja__cuerpo > [hidden] { display: none; }
+.vacio p { font: 700 1.25rem/1.2 var(--f-display); font-stretch: 100%; }

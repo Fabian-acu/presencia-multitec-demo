@@ -1,0 +1,105 @@
+/* Cinta de Multitec (maestra). Igual en todas las demos; se copia sellada a cada carpeta. */
+.cinta, .cinta-flotante {
+  --cinta-bg: #0A0F1E;
+  --cinta-texto: #F5F6F8;
+  --cinta-marca: #1F5EFF;
+  --cinta-marca-presion: #1A4FD6;
+  --cinta-foco: #F5F6F8;
+  --cinta-curva: cubic-bezier(0.23, 1, 0.32, 1);
+  font: 500 13px/1.3 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+.cinta *, .cinta-flotante { box-sizing: border-box; }
+
+.cinta {
+  position: relative;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  padding: 4px 8px 4px 12px;
+  background: var(--cinta-bg);
+  color: var(--cinta-texto);
+}
+.cinta[hidden], .cinta-flotante[hidden] { display: none; }
+
+.cinta__marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+/* El logo es azul marino: va sobre una pastilla clara para que se lea sobre la franja oscura. */
+.cinta__logo {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  border-radius: 6px;
+  background: #fff;
+  object-fit: contain;
+}
+.cinta__texto { margin: 0; text-wrap: balance; }
+
+.cinta__acciones { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+.cinta__boton, .cinta__cerrar, .cinta-flotante {
+  min-height: 44px;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  touch-action: manipulation;
+  transition: transform 140ms var(--cinta-curva), background-color 140ms var(--cinta-curva);
+}
+.cinta__boton, .cinta-flotante {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--cinta-marca);
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.cinta__cerrar {
+  width: 44px;
+  background: transparent;
+  color: var(--cinta-texto);
+  border-radius: 999px;
+}
+.cinta__cerrar svg { width: 18px; height: 18px; display: block; margin: auto; fill: currentColor; }
+/* el espacio de la X se reserva desde el primer cuadro (aparece con JS) para que la franja no cambie de alto */
+.cinta__cerrar[hidden] { display: block; visibility: hidden; }
+.cinta__boton:active, .cinta-flotante:active, .cinta__cerrar:active { transform: scale(0.97); }
+@media (hover: hover) {
+  .cinta__boton:hover, .cinta-flotante:hover { background: var(--cinta-marca-presion); }
+  .cinta__cerrar:hover { background: rgb(245 246 248 / .12); }
+}
+.cinta__boton:focus-visible, .cinta__cerrar:focus-visible, .cinta-flotante:focus-visible {
+  outline: 2px solid var(--cinta-foco);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--cinta-bg);
+}
+
+/* Botón chico que queda al cerrar la franja: abajo a la izquierda (el WhatsApp del negocio va a la derecha). */
+.cinta-flotante {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  z-index: 40;
+  padding: 0 16px;
+  box-shadow: 0 8px 20px rgb(10 15 30 / .28);
+  transition: transform 140ms var(--cinta-curva), background-color 140ms var(--cinta-curva), opacity 200ms var(--cinta-curva);
+}
+@starting-style {
+  .cinta-flotante { opacity: 0; transform: translateY(8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinta__boton, .cinta__cerrar, .cinta-flotante { transition: none; }
+  .cinta__boton:active, .cinta-flotante:active, .cinta__cerrar:active { transform: none; }
+}

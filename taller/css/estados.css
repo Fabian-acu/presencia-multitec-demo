@@ -1,0 +1,11 @@
+/* Taller Aviso (Demo): estados de revision (?estado=cargando). Filas rectangulares sin texto y bloques chapa; sin spinner.
+   El resto de los estados (cerrado, sin fotos, error, sin conexion) vive en pantallas.css y base.css. */
+html[data-estado="cargando"] .casilla > * { visibility: hidden; }
+html[data-estado="cargando"] .casilla__in { visibility: visible; }
+html[data-estado="cargando"] .casilla, html[data-estado="cargando"] [data-foto], html[data-estado="cargando"] .etapa, html[data-estado="cargando"] .burbuja, html[data-estado="cargando"] .panel__datos > div { background: var(--chapa); }
+html[data-estado="cargando"] [data-foto] img, html[data-estado="cargando"] .etapa__t, html[data-estado="cargando"] .etapa__flecha, html[data-estado="cargando"] .burbuja > *, html[data-estado="cargando"] .panel__datos > div > * { visibility: hidden; }
+html[data-estado="cargando"] .burbuja { color: transparent; border-color: transparent; }
+html[data-estado="cargando"] .casilla::before { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-estado="cargando"] .casilla, html[data-estado="cargando"] [data-foto], html[data-estado="cargando"] .etapa, html[data-estado="cargando"] .burbuja { animation: pulso 1.3s ease-in-out infinite; }
+}

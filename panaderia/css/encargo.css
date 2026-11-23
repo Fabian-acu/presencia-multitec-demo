@@ -1,0 +1,10 @@
+/* La Primera Hornada (Demo): "Encargar una torta" (3 pasos numerados en una pantalla) y resumen en vivo. */
+.paso legend { display: flex; align-items: center; gap: var(--s2); margin-bottom: var(--s1); }
+.paso__n {
+  display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--ink); color: var(--bg); font: 800 .9375rem/1 var(--f-display);
+}
+.hoja--encargo .campo__ayuda { margin-bottom: var(--s1); }
+.resumen { display: grid; gap: var(--s2); padding: var(--s4); border-radius: var(--r); background: var(--manteca); }
+.resumen h3 { font-size: 1.25rem; }
+.resumen p { font-weight: 600; }

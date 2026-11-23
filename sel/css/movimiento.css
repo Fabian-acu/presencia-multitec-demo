@@ -1,0 +1,43 @@
+/* Todo el movimiento del selector.
+   Solo transform, opacity y el color del texto (para que el texto cambie a la par del baño de color); nunca background-color de la página.
+   Curva única: salida fuerte cubic-bezier(0.23, 1, 0.32, 1). Todo bajo 300 ms. Con prefers-reduced-motion no hay nada de esto: los cambios son instantáneos. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Las filas entran escalonadas (40 ms entre una y otra) al cargar */
+  @keyframes entra { from { opacity: 0; transform: translateY(14px); } }
+  .fila { animation: entra 0.5s var(--curva) backwards; animation-delay: calc(var(--n, 0) * 40ms); }
+  .fila:nth-child(2) { --n: 1; }
+  .fila:nth-child(3) { --n: 2; }
+  .fila:nth-child(4) { --n: 3; }
+  .fila:nth-child(5) { --n: 4; }
+  .fila:nth-child(6) { --n: 5; }
+  .fila:nth-child(7) { --n: 6; }
+  .fila:nth-child(8) { --n: 7; }
+
+  /* Baño de color: cada capa fija cambia opacity (sale en 200 ms, entra en 280 ms) y el texto cambia de color a la par */
+  .capa { transition: opacity 0.2s var(--curva); }
+  .capa.on { transition-duration: 0.28s; }
+  body, .fila, .apoyo, .num, .pie-p, .cred-p, .cred-l, .cred-l a, .marca { transition: color 0.28s var(--curva), border-color 0.28s var(--curva); }
+  .wa, .wa--pie { transition: color 0.28s var(--curva), border-color 0.28s var(--curva), background-color 0.15s var(--curva), transform 0.14s var(--curva); }
+  .modo-fino .nombre { transition: transform 0.28s var(--curva); }
+
+  /* Foto que sigue al puntero: la posición la mueve el resorte del JS; acá solo aparece y se cambia de una a otra */
+  .modo-fino .vista { transition: opacity 0.2s var(--curva); }
+  .vista-in { transition: transform 0.28s var(--curva); }
+  .vista .foto { transition: opacity 0.2s var(--curva); }
+
+  /* Celular: la fila se tiñe y se abre. grid-template-rows 0fr a 1fr es el único cambio de tamaño, de una fila chica */
+  .modo-toque .fila::before { transition: opacity 0.28s var(--curva); }
+  .modo-toque .detalle { transition: grid-template-rows 0.28s var(--curva), visibility 0s linear 0.28s; }
+  .modo-toque .fila.abierta .detalle { transition: grid-template-rows 0.28s var(--curva), visibility 0s linear 0s; }
+  .modo-toque .detalle-in { opacity: 0; transition: opacity 0.18s var(--curva); }
+  .modo-toque .fila.abierta .detalle-in { opacity: 1; transition: opacity 0.22s var(--curva) 0.06s; }
+
+  /* Feedback de presión */
+  .wa:active, .abrir:active { transform: scale(0.97); }
+}
+
+/* Sin movimiento: nada se anima, todo cambia al instante */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .modo-toque .detalle-in { opacity: 1; }
+}

@@ -1,0 +1,97 @@
+/* La Ajicera (Demo): hojas (<dialog>), formularios y detalle del plato. */
+dialog.hoja {
+  position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+  margin: 0; padding: 0; border: 0; background: transparent; color: var(--ink); overflow: hidden;
+}
+dialog.hoja:not([open]) { display: none; }
+.hoja::backdrop { background: var(--velo); opacity: 0; transition: opacity 300ms var(--salida-fuerte); }
+.hoja.visible::backdrop { opacity: 1; }
+body:has(dialog.hoja[open]) { overflow: hidden; }
+
+.hoja__panel {
+  position: absolute; left: 0; right: 0; bottom: 0; max-height: 92dvh;
+  display: flex; flex-direction: column;
+  background: var(--bg); border-radius: var(--r) var(--r) 0 0;
+  transform: translateY(100%); transition: transform 400ms var(--hoja);
+}
+.hoja.visible .hoja__panel { transform: translateY(0); }
+.hoja__cabeza { position: relative; flex: none; display: flex; justify-content: center; align-items: flex-start; min-height: 52px; padding-top: var(--s3); touch-action: none; cursor: grab; }
+.hoja__asa { width: 40px; height: 4px; border-radius: var(--r-pill); background: var(--asa); }
+.hoja__titulo-fijo { margin: 0; }
+.hoja__cerrar {
+  position: absolute; right: var(--s2); top: var(--s1); width: 44px; height: 44px; padding: 0;
+  display: grid; place-items: center; border: 0; border-radius: var(--r-pill);
+  background: var(--surface); color: var(--ink); cursor: pointer; touch-action: manipulation;
+  transition: transform 140ms var(--salida-fuerte);
+}
+.hoja__cerrar:active { transform: scale(0.97); }
+.hoja__cuerpo { overflow-y: auto; overscroll-behavior: contain; padding: 0 var(--s4) var(--s4); display: flex; flex-direction: column; gap: var(--s4); min-width: 0; min-height: 0; }
+.hoja__cuerpo > * { flex: none; min-width: 0; }
+.hoja__pie { flex: none; display: grid; gap: var(--s2); padding: var(--s3) var(--s4) calc(var(--s3) + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--bg); }
+.boton--ancho { width: 100%; white-space: normal; }
+.boton[disabled] { opacity: 0.5; cursor: not-allowed; }
+.hoja h2 { font-size: 1.75rem; font-stretch: 100%; }
+
+@media (min-width: 900px) {
+  .hoja__panel { top: 0; left: auto; width: min(440px, 100%); max-height: none; border-radius: 0; transform: translateX(100%); }
+  .hoja.visible .hoja__panel { transform: translateX(0); }
+  .hoja__cabeza { cursor: default; min-height: 60px; }
+  .hoja__asa { display: none; }
+  .hoja__cerrar { top: var(--s3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hoja__panel, .hoja.visible .hoja__panel { transform: none; }
+  .hoja__panel { opacity: 0; transition: opacity 150ms linear; }
+  .hoja.visible .hoja__panel { opacity: 1; }
+  .hoja::backdrop { transition-duration: 150ms; }
+  .hoja__cerrar:active { transform: none; }
+}
+
+/* campos y errores (formularios de las hojas) */
+.campo { display: grid; gap: var(--s2); }
+.campo label, .campo legend, .campo__etiqueta { font-weight: 600; font-size: 0.9375rem; padding: 0; }
+.campo fieldset { margin: 0; padding: 0; border: 0; display: grid; gap: var(--s2); min-width: 0; }
+.campo input[type="text"], .campo input[type="tel"], .campo select, .campo textarea {
+  width: 100%; min-height: 44px; padding: var(--s3); font: inherit; font-size: 1rem; color: var(--ink);
+  background: var(--bg); border: 1px solid var(--ink-2); border-radius: var(--r);
+}
+.campo textarea { min-height: 76px; resize: vertical; }
+.campo__ayuda { font-size: 0.875rem; color: var(--ink-2); }
+.campo__ayuda--der { text-align: right; }
+.campo [aria-invalid="true"] { border-color: var(--aji-deep); border-width: 2px; }
+.error { display: flex; align-items: flex-start; gap: var(--s2); font-weight: 600; font-size: 0.9375rem; color: var(--aji-deep); }
+.error[hidden] { display: none; }
+.error .icono { margin-top: 2px; }
+.fichas { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.ficha { position: relative; }
+.ficha input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.ficha span {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; padding: 0 var(--s4);
+  border: 2px solid var(--ink-2); border-radius: var(--r-pill); font-weight: 600;
+  transition: background-color 140ms var(--salida-fuerte), color 140ms var(--salida-fuerte);
+}
+.ficha input:checked + span { background: var(--aji); border-color: var(--aji); color: var(--on-aji); }
+.ficha input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* detalle del plato */
+.det__foto { aspect-ratio: 1; border-radius: var(--r); overflow: hidden; background: var(--surface); display: grid; place-items: center; font: 800 6rem/1 var(--f-display); color: var(--aji-deep); }
+.det__foto img { width: 100%; height: 100%; object-fit: cover; }
+.det__precio { font: 700 1.25rem/1 var(--f-display); font-stretch: 110%; }
+.det__desc { color: var(--ink-2); }
+.cantidad { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); }
+.cantidad__control { display: flex; align-items: center; gap: var(--s2); }
+.cantidad__btn {
+  width: 44px; height: 44px; padding: 0; display: grid; place-items: center; border: 2px solid var(--ink); border-radius: var(--r-pill);
+  background: transparent; color: var(--ink); cursor: pointer; touch-action: manipulation;
+  transition: transform 140ms var(--salida-fuerte);
+}
+.cantidad__btn:active { transform: scale(0.97); }
+.cantidad__btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+.cantidad__num { display: block; overflow: hidden; min-width: 3ch; text-align: center; font: 700 1.25rem/44px var(--f-display); font-variant-numeric: tabular-nums; }
+.cantidad__num span { display: block; }
+@media (prefers-reduced-motion: reduce) { .cantidad__btn:active { transform: none; } .ficha span, .cantidad__btn { transition: none; } }
+.ficha input:disabled { cursor: not-allowed; }
+.ficha input:disabled + span { opacity: 0.45; border-style: dashed; }
+
+.det__titulo { display: grid; gap: var(--s2); }
+.boton__texto { text-align: center; }

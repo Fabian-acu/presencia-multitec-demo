@@ -1,0 +1,4 @@
+/* Consultorio Abril (Demo): solo con JavaScript apagado. Todo se lee; no hay reloj ni menu. */
+.aviso-cerrado { display: none; }
+.barra__menu { display: none; }
+.pasos__lista .chat__lista .globo { opacity: 1; transform: none; }

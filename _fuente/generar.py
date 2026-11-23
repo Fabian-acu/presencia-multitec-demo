@@ -621,7 +621,15 @@ paginas.append(dict(
     cierre="¿Cuándo traés el auto?", extra=HOJA % wa("taller mecánico"),
     horarios=[("Lunes a viernes", [1, 2, 3, 4, 5], "07:30", "17:30"), ("Sábado", [6], "07:30", "12:00"), ("Domingo", [0], None, None)]))
 
+# Demos y portada que ya son del rediseno v2 (se copiaron a mano desde v2/<slug>/ y v2/selector/): el generador NO las vuelve a escribir.
+# Ropa sigue saliendo de aca hasta que le toque. La raiz (selector) tambien es v2: ver RAIZ_REEMPLAZADA.
+REEMPLAZADAS = {"restaurante", "panaderia", "carnes", "materiales", "salon", "taller", "odontologia"}
+RAIZ_REEMPLAZADA = True
+
 for r in paginas:
+    if r["slug"] in REEMPLAZADAS:
+        print("salteada (v2)", r["slug"])
+        continue
     d = os.path.join(RAIZ, r["slug"])
     os.makedirs(d, exist_ok=True)
     open(os.path.join(d, "index.html"), "w", encoding="utf-8", newline="\n").write(pagina(r))
@@ -703,5 +711,8 @@ indice = """<!doctype html>
 %(chatjs)s</body>
 </html>
 """ % dict(css=css_en_linea("fonts/", "selector"), iconos=iconos(""), chat=chat_html("portada", "", "Multitec", [(sl + "/", nm) for sl, nm, _l in SEL]), chatjs=CHAT_JS % "", t=E(titulo), d=E(desc), b=BASE, tarj=tarj, cols=COLS, ogalt=E("Fotos de %d rubros: %s" % (len(SEL), ", ".join(nm.lower() for _s, nm, _l in SEL))), wa=wa_gen, ico=ico(), cred=cred)
-open(os.path.join(RAIZ, "index.html"), "w", encoding="utf-8", newline="\n").write(indice)
-print("ok index")
+if RAIZ_REEMPLAZADA:
+    print("raiz salteada (v2: index.html y sel/ son del selector nuevo)")
+else:
+    open(os.path.join(RAIZ, "index.html"), "w", encoding="utf-8", newline="\n").write(indice)
+    print("ok index")

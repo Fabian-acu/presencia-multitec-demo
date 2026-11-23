@@ -1,0 +1,42 @@
+/* Consultorio Abril (Demo): todo el movimiento. Solo transform, opacity y clip-path; nada se esconde si no corre.
+   Sin movimiento reducido: entrada de la portada, ventana que se abre una vez, linea de proceso, acordeon y menu.
+   Con movimiento reducido: la ventana se ve abierta, la linea entera dibujada, las filas se abren sin animar.
+   Sin soporte de animation-timeline (Safari, Firefox: versiones sin verificar): se ve la version quieta y completa. */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* 1. Portada al cargar: jerarquia (titular, bajada, accion, datos). 500 ms salida fuerte, 90 ms entre piezas, una vez. */
+  html.js .portada__h1,
+  html.js .portada__bajada,
+  html.js .portada__acciones,
+  html.js .datos { animation: entrar 500ms var(--salida) both; }
+  html.js .portada__bajada { animation-delay: 90ms; }
+  html.js .portada__acciones { animation-delay: 180ms; }
+  html.js .datos { animation-delay: 400ms; }
+  @keyframes entrar { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+  /* 2. Acordeon: la fila crece 220 ms; el signo gira 45 grados; el menu del celular gira su flecha. */
+  html.js .acc__panel { transition: grid-template-rows 220ms var(--salida); }
+  html.js .acc__interior { transition: visibility 0s linear 220ms; }
+  html.js .acc__item[data-abierto] .acc__interior { transition-delay: 0s; }
+  html.js .acc__ico { transition: transform 220ms var(--salida); }
+  html.js .barra__menu .ico { transition: transform 200ms var(--salida); }
+
+  /* 3. La ventana se abre una vez, al llegar, despues del titular: la foto pasa de inset(0 18%) a inset(0) y se asienta de 1,06 a 1.
+        Es el unico gesto largo de la pagina (excepcion de marketing). Fill backwards: al terminar vuelve al estado normal, abierto. */
+  html.js .ventana__vidrio { animation: abrir 900ms var(--salida) 300ms backwards; }
+  html.js .ventana__img { animation: asentar 900ms var(--salida) 300ms backwards; }
+  @keyframes abrir { from { clip-path: inset(0 18% 0 18% round 8px); } to { clip-path: inset(0 0 0 0 round 8px); } }
+  @keyframes asentar { from { transform: scale(1.06); } to { transform: scale(1); } }
+}
+
+/* Linea de proceso anclada: solo en compu. Cada tramo se dibuja (scaleY) cuando su paso pasa por el medio de la pantalla y el
+   numero del paso pasa de salvia a tinta; queda asi (avance acumulado). En celular la linea ya esta dibujada. */
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    html.js .paso { view-timeline-name: --paso; view-timeline-axis: block; }
+    html.js .paso__linea::after { animation: dibujar linear both; animation-timeline: --paso; animation-range: cover 30% cover 58%; }
+    html.js .paso__num::after { animation: encender linear both; animation-timeline: --paso; animation-range: cover 30% cover 45%; }
+    @keyframes dibujar { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+    @keyframes encender { from { opacity: 0; } to { opacity: 1; } }
+  }
+}

@@ -1,0 +1,78 @@
+/* La Plomada (Demo): mi lista de obra (tablilla), datos de entrega y chat de ejemplo. */
+.hoja--lista .hoja__cabeza { background: var(--pizarra); color: var(--sobre-pizarra); --foco: var(--papel); }
+.hoja--lista .hoja__x { color: var(--sobre-pizarra); }
+.hoja--lista .hoja__asa { background: var(--sobre-pizarra); }
+.hoja--lista .hoja__scroll { background: var(--papel); }
+.lista__linea { padding: 12px 14px 0; font-size: 13px; color: var(--pizarra-2); }
+.lista__vacia { display: grid; justify-items: start; gap: 8px; padding: 24px 14px; }
+.lista__vt { font-weight: 700; font-stretch: 110%; font-size: 20px; }
+.lista__vs { color: var(--pizarra-2); }
+.lista__llena { padding: 8px 14px 0; }
+
+.lgrupo { margin-top: 12px; }
+.lgrupo__t { padding: 4px 0; border-bottom: 2px solid var(--pizarra); font: 500 13px/1.3 var(--f-mono); text-transform: uppercase; letter-spacing: .04em; color: var(--pizarra); }
+.lin { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "nom tot" "cod cod" "paso quitar"; gap: 6px 12px; padding: 10px 0; border-bottom: 1px solid var(--linea); }
+.lin__nom { grid-area: nom; min-width: 0; font-weight: 700; line-height: 1.25; }
+.lin__med { display: block; font-weight: 500; font-size: 13px; color: var(--pizarra-2); }
+.lin__cod { grid-area: cod; font-size: 12px; color: var(--pizarra-2); }
+.lin__tot { grid-area: tot; text-align: right; font-size: 15px; white-space: nowrap; }
+.lin .paso { grid-area: paso; width: auto; min-width: 0; max-width: 220px; }
+.lin__quitar { grid-area: quitar; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 8px; border: 0; background: none; color: var(--pizarra); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; touch-action: manipulation; }
+.lin__quitar .icono { width: 18px; height: 18px; }
+.lin__msg { grid-column: 1 / -1; font-size: 13px; font-weight: 700; color: var(--error); }
+.lista__cambio { margin-top: 12px; padding: 10px 12px; border: 2px solid var(--pizarra); border-radius: var(--r); font-weight: 700; }
+
+.totales { margin-top: 14px; display: grid; gap: 0; border-top: 2px solid var(--pizarra); }
+.totales > div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--linea); }
+.totales dt { min-width: 0; font-size: 14px; }
+.totales dd { flex: none; text-align: right; font-size: 15px; }
+.totales__total dt { font-weight: 700; }
+.totales__total dd { font-size: 20px; font-weight: 500; }
+.lista__nota { margin-top: 8px; font-size: 13px; color: var(--pizarra-2); }
+
+/* datos de entrega */
+.envio { margin-top: 18px; padding-bottom: 8px; }
+.envio .campo { margin-top: 16px; min-width: 0; }
+.envio .campo--grupo { margin-inline: 0; padding: 0; border: 0; }
+.envio .campo--grupo legend { padding: 0; }
+.envio__linea { margin-top: 6px; font-size: 13px; color: var(--pizarra-2); }
+.seg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.seg--3 { grid-template-columns: minmax(0, 1fr); }
+.seg__o { position: relative; display: block; }
+.seg__o input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.seg__o span { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 6px 10px; border: 2px solid var(--pizarra); border-radius: var(--r); background: var(--papel); font-weight: 700; font-size: 15px; text-align: center; line-height: 1.15; touch-action: manipulation; transition: transform 140ms var(--curva), background-color 140ms var(--curva); }
+.seg__o input:checked + span { background: var(--pizarra); color: var(--sobre-pizarra); }
+.seg__o input:focus-visible + span { outline: 3px solid var(--ink); outline-offset: 2px; }
+.seg__o input:active + span { transform: scale(0.97); }
+.campo__cont { text-align: right; font-size: 12px; color: var(--pizarra-2); }
+.mapa--chico { margin-top: 10px; max-height: 200px; aspect-ratio: 16 / 9; }
+.mapa__pin--movil { left: 0; top: 0; }
+@media (min-width: 520px) { .seg--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* chat de ejemplo */
+.chat { margin: 8px 14px 24px; }
+.chat__marco { padding: 8px 0; font-weight: 700; font-size: 14px; border-top: 2px solid var(--pizarra); }
+.chat__caja { padding: 12px; border: 2px solid var(--pizarra); border-radius: var(--r); background: var(--hormigon); }
+.chat__quien { margin-bottom: 10px; font-weight: 700; font-size: 14px; }
+.chat__lista { display: grid; gap: 8px; }
+.globo { max-width: 86%; padding: 9px 12px; border-radius: var(--r); font-size: 15px; line-height: 1.35; }
+.globo--c { justify-self: end; background: var(--pizarra); color: var(--sobre-pizarra); }
+.globo--a { justify-self: start; background: var(--papel); border: 1px solid var(--borde); }
+
+/* pie fijo de la lista */
+.hoja__pie--lista { gap: 6px; }
+.hoja__total { display: grid; justify-items: end; gap: 0; }
+.hoja__total-t { justify-self: start; font-size: 14px; font-weight: 700; }
+.hoja__total-n { font-size: 20px; white-space: nowrap; }
+.nota-wa--pie { text-align: center; }
+.hoja__pie--lista .btn { line-height: 1.15; }
+
+/* compu ancha: la lista es un panel fijo que acompana todo el recorrido (el espacio se reserva desde el primer cuadro) */
+@media (min-width: 1100px) {
+  body { padding-right: var(--ancho-lista); }
+  dialog.hoja--lista { display: block; position: fixed; top: 0; right: 0; bottom: 0; left: auto; width: var(--ancho-lista); height: auto; z-index: 25; }
+  .hoja--lista .hoja__panel { position: static; width: auto; height: 100dvh; transform: none !important; opacity: 1 !important; transition: none; border-left: 2px solid var(--pizarra); }
+  .hoja--lista .hoja__x--lista { display: none; }
+  .hoja--lista::backdrop { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .seg__o span { transition: none; } }

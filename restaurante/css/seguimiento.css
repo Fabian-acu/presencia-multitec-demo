@@ -1,0 +1,73 @@
+/* La Ajicera (Demo): confirmación, seguimiento y chat de ejemplo. */
+.boton--contorno-oscuro { border-color: var(--ink); color: var(--ink); background: transparent; }
+@media (hover: hover) { .boton--contorno-oscuro:hover { background: var(--surface); } }
+@media (min-width: 900px) { .hoja--ancha .hoja__panel { width: min(560px, 100%); } }
+
+.seg__cabeza { display: grid; gap: var(--s2); }
+.seg__cabeza h2 { font-size: 1.5rem; }
+.seg__numero { color: var(--ink-2); font-weight: 600; }
+.seg__cartel { display: flex; align-items: center; gap: var(--s2); padding: var(--s3); border-radius: var(--r); background: var(--ink); color: var(--on-aji); }
+.seg__bloque { display: grid; gap: var(--s3); }
+.seg__bloque h3 { font-size: 1.125rem; }
+.seg__resumen { display: grid; }
+.seg__resumen li { display: flex; justify-content: space-between; gap: var(--s3); padding: var(--s2) 0; border-top: 1px solid var(--line); }
+.seg__resumen li:first-child { border-top: 0; }
+.seg__resumen .num { white-space: nowrap; }
+.seg__total { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s3); padding-top: var(--s2); border-top: 1px solid var(--ink); }
+.seg__total strong { font: 800 1.25rem/1.2 var(--f-display); font-stretch: 110%; }
+
+/* estepper: la línea de avance crece con scaleX */
+.estepper { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; text-align: center; }
+.estepper::before, .estepper__avance { content: ""; position: absolute; top: 22px; height: 3px; left: var(--margen, 12.5%); right: var(--margen, 12.5%); background: var(--line); }
+.estepper__avance { background: var(--aji); transform-origin: left center; transform: scaleX(0); transition: transform 600ms var(--salida-fuerte); }
+.estepper__paso { position: relative; display: grid; justify-items: center; gap: var(--s2); font-size: 0.875rem; font-weight: 600; color: var(--ink-2); }
+.estepper__icono {
+  position: relative; display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-pill);
+  border: 2px solid var(--line); background: var(--bg); color: var(--ink-2);
+  transition: background-color 200ms var(--salida-fuerte), color 200ms var(--salida-fuerte), border-color 200ms var(--salida-fuerte);
+}
+.estepper__paso.hecho .estepper__icono, .estepper__paso.activo .estepper__icono { background: var(--aji); border-color: var(--aji); color: var(--on-aji); }
+.estepper__paso.hecho, .estepper__paso.activo { color: var(--ink); }
+@media (prefers-reduced-motion: no-preference) {
+  .estepper__paso.pulso .estepper__icono { animation: pulso 600ms var(--salida-fuerte) 2; }
+  @keyframes pulso { 0% { transform: scale(1); } 50% { transform: scale(1.14); } 100% { transform: scale(1); } }
+}
+@media (prefers-reduced-motion: reduce) { .estepper__avance, .estepper__icono { transition: none; } }
+.seg__estado { font-weight: 600; min-height: 1.5em; }
+
+/* ruta del repartidor */
+.ruta[hidden] { display: none; }
+.ruta__lienzo { position: relative; container-type: size; aspect-ratio: 16 / 9; border-radius: var(--r); overflow: hidden; background: var(--surface); }
+.ruta__lienzo img { width: 100%; height: 100%; object-fit: cover; }
+.ruta__linea { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ruta__linea polyline { stroke: var(--ink-2); stroke-width: 2; stroke-dasharray: 6 5; }
+.ruta__destino { position: absolute; left: 0; top: 0; width: 28px; height: 28px; color: var(--aji); transform: translate(calc(78cqw - 14px), calc(22cqh - 28px)); }
+.ruta__punto { position: absolute; left: 0; top: 0; width: 16px; height: 16px; border-radius: var(--r-pill); background: var(--aji); border: 3px solid var(--on-aji); box-shadow: 0 1px 4px var(--sombra); transform: translate(calc(14cqw - 8px), calc(80cqh - 8px)); }
+.ruta__punto.fin { transform: translate(calc(78cqw - 8px), calc(32cqh - 8px)); }
+
+/* chat de ejemplo: sin caja para escribir */
+.chat__marco { font-weight: 600; font-size: 0.9375rem; }
+.chat__ventana { display: grid; gap: var(--s3); padding: var(--s3); border-radius: var(--r); background: var(--surface); }
+.chat__rotulo { font-weight: 600; font-size: 0.875rem; color: var(--ink-2); }
+.chat__mensajes { display: grid; gap: var(--s2); min-height: 4rem; }
+.burbuja { display: grid; gap: var(--s1); max-width: 85%; padding: var(--s2) var(--s3); border-radius: var(--r); font-size: 0.9375rem; line-height: 1.4; }
+.burbuja--asistente { justify-self: start; background: var(--on-aji); color: var(--ink); }
+.burbuja--cliente { justify-self: end; background: var(--ink); color: var(--on-aji); }
+.burbuja__chip { font-size: 0.75rem; font-weight: 600; color: var(--aji-deep); }
+.burbuja--cliente .burbuja__chip { color: var(--line); }
+.burbuja__campo { padding: 0 var(--s1); border-radius: 4px; background: var(--surface); font-weight: 600; }
+@media (prefers-reduced-motion: no-preference) {
+  .burbuja { animation: burbuja-entra 220ms var(--salida-fuerte); }
+  @keyframes burbuja-entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+}
+.seg__botones { display: flex; flex-wrap: wrap; gap: var(--s2); padding-bottom: var(--s2); }
+.seg__botones .boton { flex: 1 1 auto; }
+
+.seg__plegable { border-top: 1px solid var(--line); }
+.seg__plegable summary { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); min-height: 48px; cursor: pointer; font-weight: 600; list-style: none; }
+.seg__plegable summary::-webkit-details-marker { display: none; }
+.seg__plegable summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.seg__plegable summary .icono { transition: transform 200ms var(--salida-fuerte); }
+.seg__plegable[open] summary .icono { transform: rotate(180deg); }
+.seg__plegable .seg__resumen { padding-bottom: var(--s2); }
+@media (prefers-reduced-motion: reduce) { .seg__plegable summary .icono { transition: none; } }

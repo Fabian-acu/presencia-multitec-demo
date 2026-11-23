@@ -1,0 +1,53 @@
+/* Consultorio Abril (Demo): la hoja del mapa (<dialog>). Celular: sube desde abajo. Compu: al centro.
+   Foto ARRIBA, texto ABAJO (nunca encimados) y la accion en un pie fijo. Anima solo transform y opacity. */
+dialog.hoja { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: var(--tinta); overflow: visible; }
+dialog.hoja::backdrop { background: var(--fondo-modal); opacity: 0; }
+dialog.hoja.visible::backdrop { opacity: 1; }
+html:has(dialog.hoja:modal) { overflow: hidden; }
+
+.hoja__panel { position: fixed; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; max-height: 92dvh; border-radius: var(--radio) var(--radio) 0 0; background: var(--porcelana); overflow: hidden; transform: translateY(100%); }
+dialog.hoja.visible .hoja__panel { transform: none; }
+
+.hoja__cabeza { position: relative; flex: none; display: flex; align-items: center; min-height: 56px; padding: 14px 8px 4px 16px; touch-action: none; }
+.hoja__asa { position: absolute; top: 6px; left: 50%; width: 44px; height: 4px; margin-left: -22px; border-radius: 2px; background: var(--tinta-2); }
+.hoja__x { display: inline-grid; place-items: center; width: 44px; height: 44px; margin-left: auto; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; touch-action: manipulation; }
+.hoja__x .ico { width: 24px; height: 24px; }
+.hoja__x:active { transform: scale(0.97); }
+.hoja__cuerpo { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.hoja__foto { margin: 0 16px; }
+.hoja__mapa { position: relative; overflow: hidden; border-radius: var(--radio); background: var(--niebla); }
+.hoja__foto img { width: 100%; height: clamp(150px, 30svh, 300px); object-fit: cover; }
+.hoja__pin { position: absolute; left: 50%; top: 50%; width: 36px; height: 36px; margin: -34px 0 0 -18px; color: var(--tinta); }   /* pin sobre el punto del mapa de ejemplo */
+.hoja__foto figcaption { margin-top: 8px; font-size: 0.8125rem; line-height: 1.4; color: var(--tinta-2); }
+.hoja__error { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; min-height: clamp(150px, 30svh, 300px); margin: 0 16px; padding: 16px; border-radius: var(--radio); background: var(--niebla); text-align: center; }
+.hoja__error span { min-width: 0; color: var(--error); font-weight: 500; }
+.hoja__texto { padding: 16px 16px 24px; }
+.hoja__texto p { margin-bottom: 8px; }
+.hoja__pie { flex: none; display: grid; gap: 6px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--blanco); }
+.hoja__pie .wa { align-items: stretch; }
+.hoja__pie .nota-wa { text-align: center; }
+.hoja__pie .wa__estado { text-align: center; max-width: none; }
+.hoja__demo { font-size: 0.75rem; line-height: 1.3; text-align: center; color: var(--tinta-2); }
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog.hoja::backdrop { transition: opacity 300ms var(--salida); }
+  .hoja__panel { transition: transform 400ms var(--curva-hoja); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hoja__panel { transform: none; opacity: 0; transition: opacity 150ms linear; }
+  dialog.hoja.visible .hoja__panel { opacity: 1; }
+  dialog.hoja::backdrop { transition: opacity 150ms linear; }
+}
+
+@media (min-width: 900px) {
+  .hoja__panel { left: 50%; right: auto; top: 50%; bottom: auto; width: min(640px, 92vw); max-height: 88dvh; border-radius: var(--radio); transform: translate(-50%, -46%); opacity: 0; }
+  dialog.hoja.visible .hoja__panel { transform: translate(-50%, -50%); opacity: 1; }
+  .hoja__asa { display: none; }
+  .hoja__pie .wa { align-items: center; }
+}
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .hoja__panel { transition: transform 300ms var(--salida), opacity 300ms var(--salida); }
+}
+@media (min-width: 900px) and (prefers-reduced-motion: reduce) {
+  .hoja__panel { transform: translate(-50%, -50%); }
+}
