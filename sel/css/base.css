@@ -44,7 +44,8 @@
   --fucsia: #B8136B;    --on-fucsia: #FFFFFF;    --on2-fucsia: #FFFFFF; --on3-fucsia: #E6ACCB;
   --salvia: #3F7A63;    --on-salvia: #FFFFFF;    --on2-salvia: #F2F6F4; --on3-salvia: #C3D6CF;
   --lima: #C8F03C;      --on-lima: #0E0E10;      --on2-lima: #515F20; --on3-lima: #6D8126;
-  --velo: rgb(14 14 16 / .66); /* sobre la foto de carnicería: con 55% el peor píxel (blanco) da 3,8:1; con 66% da 5,6:1 */
+  --ropa: #1C1C1D;      --on-ropa: #F2F2EF;      --on2-ropa: #E2E2DF; --on3-ropa: #BCBCBA;
+  --velo: rgb(14 14 16 / .66); /* sobre la foto de carnicería y de ropa (blanco y negro): con 55% el peor píxel (blanco) da 3,8:1; con 66% da 5,6:1 */
   /* Texto actual: cambia con la inundación (lista.css) */
   --on: var(--text);
   --on-2: var(--text-2);

@@ -28,7 +28,8 @@ Una por demo: la foto de hero de cada demo en su versión ya procesada (Pillow l
 | salon | 40189015 | Omer Unlu | https://www.pexels.com/photo/close-up-of-red-nail-polish-application-40189015/ | 45bfb84d0e0a83c9be04852986243ef0c9b61cb6c086809e669af7071cf9f5c2 | `hero-ventana-840.webp` | -v 1a9b6eea4d31, -a 577cb7934381, -b adb48a576da3, -m ef59f2318291 |
 | odontologia | 6812453 | Pavel Danilyuk | https://www.pexels.com/photo/a-dental-equipment-in-the-clinic-6812453/ | ed0c2ac1f81ae4628186e478e38a7bc317c7e4ef6fb3b2ff0ac8e0149b2f2c1a | `ventana-1440.webp` | -v dcebaf78fbf1, -a c9bab385b456, -b 0879b3214384, -m 1634db39e725 |
 | taller | 4022543 | Jae Park | https://www.pexels.com/photo/disk-brake-of-wheeled-vehicle-4022543/ | cf77103aad1520a43980fd8b50e4824f300f291aca84322ed47e82256ac59058 | `macro-1400.webp` | -v 45f044cb4edf, -a 198bb9f65d96, -b 47c9f73ea4c6, -m 5543cf71c348 |
-Fondo del baño de color de carnicería: `fotos/carnes-fondo.webp` (misma foto 10201880, 1200 px de ancho, SHA-256 bd4304f5c73f0648164214cfce0bdee4b14c609fd85f2c151b1f56d9bfe37872).
+| ropa | 1884584 | Tembela Bohle | https://www.pexels.com/photo/grayscale-photography-of-assorted-shirts-hanged-on-clothes-rack-1884584/ | 69070099e3f9337cfe9aaf3607a3d6f810e9e3f8a9710607f80bc31dc3593f20 | `portada-1440.webp (ya pasada a grises y oscurecida por la demo)` | -v 323d7d27de97, -a 72a551ed5171, -b 3dc0aa500ad2, -m 46198f23561e |
+Fondo del baño de color de carnicería: `fotos/carnes-fondo.webp` (misma foto 10201880, 1200 px de ancho, SHA-256 bd4304f5c73f y ropa-fondo.webp 863df31cbd54).
 Pie de la página (igual a esta lista):
 - Restaurante: Andres Idda Bianchi en Pexels (https://www.pexels.com/photo/traditional-argentinian-asado-barbecue-grilling-37126417/)
 - Panadería: James Collington en Pexels (https://www.pexels.com/photo/close-up-of-freshly-baked-croissants-in-bakery-display-30403209/)
@@ -37,11 +38,12 @@ Pie de la página (igual a esta lista):
 - Salón: Omer Unlu en Pexels (https://www.pexels.com/photo/close-up-of-red-nail-polish-application-40189015/)
 - Odontología: Pavel Danilyuk en Pexels (https://www.pexels.com/photo/a-dental-equipment-in-the-clinic-6812453/)
 - Taller: Jae Park en Pexels (https://www.pexels.com/photo/disk-brake-of-wheeled-vehicle-4022543/)
+- Ropa: Tembela Bohle en Pexels (https://www.pexels.com/photo/grayscale-photography-of-assorted-shirts-hanged-on-clothes-rack-1884584/)
 Salón: la foto es la del hero de la demo (esmalte sobre una uña), con la que la demo abre. Materiales: la celda Ladrillos del bento de la demo (la demo no tiene foto de hero).
 
 ## Marca
 `logo-m.png`: copia sin cambios del logo de la cinta maestra de Multitec, SHA-256 84a9d9bed2e98122c62aa0b7410f7acf865b0ce2b920cd84b5e4e6ed63e2d922. Sobre una pastilla blanca (el logo trae fondo blanco).
-`og.jpg` (1200x630, sin texto: el logo y 7 franjas con los colores firma de las demos), SHA-256 72dbd45ed86ab0f6837a20224ad66f53982e3275b94ddbefbda9bd63d7b44b0a.
+`og.jpg` (1200x630, sin texto: el logo y 7 franjas con los colores firma de las demos), SHA-256 b08ae136afee39a8b1060366e34b04c6caecb9444ddc0c56e0f18e7fc3bb1c6b.
 
 ## Mapa
 No lleva mapa.

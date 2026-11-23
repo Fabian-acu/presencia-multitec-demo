@@ -622,8 +622,8 @@ paginas.append(dict(
     horarios=[("Lunes a viernes", [1, 2, 3, 4, 5], "07:30", "17:30"), ("Sábado", [6], "07:30", "12:00"), ("Domingo", [0], None, None)]))
 
 # Demos y portada que ya son del rediseno v2 (se copiaron a mano desde v2/<slug>/ y v2/selector/): el generador NO las vuelve a escribir.
-# Ropa sigue saliendo de aca hasta que le toque. La raiz (selector) tambien es v2: ver RAIZ_REEMPLAZADA.
-REEMPLAZADAS = {"restaurante", "panaderia", "carnes", "materiales", "salon", "taller", "odontologia"}
+# Las 8 demos son v2 (ropa incluida). La raiz (selector) tambien es v2: ver RAIZ_REEMPLAZADA.
+REEMPLAZADAS = {"restaurante", "panaderia", "carnes", "materiales", "salon", "taller", "odontologia", "ropa"}
 RAIZ_REEMPLAZADA = True
 
 for r in paginas:

@@ -1,0 +1,24 @@
+/* Ceniza (Demo): el movimiento. Solo transform, opacity y clip-path. Todo parte de lo ya visible: sin soporte o con
+   reduced-motion la pagina se ve completa y quieta. */
+@media (prefers-reduced-motion: no-preference) {
+  /* portada: el texto sube una vez al cargar (jerarquia: primero el titular, despues lo demas) */
+  .portada__h1, .portada__sub, .portada__acciones, .portada__cerrado { animation: subir 600ms var(--salida) backwards; }
+  .portada__sub { animation-delay: 90ms; }
+  .portada__acciones { animation-delay: 180ms; }
+  .portada__cerrado { animation-delay: 240ms; }
+  @keyframes subir { from { opacity: 0; transform: translateY(14px); } }
+
+  @supports (animation-timeline: view()) {
+    /* portada: la foto se mueve un poco menos que la pagina al bajar (parallax suave, solo en la primera pantalla) */
+    .portada__foto img { animation: paralaje linear both; animation-timeline: scroll(root block); animation-range: 0 100vh; }
+    @keyframes paralaje { from { transform: scale(1.08) translateY(0); } to { transform: scale(1.08) translateY(3.5%); } }
+
+    /* entradas: cada foto se descubre de arriba hacia abajo al entrar en pantalla */
+    .entrada__foto { animation: descubrir linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+    @keyframes descubrir { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+
+    /* prendas: suben y aparecen al entrar en pantalla */
+    .grilla__item { animation: entrar linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+    @keyframes entrar { from { opacity: 0; transform: translateY(20px); } }
+  }
+}

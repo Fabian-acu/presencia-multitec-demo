@@ -1,0 +1,115 @@
+/* Ceniza (Demo): tokens, letras y piezas basicas. Todos los colores salen de aca. Blanco y negro, sin acento. */
+@font-face {
+  font-family: "Encode Sans";
+  font-style: normal;
+  font-weight: 400 600;
+  font-stretch: 100% 125%;
+  font-display: swap;
+  src: url("../fuentes/encodesans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "DM Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fuentes/dmmono-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* respaldos con medidas parecidas para que el texto no salte al cargar la letra (valores estimados, sin medir) */
+@font-face { font-family: "Encode Ajuste"; src: local("Arial"); size-adjust: 103%; ascent-override: 96%; descent-override: 25%; line-gap-override: 0%; }
+@font-face { font-family: "DM Ajuste"; src: local("Courier New"); size-adjust: 96%; ascent-override: 95%; descent-override: 26%; line-gap-override: 0%; }
+
+:root {
+  --page: #F3F3F1;
+  --ink: #0E0E0E;
+  --ink-2: #4A4A46;
+  --line: #D6D6D2;
+  --hueco: #E6E6E3;
+  --velo: rgb(14 14 14 / .5);              /* detras de la hoja */
+  --velo-claro: rgb(243 243 241 / .16);    /* hover de un boton en contorno sobre fondo oscuro */
+
+  --f: "Encode Sans", "Encode Ajuste", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --m: "DM Mono", "DM Ajuste", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --salida: cubic-bezier(0.23, 1, 0.32, 1);
+  --curva-hoja: cubic-bezier(0.32, 0.72, 0, 1);
+  --ancho: 1280px;
+  --margen: clamp(16px, 4vw, 40px);
+  --alto-barra: 60px;
+  --alto-cinta: 52px;                      /* alto de la franja de Multitec: una linea; nucleo.js lo corrige con la medida real */
+  --alto-pie-fijo: 44px;
+  --z-barra: 20;
+  --z-pie-fijo: 30;
+  --z-red: 35;
+}
+@media (max-width: 446px) { :root { --alto-cinta: 81px; } }    /* la franja pasa a 2 lineas (medido por Martin a 390) */
+@media (max-width: 349px) { :root { --alto-cinta: 100px; } }   /* estimado: se corrige al medir */
+@media (min-width: 768px) { :root { --alto-barra: 72px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: calc(var(--alto-barra) + 12px); color-scheme: light; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0;
+  padding-bottom: calc(var(--alto-pie-fijo) + env(safe-area-inset-bottom));
+  background: var(--page);
+  color: var(--ink);
+  font: 400 1rem/1.6 var(--f);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+.cinta__cerrar[hidden] { display: block !important; visibility: hidden; }   /* la X de la cinta reserva su lugar desde el primer cuadro */
+.sr { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; padding: 0; }
+.saltar { position: absolute; left: 8px; top: -64px; z-index: 50; padding: 12px 18px; background: var(--ink); color: var(--page); text-decoration: none; }
+.saltar:focus { top: 8px; }
+.contenedor { width: 100%; max-width: calc(var(--ancho) + 2 * var(--margen)); margin-inline: auto; padding-inline: var(--margen); }
+.mono { font-family: var(--m); font-size: 0.8125rem; line-height: 1.5; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+
+/* titulos: Encode Sans en su ancho maximo (la version Expanded), peso 500 */
+.h2 { font-weight: 500; font-stretch: 125%; font-size: clamp(1.75rem, 4.2vw, 2.75rem); line-height: 1.1; letter-spacing: -0.01em; text-wrap: balance; overflow-wrap: break-word; }
+.h2--s { font-weight: 500; font-stretch: 125%; font-size: 1.25rem; line-height: 1.2; margin-bottom: 20px; }
+.bajada { margin: 10px 0 28px; max-width: 56ch; color: var(--ink-2); text-wrap: pretty; }
+.linea-fija { margin-top: 32px; font-size: 0.875rem; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+
+/* foco visible: anillo doble, se ve sobre pagina, hueco y tinta */
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; box-shadow: 0 0 0 5px var(--page); }
+
+.ico { width: 1.25em; height: 1.25em; flex: none; fill: currentColor; }
+
+/* botones: rectangulos (radio 0), una sola regla para toda la pagina. Principal = tinta; el resto en contorno. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 8px 22px; max-width: 100%;
+  border: 1px solid var(--ink); border-radius: 0;
+  font-weight: 500; font-size: 0.9375rem; line-height: 1.2; letter-spacing: 0.02em; text-align: center; text-decoration: none; text-wrap: balance;
+  cursor: pointer; touch-action: manipulation;
+  transition: transform 140ms var(--salida), background-color 160ms var(--salida), color 160ms var(--salida);
+}
+.btn--tinta { background: var(--ink); color: var(--page); }
+.btn--linea { background: transparent; color: var(--ink); }
+.btn--s { min-height: 44px; padding: 6px 16px; font-size: 0.875rem; }
+.btn--cuadro { width: 48px; padding: 0; }
+.btn:active { transform: scale(0.97); }
+@media (hover: hover) {
+  .btn--tinta:hover { background: var(--ink-2); border-color: var(--ink-2); }
+  .btn--linea:hover { background: var(--hueco); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn:active { transform: none; }
+}
+
+/* grupo de un boton de WhatsApp: boton, aclaracion fija y estado */
+.wa { display: flex; flex-direction: column; align-items: flex-start; }
+.nota-wa { margin-top: 6px; font-size: 0.75rem; line-height: 1.3; color: var(--ink-2); }
+.wa__estado { margin-top: 8px; font-size: 0.875rem; line-height: 1.4; color: var(--ink-2); max-width: 34ch; }
+.wa__estado:empty { display: none; }
+.wa__estado--error { color: var(--ink); font-weight: 500; }
+
+/* el boton flotante de la cinta sube sobre el pie fijo (no se edita la cinta sellada) */
+.cinta-flotante { bottom: calc(var(--alto-pie-fijo) + 12px + env(safe-area-inset-bottom)); }

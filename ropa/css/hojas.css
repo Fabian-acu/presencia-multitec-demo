@@ -1,0 +1,80 @@
+/* Ceniza (Demo): las hojas (<dialog>): la ficha de la prenda y el mapa. Celular: suben desde abajo. Compu: al centro.
+   Foto ARRIBA, texto ABAJO (nunca encimados) y la accion en un pie fijo. Anima solo transform y opacity. */
+dialog.hoja { width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: var(--ink); overflow: visible; }
+dialog.hoja::backdrop { background: var(--velo); opacity: 0; }
+dialog.hoja.visible::backdrop { opacity: 1; }
+html:has(dialog.hoja:modal) { overflow: hidden; }
+
+.hoja__panel { position: fixed; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; max-height: 92dvh; background: var(--page); overflow: hidden; transform: translateY(100%); }
+dialog.hoja.visible .hoja__panel { transform: none; }
+.hoja--ficha .hoja__panel { top: 0; max-height: none; }   /* la ficha ocupa toda la pantalla del celular */
+
+.hoja__cabeza { position: relative; flex: none; display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: 14px 8px 4px 8px; border-bottom: 1px solid var(--line); touch-action: none; }
+.hoja__asa { position: absolute; top: 6px; left: 50%; width: 44px; height: 4px; margin-left: -22px; background: var(--ink-2); }
+.hoja__titulo { padding-left: 8px; font-weight: 500; font-stretch: 125%; font-size: 1.125rem; }
+.hoja__volver { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border: 0; background: transparent; font-size: 0.9375rem; font-weight: 500; cursor: pointer; touch-action: manipulation; transition: transform 140ms var(--salida); }
+.hoja__volver:active, .hoja__x:active { transform: scale(0.97); }
+.hoja__x { display: inline-grid; place-items: center; width: 44px; height: 44px; margin-left: auto; padding: 0; border: 0; background: transparent; cursor: pointer; touch-action: manipulation; }
+.hoja__x .ico { width: 24px; height: 24px; }
+.hoja__cuerpo { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+
+/* mapa */
+.hoja__foto { margin: 16px var(--margen) 0; }
+.hoja__mapa { position: relative; overflow: hidden; background: var(--hueco); }
+.hoja__foto img { width: 100%; height: clamp(150px, 30svh, 300px); object-fit: cover; }
+.hoja__foto figcaption { margin-top: 8px; color: var(--ink-2); }
+.hoja__error { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; min-height: clamp(150px, 30svh, 300px); margin: 16px var(--margen) 0; padding: 16px; background: var(--hueco); text-align: center; }
+.hoja__error span { min-width: 0; font-weight: 500; }
+.hoja__texto { padding: 16px var(--margen) 24px; }
+.hoja__texto p { margin-bottom: 8px; }
+
+/* pie fijo de la hoja */
+.hoja__pie { flex: none; display: grid; gap: 6px; padding: 12px var(--margen) calc(12px + env(safe-area-inset-bottom)); border-top: 1px solid var(--ink); background: var(--page); }
+.hoja__demo { text-align: center; color: var(--ink-2); }
+.ficha-pie { gap: 10px 16px; }
+.ficha-pie__resumen { min-width: 0; overflow-wrap: anywhere; }
+.ficha-pie__wa { align-items: stretch; min-width: 0; }
+.ficha-pie__wa .nota-wa { text-align: center; }
+.ficha-pie__wa .wa__estado { text-align: center; max-width: none; }
+@media (min-width: 480px) { .ficha-pie { grid-template-columns: minmax(0, 1fr) auto; align-items: center; } .ficha-pie__wa { min-width: 260px; } }
+
+/* ficha en celular: la primera foto llena todo el ancho; su alto es el menor entre 125vw y la mitad de la pantalla (40% si la pantalla es baja),
+   asi nombre, precio y talles quedan a la vista sobre la barra. Recorta arriba y abajo, nunca a los costados. */
+@media (max-width: 899px) {
+  .hoja--ficha .ficha__foto--1 { width: 100%; aspect-ratio: auto; height: min(125vw, 50svh); max-height: none; }
+  .hoja--ficha .ficha__foto--1 img { object-position: 50% 40%; }
+}
+@media (max-width: 899px) and (max-height: 760px) {
+  .hoja--ficha .ficha__foto--1 { height: min(125vw, 40svh); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog.hoja::backdrop { transition: opacity 300ms var(--salida); }
+  .hoja__panel { transition: transform 400ms var(--curva-hoja); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hoja__panel { transform: none; opacity: 0; transition: opacity 150ms linear; }
+  dialog.hoja.visible .hoja__panel { opacity: 1; }
+  dialog.hoja::backdrop { transition: opacity 150ms linear; }
+  .hoja__volver, .hoja__x { transition: none; }
+  .hoja__volver:active, .hoja__x:active { transform: none; }
+}
+
+@media (min-width: 900px) {
+  .hoja__panel { left: 50%; right: auto; top: 50%; bottom: auto; width: min(640px, 92vw); max-height: 88dvh; transform: translate(-50%, -46%); opacity: 0; }
+  dialog.hoja.visible .hoja__panel { transform: translate(-50%, -50%); opacity: 1; }
+  .hoja--ficha .hoja__panel { top: 50%; width: min(1120px, 92vw); height: min(94dvh, 960px); max-height: 94dvh; }
+  /* ficha: la galeria a la izquierda (vista 1 y 2) y una columna fija con nombre, precio y talles a la derecha; nunca encimados */
+  .hoja--ficha .ficha { display: grid; grid-template-columns: minmax(0, 1fr) 380px; column-gap: 32px; align-items: start; padding: 24px 32px 8px; }
+  .hoja--ficha .ficha__foto { grid-column: 1; justify-self: center; width: min(100%, calc((94dvh - 190px) * 0.8)); max-height: none; margin-bottom: 16px; }
+  .hoja--ficha .ficha__foto--1 { grid-row: 1; }
+  .hoja--ficha .ficha__foto--2 { grid-row: 2; }
+  .hoja--ficha .ficha__datos { grid-column: 2; grid-row: 1 / span 2; position: sticky; top: 0; padding: 0 0 24px; }
+  .hoja__asa { display: none; }
+}
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .hoja__panel { transition: transform 300ms var(--salida), opacity 300ms var(--salida); }
+}
+@media (min-width: 900px) and (prefers-reduced-motion: reduce) {
+  .hoja__panel { transform: translate(-50%, -50%); }
+}

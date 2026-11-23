@@ -9,6 +9,7 @@
 [data-c="materiales"]  { --k: var(--pizarra); --ko: var(--on-pizarra); --ko2: var(--on2-pizarra); --ko3: var(--on3-pizarra); --kb: var(--bg); }
 [data-c="salon"]       { --k: var(--fucsia);  --ko: var(--on-fucsia);  --ko2: var(--on2-fucsia); --ko3: var(--on3-fucsia);  --kb: var(--bg); }
 [data-c="odontologia"] { --k: var(--salvia);  --ko: var(--on-salvia);  --ko2: var(--on2-salvia); --ko3: var(--on3-salvia);  --kb: var(--bg); }
+[data-c="ropa"]        { --k: var(--ropa);    --ko: var(--on-ropa);    --ko2: var(--on2-ropa); --ko3: var(--on3-ropa);    --kb: var(--bg); }
 [data-c="taller"]      { --k: var(--lima);    --ko: var(--on-lima);    --ko2: var(--on2-lima); --ko3: var(--on3-lima);    --kb: var(--text); }
 html[data-c] { --on: var(--ko); --on-2: var(--ko2); --on-3: var(--ko3); }
 /* Con el baño activo el botón azul no vibra contra ají, fucsia ni salvia: queda transparente con texto y borde en --on */
@@ -39,8 +40,8 @@ html[data-c] .barra .wa { background: transparent; color: var(--on); border-colo
 .capa { position: absolute; inset: 0; background: var(--k); opacity: 0; }
 .capa.on { opacity: 1; }
 .capa img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-/* Carnicería es acromática: la inundación es su foto con un velo oscuro */
-.capa[data-c="carniceria"]::after { content: ""; position: absolute; inset: 0; background: var(--velo); }
+/* Carnicería y ropa son acromáticas: la inundación es su foto con un velo oscuro */
+.capa[data-c="carniceria"]::after, .capa[data-c="ropa"]::after { content: ""; position: absolute; inset: 0; background: var(--velo); }
 
 /* Sobre un color, las hermanas bajan a --on-2 (siempre >= 4,5:1) y la activa se corre un poco */
 .modo-fino[data-c] .fila:not(.activa) { color: var(--on-2); }

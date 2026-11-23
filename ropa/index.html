@@ -1,65 +1,532 @@
 <!doctype html>
-<html lang="es-PY" data-tema="ropa" data-base="../">
+<html lang="es-PY">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self'; script-src 'self'; connect-src 'none'; form-action 'none'; base-uri 'none'">
 <meta name="robots" content="noindex, nofollow">
-<title>Casa Jazmín (Demo) | Ejemplo de web para tienda de ropa y regalos</title>
-<meta name="description" content="Demo de página web para una tienda de ropa y regalos: vidriera con fotos, consulta de talles y WhatsApp. Es un ejemplo de Presencia Multitec.">
-<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light">
+<title>Ceniza (Demo) | Ejemplo de web para tienda de ropa</title>
+<meta name="description" content="Demo de página web para una tienda de ropa: colección con filtros, ficha con talles y WhatsApp. Es un ejemplo de Multitec.">
+<meta name="theme-color" content="#F3F3F1">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_PY">
-<meta property="og:site_name" content="Presencia Multitec (Demo)">
-<meta property="og:title" content="Casa Jazmín (Demo) | Ejemplo de web para tienda de ropa y regalos">
-<meta property="og:description" content="Demo de página web para una tienda de ropa y regalos: vidriera con fotos, consulta de talles y WhatsApp. Es un ejemplo de Presencia Multitec.">
+<meta property="og:title" content="Ceniza (Demo) | Ejemplo de web para tienda de ropa">
+<meta property="og:description" content="Demo de página web para una tienda de ropa: colección con filtros, ficha con talles y WhatsApp. Es un ejemplo de Multitec.">
 <meta property="og:url" content="https://fabian-acu.github.io/presencia-multitec-demo/ropa/">
-<meta property="og:image" content="https://fabian-acu.github.io/presencia-multitec-demo/fotos/ropa/og.jpg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Local de ropa con prendas colgadas y plantas">
+<meta property="og:image" content="https://fabian-acu.github.io/presencia-multitec-demo/ropa/og.jpg">
+<meta property="og:image:alt" content="Prendas colgadas en un perchero, en blanco y negro">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" as="font" type="font/woff2" href="../fonts/outfit-600.woff2" crossorigin>
-<link rel="preload" as="image" imagesrcset="../fotos/ropa/portada-480.webp 480w, ../fotos/ropa/portada-720.webp 720w, ../fotos/ropa/portada-960.webp 960w, ../fotos/ropa/portada-1600.webp 1600w" imagesizes="(min-width: 900px) 520px, 100vw" fetchpriority="high">
-<link rel="icon" type="image/png" sizes="32x32" href="../fotos/marca/favicon-32.png">
-<link rel="icon" type="image/png" sizes="48x48" href="../fotos/marca/favicon-48.png">
-<link rel="apple-touch-icon" href="../fotos/marca/apple-touch-180.png">
-<style> @font-face{font-family:"Outfit";font-weight:400;font-style:normal;font-display:swap;src:url("../fonts/outfit-400.woff2") format("woff2");}@font-face{font-family:"Outfit";font-weight:600;font-style:normal;font-display:swap;src:url("../fonts/outfit-600.woff2") format("woff2");}:root,[data-tema="selector"]{--bg:#ffffff;--surface:#ffffff;--surface-2:#f4f4f5;--ink:#18181b;--ink-2:#52525b;--line:#e4e4e7;--acento:#18181b;--acento-ink:#ffffff;--acento-txt:#18181b;--r:12px;--rb:12px;--font:"Figtree",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Bricolage Grotesque",var(--font);--h-peso:700;--h-caso:none;--h-track:-0.02em;--btn-peso:600;--wa:#0A7D5E;--wa-ink:#ffffff;--wa-fondo-chat:#eaf0ed;--chat-burbuja:#ffffff;--chat-txt:#18181b;--chat-txt-2:#52525b;--chat-linea:#d3dcd8;--chat-hueco:#e4e8e6;--ico-anillo:transparent;--ease-out:cubic-bezier(0.23,1,0.32,1);--dur-micro:160ms;--dur-ui:240ms;--dur-hero:600ms;--dur-globo:220ms;}[data-tema="restaurante"]{--acento:#c2410c;--acento-ink:#ffffff;--acento-txt:#c2410c;}[data-tema="panaderia"]{--bg:#ffffff;--surface:#ffffff;--surface-2:#f5f5f4;--ink:#1f1f1f;--ink-2:#555555;--line:#e5e5e3;--acento:#f2b705;--acento-ink:#1f1f1f;--acento-txt:#8a5a00;--ico-anillo:var(--ink);--r:16px;--rb:16px;--font:"Work Sans",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Young Serif",Georgia,serif;--h-peso:400;--h-track:-0.01em;}[data-tema="carnes"]{--bg:#141414;--surface:#1f1f1f;--surface-2:#1b1b1b;--ink:#f2f2f2;--ink-2:#b8b8b8;--line:#333333;--acento:#c62828;--acento-ink:#ffffff;--acento-txt:#ff6b63;--r:6px;--rb:6px;--font:"Archivo",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Anton",Impact,"Arial Narrow",sans-serif;--h-peso:400;--h-caso:uppercase;--h-track:0.01em;}[data-tema="materiales"]{--bg:#f4f4f5;--surface:#ffffff;--surface-2:#e8e8ea;--ink:#111111;--ink-2:#4b4b52;--line:#d4d4d8;--acento:#ffcc00;--acento-ink:#111111;--acento-txt:#111111;--ico-anillo:var(--ink);--r:4px;--rb:4px;--font:"Barlow",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Barlow Semi Condensed","Arial Narrow",var(--font);--h-peso:700;--h-track:-0.005em;}[data-tema="ropa"]{--acento:#c2185b;--acento-ink:#ffffff;--acento-txt:#c2185b;--ink:#111111;--r:0px;--rb:999px;--font:"Outfit",system-ui,"Segoe UI",Arial,sans-serif;--font-h:var(--font);--h-peso:600;--h-track:-0.02em;}[data-tema="salon"]{--acento:#2b47b8;--acento-ink:#ffffff;--acento-txt:#2b47b8;--r:14px;--rb:999px;}[data-tema="odontologia"]{--bg:#ffffff;--surface:#ffffff;--surface-2:#f2f6f6;--ink:#182022;--ink-2:#4a5658;--line:#dde5e6;--acento:#00707a;--acento-ink:#ffffff;--acento-txt:#00707a;--r:10px;--rb:10px;--font-h:var(--font);--h-peso:600;--h-track:-0.015em;}[data-tema="taller"]{--bg:#17181a;--surface:#212326;--surface-2:#1d1f21;--ink:#f1f1f0;--ink-2:#b5b8bb;--line:#34373b;--acento:#f26b21;--acento-ink:#151617;--acento-txt:#f26b21;--r:6px;--rb:6px;--font:"Barlow",system-ui,"Segoe UI",Arial,sans-serif;--font-h:"Barlow Semi Condensed","Arial Narrow",var(--font);--h-peso:700;--h-caso:uppercase;--h-track:0.01em;}*,*::before,*::after{box-sizing:border-box;}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:1rem;line-height:1.55;padding-bottom:calc(112px + env(safe-area-inset-bottom));}h1,h2,h3,p,ul,figure,dl,dd{margin:0;}ul{padding:0;list-style:none;}img{display:block;max-width:100%;height:auto;}a{color:inherit;}.ancho{width:100%;max-width:1120px;margin-inline:auto;padding-inline:20px;}:focus-visible{outline:3px solid var(--acento-txt);outline-offset:3px;}.solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}.saltar{position:absolute;left:8px;top:-60px;z-index:100;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:var(--r);}.saltar:focus{top:8px;}h1,h2,h3,.marca{font-family:var(--font-h);font-weight:var(--h-peso);letter-spacing:var(--h-track);text-transform:var(--h-caso);text-wrap:balance;}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;background:var(--acento);color:var(--acento-ink);border:2px solid var(--acento);border-radius:var(--rb);font:inherit;font-weight:var(--btn-peso);text-decoration:none;text-align:center;cursor:pointer;touch-action:manipulation;transition:transform .12s cubic-bezier(.16,1,.3,1),filter .15s;}.btn:hover{filter:brightness(1.07);}.btn:active{transform:scale(.98);}.btn .ico{box-sizing:content-box;width:20px;height:20px;padding:4px;flex:none;color:var(--wa);background:var(--wa-ink);border-radius:50%;box-shadow:0 0 0 1.5px var(--ico-anillo);}.btn-grande{min-height:56px;padding:0 32px;font-size:1.0625rem;}.btn-chico{min-height:44px;padding:0 18px;}.btn-borde{background:transparent;color:var(--ink);border-color:var(--ink);}.btn[hidden]{display:none;}.btn[disabled]{opacity:.5;cursor:not-allowed;}.enlace{display:inline-flex;align-items:center;min-height:44px;font-weight:600;text-underline-offset:4px;text-decoration-thickness:2px;text-decoration-color:var(--acento-txt);}.demo-franja{background:var(--ink);color:var(--bg);text-align:center;font-size:.8125rem;font-weight:600;padding:8px 12px;line-height:1.3;}.demo-franja a{text-decoration-thickness:2px;text-underline-offset:3px;padding-block:6px;}.cab{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);}.cab-in{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;}.marca{font-size:1rem;line-height:1.2;text-decoration:none;display:inline-flex;align-items:center;min-height:44px;}.cab-der{display:flex;align-items:center;gap:14px;flex:0 1 auto;max-width:48%;}.estado{font-size:.8125rem;font-weight:600;color:var(--ink-2);text-align:right;line-height:1.25;}.estado.abierto{color:var(--ink);}.estado.abierto::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--wa);margin-right:6px;}.cab-wa{display:none;}.portada{display:grid;gap:0;}.portada-foto{margin-inline:calc(-1 * 20px);aspect-ratio:4 / 3;background:var(--surface-2);overflow:hidden;order:-1;}.portada-foto img{width:100%;height:100%;object-fit:cover;}.portada-txt{display:grid;gap:14px;padding-block:24px 32px;align-content:center;}.rubro{color:var(--acento-txt);font-weight:600;}h1{font-size:clamp(2rem,1.1rem + 4.4vw,3.75rem);line-height:1.05;}.sub{font-size:1.0625rem;color:var(--ink-2);max-width:46ch;text-wrap:pretty;}.acciones{display:flex;flex-wrap:wrap;align-items:center;gap:4px 24px;margin-top:6px;}.acciones-par{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;max-width:380px;}.acciones-par .btn{width:100%;}.nota-demo{font-size:.8125rem;color:var(--ink-2);}section[id]{scroll-margin-top:80px;}.sec{padding-block:48px;}.sec-titulo{font-size:clamp(1.625rem,1rem + 2.4vw,2.5rem);line-height:1.12;margin-bottom:10px;}.sec-sub{color:var(--ink-2);margin-bottom:24px;max-width:56ch;}.sec-alt{background:var(--surface-2);}.tarjetas{display:grid;gap:20px;}.tarjeta{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;}.tarjeta-foto{aspect-ratio:4 / 3;background:var(--surface-2);overflow:hidden;}.tarjeta-foto img{width:100%;height:100%;object-fit:cover;}.tarjeta-txt{padding:16px 18px 18px;display:grid;gap:6px;align-content:start;flex:1;}.tarjeta h3{font-size:1.25rem;line-height:1.2;}.tarjeta p{color:var(--ink-2);font-size:.9688rem;}.precio{white-space:nowrap;color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;}.tarjeta-pie{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:10px;flex-wrap:wrap;}.tarjeta[hidden],.ficha[hidden]{display:none;}.filas{display:grid;gap:10px;}.fila{display:grid;grid-template-columns:104px 1fr;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px;align-items:stretch;}.fila[hidden]{display:none;}.fila-foto{width:104px;height:104px;border-radius:calc(var(--r) - 4px);overflow:hidden;background:var(--surface-2);align-self:center;}.fila-foto img{width:100%;height:100%;object-fit:cover;}.fila-txt{display:flex;flex-direction:column;min-width:0;}.fila h3{font-size:1.0625rem;line-height:1.2;}.fila p{color:var(--ink-2);font-size:.875rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}.fila .tarjeta-pie{margin-top:auto;padding-top:6px;min-height:52px;flex-wrap:nowrap;}.chips-fijos{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;position:sticky;top:60px;z-index:15;background:var(--bg);padding-block:10px;margin-block:0 8px;}.tarjetas-2{grid-template-columns:repeat(2,1fr);gap:12px;}@media (max-width:639px){.tarjetas-2 .tarjeta-txt{padding:12px;}.tarjetas-2 h3{font-size:1.0625rem;}.tarjetas-2 .tarjeta-pie{flex-direction:column;align-items:stretch;}.tarjetas-2 .btn{width:100%;}}.servicios{display:grid;gap:10px;}.servicio{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px 12px 18px;}.servicio[hidden]{display:none;}.servicio>div{min-width:0;}.servicio h3{font-size:1.0625rem;line-height:1.2;}.servicio p{color:var(--ink-2);font-size:.9375rem;margin-top:2px;}.servicio .btn{flex:none;background:transparent;color:var(--acento-txt);border-color:var(--acento-txt);}.servicios-uno{max-width:720px;}.galeria{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}.galeria li{position:relative;overflow:hidden;aspect-ratio:4 / 5;border-radius:var(--r);background:var(--surface-2);}.galeria li:first-child{grid-column:1 / -1;aspect-ratio:4 / 3;}.galeria img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}.chip{flex:none;min-height:44px;padding:0 18px;border:2px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-weight:600;cursor:pointer;touch-action:manipulation;}.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);}.buscador{display:grid;gap:8px;margin-bottom:16px;}.buscador label{font-weight:600;}.buscador input{width:100%;min-height:52px;padding:0 16px;font:inherit;font-size:1.0625rem;color:var(--ink);background:var(--surface);border:2px solid var(--ink);border-radius:var(--r);}.contador{color:var(--ink-2);font-size:.875rem;margin-bottom:12px;}.vacio{padding:28px;border:2px dashed var(--line);border-radius:var(--r);display:grid;gap:14px;justify-items:start;}.vacio[hidden]{display:none;}.fichas{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}.ficha{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);display:flex;flex-direction:column;overflow:hidden;}.ficha-foto{aspect-ratio:1;background:var(--surface-2);}.ficha-foto img{width:100%;height:100%;object-fit:cover;}.ficha-txt{padding:12px;display:grid;gap:8px;flex:1;align-content:space-between;}.ficha h3{font-size:1.0625rem;line-height:1.2;}.ficha .btn{width:100%;min-height:44px;padding:0 10px;font-size:.9375rem;}.vidriera{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 12px;}.prenda-foto{aspect-ratio:4 / 5;background:var(--surface-2);overflow:hidden;}.prenda-foto img{width:100%;height:100%;object-fit:cover;}.prenda h3{font-size:1.0625rem;margin-top:10px;line-height:1.2;}.prenda p{color:var(--ink-2);font-size:.9063rem;margin:2px 0 8px;}.prenda .btn{width:100%;min-height:44px;padding:0 8px;font-size:.9375rem;}.banda{display:grid;gap:20px;align-items:center;}.banda-foto{overflow:hidden;border-radius:var(--r);background:var(--surface-2);aspect-ratio:4 / 3;}.banda-foto img{width:100%;height:100%;object-fit:cover;}.banda-txt{display:grid;gap:14px;justify-items:start;}.banda-txt p{color:var(--ink-2);max-width:52ch;}.duo{display:grid;gap:12px;}.duo .banda-foto{aspect-ratio:4 / 3;}.horneadas{display:grid;gap:0;background:var(--surface-2);color:var(--ink);border:1px solid var(--line);border-radius:var(--r);padding:4px 20px;}.horneadas li{display:flex;justify-content:space-between;gap:16px;padding-block:14px;}.horneadas li + li{border-top:1px solid var(--line);}.horneadas b{font-variant-numeric:tabular-nums;color:var(--acento-txt);}.pasos{display:grid;gap:10px;counter-reset:p;}.pasos li{padding-left:0;color:var(--ink-2);}.pasos li strong{color:var(--ink);}.calif{display:grid;gap:20px;}.calif-res{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}.calif-num{font-family:var(--font-h);font-size:3rem;line-height:1;font-weight:var(--h-peso);}.estrellas{color:#b45309;letter-spacing:2px;font-size:1.125rem;line-height:1;}.calif-cant{color:var(--ink-2);font-size:.9063rem;}.resenas{display:grid;gap:12px;}.resena{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:grid;gap:6px;}.resena-cab{display:flex;align-items:center;gap:10px;font-weight:600;}.resena-ini{width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-size:.875rem;}.resena p{color:var(--ink-2);font-size:.9688rem;}.sec-alt .resena{background:var(--bg);}.dos{display:grid;gap:40px;}.horarios li{display:flex;justify-content:space-between;gap:16px;padding:13px 10px;border-radius:var(--r);}.horarios li + li{border-top:1px solid var(--line);}.horarios li.hoy{background:var(--surface-2);font-weight:600;}.hora{font-variant-numeric:tabular-nums;font-weight:600;text-align:right;}.lugar{display:grid;gap:14px;align-content:start;justify-items:start;}.mapa-fachada{position:relative;width:100%;aspect-ratio:4 / 3;border-radius:var(--r);overflow:hidden;background:var(--surface-2);border:1px solid var(--line);}.mapa-fachada img{width:100%;height:100%;object-fit:cover;}.mapa-fachada iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}.mapa-pin{position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--acento);border:3px solid #fff;box-shadow:0 2px 8px rgb(0 0 0 / .4);}.mapa-leyenda{position:absolute;left:10px;top:10px;background:#fff;color:#111;font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:999px;}.mapa-boton{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);}.mapa-attr{font-size:.75rem;color:var(--ink-2);}.mapa-attr a{padding-block:10px;display:inline-block;}.dir{font-size:1.0625rem;}.cierre{background:var(--ink);color:var(--bg);padding-block:64px;}.cierre .ancho{display:grid;gap:22px;justify-items:start;}.cierre-titulo{font-size:clamp(1.875rem,1rem + 3.4vw,3.25rem);line-height:1.08;max-width:18ch;}.cierre .btn-borde{color:var(--bg);border-color:var(--bg);}.pie{padding-block:32px;color:var(--ink-2);font-size:.875rem;}.pie .ancho{display:grid;gap:4px;}.pie a{text-underline-offset:3px;}.pie .enlaces a{display:inline-block;padding-block:10px;}.pie .enlaces{display:flex;flex-wrap:wrap;gap:0 20px;}.barra-wa{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line);box-shadow:0 -6px 18px rgb(0 0 0 / .08);}.barra-wa .btn{width:100%;}.barra-wa small{display:block;text-align:center;font-size:.75rem;color:var(--ink-2);margin-top:6px;}.barra-wa.con-js{transform:translateY(100%);visibility:hidden;transition:transform .3s cubic-bezier(.16,1,.3,1),visibility 0s .3s;}.barra-wa.con-js.visible{transform:none;visibility:visible;transition:transform .3s cubic-bezier(.16,1,.3,1);}dialog#hoja{border:0;border-radius:var(--r);padding:24px;max-width:min(92vw,420px);background:var(--bg);color:var(--ink);}dialog#hoja::backdrop{background:rgb(0 0 0 / .55);}dialog#hoja .hoja-msg{margin-block:12px 18px;padding:14px 16px;background:var(--surface-2);border-radius:var(--r);font-weight:600;}dialog#hoja .acciones{display:grid;gap:8px;}.sec-chat{border-top:1px solid var(--line);scroll-margin-top:72px;}.chat-sec{display:grid;gap:24px;grid-template-areas:"intro" "chat" "cta";}.chat-intro{grid-area:intro;}.chat-col{grid-area:chat;}.chat-cta{grid-area:cta;display:grid;gap:10px;justify-items:start;}.chat-intro .sec-sub{margin-bottom:0;}.chat{max-width:420px;background:var(--wa-fondo-chat);border:1px solid var(--chat-linea);border-radius:var(--r);overflow:hidden;color:var(--chat-txt);}.chat-cab{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--chat-burbuja);border-bottom:1px solid var(--chat-linea);}.chat-av{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:var(--acento);color:var(--acento-ink);font-family:var(--font-h);font-weight:var(--h-peso);font-size:1.125rem;line-height:1;}.chat-av img{width:100%;height:100%;object-fit:cover;}.chat-quien{display:grid;gap:2px;min-width:0;}.chat-quien strong{font-size:1rem;line-height:1.2;color:var(--chat-txt);}.chat-quien small{font-size:.8125rem;line-height:1.3;color:var(--chat-txt-2);}.chat-lista{display:grid;gap:10px;padding:16px 14px 18px;}.g{position:relative;display:flex;}.g-c{justify-content:flex-end;}.g-sep{justify-content:center;}.g-cont{display:flex;flex-direction:column;gap:4px;max-width:88%;}.g-c .g-cont{align-items:flex-end;}.g-a .g-cont{align-items:flex-start;}.g-txt{padding:10px 14px;font-size:1rem;line-height:1.4;text-wrap:pretty;border-radius:var(--r);}.g-c .g-txt{background:var(--chat-burbuja);color:var(--chat-txt);border:1px solid var(--chat-linea);border-top-right-radius:calc(var(--r) / 3);}.g-a .g-txt{background:var(--wa);color:var(--wa-ink);border-top-left-radius:calc(var(--r) / 3);}.g-meta{font-size:.75rem;line-height:1.3;color:var(--chat-txt-2);}.g-chip{padding:2px 10px;border:1px solid var(--chat-linea);border-radius:999px;background:var(--chat-burbuja);}.g-hueco{padding:0 6px;border-radius:6px;background:var(--chat-hueco);color:var(--chat-txt);box-decoration-break:clone;-webkit-box-decoration-break:clone;}.g-chips .g-cont{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;max-width:100%;}.chat-chip{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:6px 12px;line-height:1.25;text-align:center;background:var(--chat-burbuja);color:var(--wa);border:2px solid var(--wa);border-radius:999px;font-weight:600;text-decoration:none;touch-action:manipulation;transition:transform var(--dur-micro) var(--ease-out);}.chat-chip:active{transform:scale(.97);}.chat-chip:focus-visible,.chat-otra:focus-visible{outline-color:var(--chat-txt);}.btn-wa{background:var(--wa);border-color:var(--wa);color:var(--wa-ink);}.chat-cta .btn{width:100%;padding:0 20px;font-size:1rem;}.chat-pie{display:flex;justify-content:flex-end;min-height:44px;padding:0 8px 8px;}.chat-otra{visibility:hidden;opacity:0;min-height:44px;padding:0 12px;background:none;border:0;color:var(--chat-txt-2);font:inherit;font-weight:600;text-decoration:underline;text-underline-offset:4px;cursor:pointer;touch-action:manipulation;}.chat-pie.lista .chat-otra{visibility:visible;opacity:1;transition:opacity var(--dur-micro) var(--ease-out);}.g-typing{display:none;position:absolute;left:0;top:0;gap:5px;padding:15px 16px;background:var(--wa);border-radius:var(--r);border-top-left-radius:calc(var(--r) / 3);}.g-typing i{width:7px;height:7px;border-radius:50%;background:var(--wa-ink);}@media (min-width:900px){.chat-sec{grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-template-rows:auto 1fr;grid-template-areas:"intro chat" "cta chat";column-gap:56px;row-gap:28px;align-items:start;}.chat-intro{align-self:end;}.chat-col{justify-self:end;width:100%;max-width:420px;}.chat-cta .btn{width:auto;}}.rubros{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}.rubros li{display:flex;}.rubro-card{display:block;width:100%;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;}.rubro-card .tarjeta-foto{aspect-ratio:4 / 5;}.rubro-card .rc-nom{display:block;padding:14px 14px 2px;font-family:var(--font-h);font-weight:700;font-size:1.0625rem;line-height:1.2;}.rubro-card small{display:block;padding:0 14px 16px;color:var(--ink-2);font-size:.875rem;line-height:1.35;}.rubro-card:hover{border-color:var(--ink);}.sel-cab{padding-block:40px 28px;display:grid;gap:12px;}.sel-cab .enlace{justify-self:start;}@media (min-width:640px){.ancho{padding-inline:32px;}.portada-foto{margin-inline:-32px;}.tarjetas{grid-template-columns:repeat(2,1fr);}.filas{grid-template-columns:repeat(2,1fr);gap:12px;}.fichas{grid-template-columns:repeat(3,1fr);gap:16px;}.vidriera{grid-template-columns:repeat(3,1fr);gap:20px 16px;}.rubros{grid-template-columns:repeat(3,1fr);}.rubros.rubros-4{grid-template-columns:repeat(4,1fr);}.resenas{grid-template-columns:repeat(3,1fr);}.servicios{grid-template-columns:repeat(2,1fr);gap:12px;}.servicios.servicios-uno{grid-template-columns:1fr;}.galeria{grid-template-columns:repeat(3,1fr);gap:16px;}.galeria li:first-child{grid-column:span 2;aspect-ratio:auto;}.duo{grid-template-columns:1fr 1fr;}}@media (min-width:900px){body{padding-bottom:0;}.barra-wa{display:none;}.cab-wa{display:inline-flex;}.portada{grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding-block:40px 56px;}.portada-foto{margin-inline:0;aspect-ratio:5 / 4;border-radius:var(--r);order:0;}.portada-txt{padding-block:0;}.sec{padding-block:80px;}.tarjetas{grid-template-columns:repeat(3,1fr);gap:24px;}.tarjetas-2{grid-template-columns:repeat(3,1fr);}.fichas{grid-template-columns:repeat(4,1fr);}.vidriera{grid-template-columns:repeat(4,1fr);}.rubros{grid-template-columns:repeat(5,1fr);}.rubros.rubros-3{grid-template-columns:repeat(3,1fr);}.banda{grid-template-columns:1fr 1fr;gap:56px;}.dos{grid-template-columns:1fr 1fr;gap:72px;}.calif{grid-template-columns:240px 1fr;gap:48px;align-items:start;}.resenas{grid-template-columns:repeat(3,1fr);}.cierre{padding-block:96px;}}@media (prefers-reduced-motion:no-preference){.rv{opacity:0;transform:translateY(10px);}.rv.in{opacity:1;transform:none;transition:opacity .35s ease-out var(--d,0ms),transform .4s cubic-bezier(.25,1,.5,1) var(--d,0ms);}}@media (prefers-reduced-motion:no-preference){.chat.anim .g-cont{opacity:0;transform:translateY(8px);}.chat.anim .g-chips:not(.in) .g-cont{visibility:hidden;}.chat.anim .g.in .g-cont{opacity:1;transform:none;transition:opacity var(--dur-globo) var(--ease-out),transform var(--dur-globo) var(--ease-out);}.chat.anim .g.escribiendo .g-typing{display:flex;}.g-typing i{animation:chat-punto 1s ease-in-out infinite;}.g-typing i:nth-child(2){animation-delay:.15s;}.g-typing i:nth-child(3){animation-delay:.3s;}}@keyframes chat-punto{0%,60%,100%{transform:translateY(0);opacity:.5;}30%{transform:translateY(-4px);opacity:1;}}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}.btn,.barra-wa.con-js,.barra-wa.con-js.visible,.chat-chip,.chat-pie.lista .chat-otra{transition:none;}.g-typing{display:none !important;}}</style>
+<link rel="icon" href="data:,">
+<link rel="preload" href="fuentes/encodesans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fuentes/dmmono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="fotos/portada-720.webp" media="(max-width: 719px)" fetchpriority="high">
+<link rel="preload" as="image" href="fotos/portada-1440.webp" media="(min-width: 720px)" fetchpriority="high">
+<script src="js/arranque.js?v=20261123"></script>
+<link rel="stylesheet" href="cinta/cinta.css?v=20261123">
+<link rel="stylesheet" href="css/base.css?v=20261123">
+<link rel="stylesheet" href="css/carta.css?v=20261123">
+<link rel="stylesheet" href="css/movimiento.css?v=20261123">
+<link rel="stylesheet" href="css/hojas.css?v=20261123">
+<link rel="stylesheet" href="css/estados.css?v=20261123">
 </head>
 <body>
-<a class="saltar" href="#contenido">Saltar al contenido</a>
-<div class="demo-franja" role="note">Ejemplo: este negocio no existe. <a href="../">Ver otros rubros</a></div>
-<header class="cab"><div class="ancho cab-in">
-<a class="marca" href="#contenido">Casa Jazmín (Demo)</a>
-<div class="cab-der"><span class="estado" id="estado" aria-live="polite"></span>
-<a class="btn btn-chico cab-wa" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20tienda%20de%20ropa%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Escribinos por WhatsApp</span></a></div>
-</div></header>
+<a class="saltar" href="#contenido">Ir al contenido</a>
+<aside class="cinta" data-cinta data-rubro="Ceniza" aria-label="Aviso de demo">
+  <div class="cinta__marca">
+    <img class="cinta__logo" src="cinta/logo-m.png" width="24" height="24" alt="Multitec">
+    <p class="cinta__texto">(Demo) Web de ejemplo hecha por Multitec</p>
+  </div>
+  <div class="cinta__acciones">
+    <a class="cinta__boton" data-cinta-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20y%20quiero%20una%20web%20as%C3%AD.">Quiero una web así</a>
+    <button class="cinta__cerrar" type="button" data-cinta-cerrar hidden aria-label="Cerrar aviso">
+      <svg viewBox="0 0 256 256" aria-hidden="true" focusable="false"><use href="iconos.svg#i-x"/></svg>
+    </button>
+  </div>
+</aside>
+<a class="cinta-flotante" data-cinta-flotante data-cinta-wa hidden target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20y%20quiero%20una%20web%20as%C3%AD.">Quiero una web así</a>
+<p class="sr" id="anuncio" role="status" aria-live="polite"></p>
+<p class="aviso-red" data-red hidden role="status"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-wifi-slash"/></svg><span>Sin conexión. Revisá tu internet y probá de nuevo.</span><button class="btn btn--linea btn--s" type="button" data-reintentar-red>Reintentar</button></p>
+
+<header class="barra" data-barra>
+  <div class="barra__fila contenedor">
+    <a class="logo" href="#contenido" aria-label="Ceniza, inicio"><span class="logo__texto" aria-hidden="true">CENIZA</span></a>
+    <button class="menu-btn" type="button" data-menu aria-expanded="false" aria-controls="menu-nav" aria-label="Menú"><span class="menu-btn__ico" aria-hidden="true"><svg class="ico ico--abre" aria-hidden="true" focusable="false"><use href="iconos.svg#i-list"/></svg><svg class="ico ico--cierra" aria-hidden="true" focusable="false"><use href="iconos.svg#i-x"/></svg></span><span>Menú</span></button>
+    <nav class="barra__nav" id="menu-nav" data-menu-nav aria-label="Principal">
+      <ul>
+        <li><a href="#coleccion">Colección</a></li>
+        <li><a href="#conjuntos">Conjuntos</a></li>
+        <li><a href="#local">Local</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
 <main id="contenido">
-<section class="portada ancho" aria-labelledby="h-portada">
-<div class="portada-foto"><img src="../fotos/ropa/portada-720.webp" srcset="../fotos/ropa/portada-480.webp 480w, ../fotos/ropa/portada-720.webp 720w, ../fotos/ropa/portada-960.webp 960w, ../fotos/ropa/portada-1600.webp 1600w" sizes="(min-width: 900px) 520px, 100vw" width="720" height="540" alt="Local de ropa con prendas colgadas y plantas" fetchpriority="high"></div>
-<div class="portada-txt">
-<p class="rubro">Ropa y regalos</p>
-<h1 id="h-portada">Mirá la vidriera, consultá tu talle.</h1>
-<p class="sub">Prendas de ejemplo. Consultá disponibilidad por WhatsApp.</p>
-<div class="acciones"><a class="btn btn-grande" id="wa-portada" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20tienda%20de%20ropa%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Escribinos por WhatsApp</span></a><a class="enlace" href="#vidriera">Ver la vidriera</a></div>
-<p class="nota-demo">En esta demo, el botón te comunica con Multitec.</p>
-</div>
-</section>
-<section class="sec" id="vidriera" aria-labelledby="h-vid"><div class="ancho"><h2 class="sec-titulo" id="h-vid">La vidriera</h2><p class="sec-sub">Prendas de ejemplo. Consultá talle, color y disponibilidad por WhatsApp.</p><ul class="vidriera"><li class="prenda" data-rv><div class="prenda-foto"><img src="../fotos/ropa/top-y-jean-640.webp" srcset="../fotos/ropa/top-y-jean-360.webp 360w, ../fotos/ropa/top-y-jean-640.webp 640w" sizes="(min-width: 900px) 260px, (min-width: 640px) 30vw, 50vw" width="640" height="800" alt="Top rojo y pantalón jean sobre una mesa" loading="lazy" decoding="async"></div><h3>Top rojo y jean</h3><p>Para combinar. Talles: consultá.</p><button class="btn btn-chico" type="button" data-consulta="quiero consultar disponibilidad de Top rojo y jean">Consultar</button></li><li class="prenda" data-rv><div class="prenda-foto"><img src="../fotos/ropa/pulover-tejido-640.webp" srcset="../fotos/ropa/pulover-tejido-360.webp 360w, ../fotos/ropa/pulover-tejido-640.webp 640w" sizes="(min-width: 900px) 260px, (min-width: 640px) 30vw, 50vw" width="640" height="800" alt="Pulóver tejido de rayas azules y grises" loading="lazy" decoding="async"></div><h3>Pulóver tejido</h3><p>Tejido a rayas. Talles: consultá.</p><button class="btn btn-chico" type="button" data-consulta="quiero consultar disponibilidad de Pulóver tejido">Consultar</button></li><li class="prenda" data-rv><div class="prenda-foto"><img src="../fotos/ropa/pulover-y-jean-640.webp" srcset="../fotos/ropa/pulover-y-jean-360.webp 360w, ../fotos/ropa/pulover-y-jean-640.webp 640w" sizes="(min-width: 900px) 260px, (min-width: 640px) 30vw, 50vw" width="640" height="800" alt="Pulóver de lana crema sobre un jean" loading="lazy" decoding="async"></div><h3>Pulóver de lana y jean</h3><p>Abrigo liviano. Talles: consultá.</p><button class="btn btn-chico" type="button" data-consulta="quiero consultar disponibilidad de Pulóver de lana y jean">Consultar</button></li><li class="prenda" data-rv><div class="prenda-foto"><img src="../fotos/ropa/looks-de-jean-640.webp" srcset="../fotos/ropa/looks-de-jean-360.webp 360w, ../fotos/ropa/looks-de-jean-640.webp 640w" sizes="(min-width: 900px) 260px, (min-width: 640px) 30vw, 50vw" width="640" height="800" alt="Prendas de jean y remeras dobladas sobre madera" loading="lazy" decoding="async"></div><h3>Looks de jean</h3><p>Remeras y pantalones. Talles: consultá.</p><button class="btn btn-chico" type="button" data-consulta="quiero consultar disponibilidad de Looks de jean">Consultar</button></li><li class="prenda" data-rv><div class="prenda-foto"><img src="../fotos/ropa/lino-640.webp" srcset="../fotos/ropa/lino-360.webp 360w, ../fotos/ropa/lino-640.webp 640w" sizes="(min-width: 900px) 260px, (min-width: 640px) 30vw, 50vw" width="640" height="800" alt="Prendas de lino dobladas y atadas con hilo" loading="lazy" decoding="async"></div><h3>Lino para regalar</h3><p>Atado con hilo. Colores: consultá.</p><button class="btn btn-chico" type="button" data-consulta="quiero consultar disponibilidad de Lino para regalar">Consultar</button></li><li class="prenda" data-rv><div class="prenda-foto"><img src="../fotos/ropa/regalo-en-caja-640.webp" srcset="../fotos/ropa/regalo-en-caja-360.webp 360w, ../fotos/ropa/regalo-en-caja-640.webp 640w" sizes="(min-width: 900px) 260px, (min-width: 640px) 30vw, 50vw" width="640" height="800" alt="Prenda blanca dentro de una caja de cartón" loading="lazy" decoding="async"></div><h3>Regalo en caja</h3><p>Listo para entregar. Colores: consultá.</p><button class="btn btn-chico" type="button" data-consulta="quiero consultar disponibilidad de Regalo en caja">Consultar</button></li><li class="prenda" data-rv><div class="prenda-foto"><img src="../fotos/ropa/vestidos-640.webp" srcset="../fotos/ropa/vestidos-360.webp 360w, ../fotos/ropa/vestidos-640.webp 640w" sizes="(min-width: 900px) 260px, (min-width: 640px) 30vw, 50vw" width="640" height="800" alt="Vestidos de colores en un perchero dorado" loading="lazy" decoding="async"></div><h3>Vestidos de verano</h3><p>Colores vivos. Talles: consultá.</p><button class="btn btn-chico" type="button" data-consulta="quiero consultar disponibilidad de Vestidos de verano">Consultar</button></li><li class="prenda" data-rv><div class="prenda-foto"><img src="../fotos/ropa/abrigos-640.webp" srcset="../fotos/ropa/abrigos-360.webp 360w, ../fotos/ropa/abrigos-640.webp 640w" sizes="(min-width: 900px) 260px, (min-width: 640px) 30vw, 50vw" width="640" height="800" alt="Abrigos claros en un perchero" loading="lazy" decoding="async"></div><h3>Abrigos livianos</h3><p>Para entretiempo. Talles: consultá.</p><button class="btn btn-chico" type="button" data-consulta="quiero consultar disponibilidad de Abrigos livianos">Consultar</button></li></ul></div></section><section class="sec sec-chat" id="chat" aria-labelledby="h-chat"><div class="ancho chat-sec"><div class="chat-intro"><h2 class="sec-titulo" id="h-chat">Probalo con tu propio mensaje</h2><p class="sec-sub">Así contestaría el asistente de una tienda de ropa. Para probarlo, escribile a Multitec por WhatsApp.</p></div><div class="chat-col"><figure class="chat" data-chat aria-label="Conversación de ejemplo"><figcaption class="chat-cab"><span class="chat-av" aria-hidden="true">C</span><span class="chat-quien"><strong>Asistente de Casa Jazmín</strong><small>Conversación de ejemplo · se arma para tu negocio</small></span></figcaption><ol class="chat-lista"><li class="g g-c"><div class="g-cont"><p class="g-txt">Hola, ¿se puede cambiar una prenda?</p></div></li><li class="g g-a"><div class="g-cont"><p class="g-txt">¡Hola! Soy el asistente de Casa Jazmín. Contame qué te pasó con la prenda y te ayudo.</p><p class="g-meta g-chip">Contesta a cualquier hora</p></div></li><li class="g g-c"><div class="g-cont"><p class="g-txt">Me quedó chica</p></div></li><li class="g g-a"><div class="g-cont"><p class="g-txt">Entiendo. Las condiciones de cambio las confirma una persona de Casa Jazmín. Se lo paso.</p></div></li><li class="g g-sep"><div class="g-cont"><p class="g-meta">unos minutos después</p></div></li><li class="g g-a"><div class="g-cont"><p class="g-txt">Ahora hay mucho movimiento, en breve te atienden. Mientras, si tenés alguna consulta, contame.</p></div></li></ol></figure></div><div class="chat-cta"><a class="btn btn-grande btn-wa" id="wa-chat" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20tienda%20de%20ropa%20y%20quiero%20probar%20el%20agente" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Probá el agente de Multitec</span></a><p class="nota-demo">En esta demo, el botón te comunica con Multitec.</p></div></div></section><section class="sec sec-alt" aria-labelledby="h-vis"><div class="ancho banda"><div class="banda-foto"><img src="../fotos/ropa/perchero-800.webp" srcset="../fotos/ropa/perchero-480.webp 480w, ../fotos/ropa/perchero-800.webp 800w" sizes="(min-width: 900px) 520px, 100vw" width="800" height="600" alt="Perchero con prendas de colores suaves" loading="lazy" decoding="async"></div><div class="banda-txt"><h2 class="sec-titulo" id="h-vis">Pasá a probártelo</h2><p>Consultá talles por WhatsApp.</p><a class="btn" data-oculta-barra href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20tienda%20de%20ropa%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Escribinos por WhatsApp</span></a></div></div></section>
-<section class="sec" id="ubicacion" aria-labelledby="h-hor"><div class="ancho dos"><div><h2 class="sec-titulo" id="h-hor">Horarios</h2><ul class="horarios"><li data-dias="1,2,3,4,5,6" data-abre="09:00" data-cierra="19:00"><span>Lunes a sábado</span><span class="hora">09:00 a 19:00</span></li><li data-dias="0"><span>Domingo</span><span class="hora">Cerrado</span></li></ul></div><div class="lugar"><h2 class="sec-titulo">Dónde estamos</h2><p class="dir">Ciudad del Este (dirección de ejemplo)</p><div class="mapa-fachada" data-src="https://www.openstreetmap.org/export/embed.html?bbox=-54.6171%2C-25.5137%2C-54.6051%2C-25.5057&layer=mapnik&marker=-25.5097%2C-54.6111"><img src="../fotos/mapa-cde.webp" width="600" height="450" loading="lazy" decoding="async" alt="Mapa del centro de Ciudad del Este"><span class="mapa-pin" style="top:39.7%" aria-hidden="true"></span><span class="mapa-leyenda">Ubicación de ejemplo</span><button class="btn btn-chico mapa-boton" type="button" id="ver-mapa">Ver mapa</button></div><p class="mapa-attr">Mapa: © <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">colaboradores de OpenStreetMap<span class="solo-lector"> (se abre en otra pestaña)</span></a></p></div></div></section>
-<section class="cierre"><div class="ancho"><h2 class="cierre-titulo">¿Qué talle buscás?</h2>
-<a class="btn btn-grande" id="wa-cierre" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20tienda%20de%20ropa%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Escribinos por WhatsApp</span></a>
-<p class="nota-demo" style="color:inherit;opacity:.8">En esta demo, el botón te comunica con Multitec.</p></div></section>
+  <section class="portada" aria-labelledby="h1">
+    <picture class="portada__foto">
+      <source media="(max-width: 719px)" srcset="fotos/portada-720.webp" width="720" height="1100">
+      <img src="fotos/portada-1440.webp" width="1440" height="900" alt="Prendas colgadas en un perchero contra una pared clara, en blanco y negro, sin personas" fetchpriority="high" decoding="async" data-foto="Portada">
+    </picture>
+    <div class="portada__texto contenedor">
+      <h1 id="h1" class="portada__h1">Colección nueva</h1>
+      <p class="portada__sub mono">Prendas de ejemplo (Demo)</p>
+      <p class="portada__acciones"><a class="enlace-ver" href="#coleccion">Ver colección<svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-arrow-down"/></svg></a></p>
+      <p class="portada__cerrado mono" data-cerrado></p>
+    </div>
+  </section>
+
+  <section class="entradas contenedor" aria-labelledby="entradas-t">
+    <h2 class="sr" id="entradas-t">Categorías</h2>
+    <ul class="entradas__lista">
+      <li class="entrada entrada--a"><a href="#cat-remeras" data-filtro="remeras" aria-label="Ver remeras"><span class="entrada__foto"><img src="fotos/entrada-remeras.webp" width="520" height="650" alt="Remera negra colgada de una percha, con sombras de una ventana" loading="lazy" decoding="async" data-foto="Remeras"></span><span class="entrada__nombre">Remeras</span></a></li>
+      <li class="entrada entrada--b"><a href="#cat-abrigos" data-filtro="abrigos" aria-label="Ver abrigos"><span class="entrada__foto"><img src="fotos/entrada-abrigos.webp" width="520" height="650" alt="Una campera colgada de un riel, en blanco y negro" loading="lazy" decoding="async" data-foto="Abrigos"></span><span class="entrada__nombre">Abrigos</span></a></li>
+      <li class="entrada entrada--c"><a href="#cat-pantalones" data-filtro="pantalones" aria-label="Ver pantalones"><span class="entrada__foto"><img src="fotos/entrada-pantalones.webp" width="360" height="450" alt="Pila de jeans doblados, de claros a oscuros" loading="lazy" decoding="async" data-foto="Pantalones"></span><span class="entrada__nombre">Pantalones</span></a></li>
+      <li class="entrada entrada--d"><a href="#conjuntos" aria-label="Ver los conjuntos"><span class="entrada__foto"><img src="fotos/entrada-conjuntos.webp" width="360" height="450" alt="Persona de espaldas con un buzo gris y un jean azul, frente a una pared gris oscura" loading="lazy" decoding="async" data-foto="Conjuntos"></span><span class="entrada__nombre">Conjuntos</span></a></li>
+    </ul>
+    <p class="solo-sinjs">Sin JavaScript los filtros son enlaces y los conjuntos son una lista. Igual podés hablar por WhatsApp (Demo).</p>
+  </section>
+
+  <section class="coleccion contenedor" id="coleccion" aria-labelledby="col-t">
+    <h2 class="h2" id="col-t">Colección</h2>
+    <p class="bajada mono">Prendas, precios, talles y códigos de ejemplo (Demo).</p>
+    <div class="filtros" data-filtros>
+      <ul class="chips">
+        <li><a class="chip" href="#coleccion" data-filtro="todo" aria-label="Filtrar: Todo">Todo</a></li>
+        <li><a class="chip" href="#cat-remeras" data-filtro="remeras" aria-label="Filtrar: Remeras">Remeras</a></li>
+        <li><a class="chip" href="#cat-pantalones" data-filtro="pantalones" aria-label="Filtrar: Pantalones">Pantalones</a></li>
+        <li><a class="chip" href="#cat-abrigos" data-filtro="abrigos" aria-label="Filtrar: Abrigos">Abrigos</a></li>
+      </ul>
+      <p class="contador mono" data-contador aria-live="polite">10 prendas</p>
+    </div>
+    <div class="aviso-fotos" data-fotos-error hidden role="status"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-warning-circle"/></svg><span>No pudimos cargar las fotos. Probá de nuevo en un rato.</span><button class="btn btn--linea btn--s" type="button" data-reintentar-fotos>Reintentar</button></div>
+    <ul class="esqueleto" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+    <ul class="grilla" data-grilla>
+        <li class="grilla__item" data-cat="remeras" data-n="1" id="cat-remeras">
+          <a class="tarjeta" href="#prenda-1" aria-label="Ver Remera blanca, Gs. 95.000 (Demo), nuevo (ejemplo)" data-ficha="1">
+            <span class="tarjeta__foto"><img class="tarjeta__img" src="fotos/remera-holgada-blanca-440.webp" srcset="fotos/remera-holgada-blanca-440.webp 440w" sizes="(min-width: 900px) calc((min(100vw, 1360px) - 128px) / 3), calc(50vw - 22px)" width="440" height="550" alt="Remera blanca, sobre un fondo gris claro, vista de frente" loading="lazy" decoding="async" data-foto="Remera blanca"><img class="tarjeta__img tarjeta__img--2" data-src="fotos/remera-holgada-blanca-detalle-440.webp" width="440" height="550" alt="Remera blanca, segunda vista" decoding="async"></span>
+            <span class="tarjeta__texto"><span class="tarjeta__nombre">Remera blanca</span><span class="tarjeta__precio mono">Gs. 95.000 (Demo) <span class="nuevo mono">Nuevo</span></span></span>
+          </a>
+        </li>
+        <li class="grilla__item" data-cat="remeras" data-n="2">
+          <a class="tarjeta" href="#prenda-2" aria-label="Ver Remera negra, Gs. 110.000 (Demo)" data-ficha="2">
+            <span class="tarjeta__foto"><img class="tarjeta__img" src="fotos/remera-negra-440.webp" srcset="fotos/remera-negra-440.webp 440w" sizes="(min-width: 900px) calc((min(100vw, 1360px) - 128px) / 3), calc(50vw - 22px)" width="440" height="550" alt="Remera negra, colgada de una percha, con sombras de una ventana en la pared" loading="lazy" decoding="async" data-foto="Remera negra"><img class="tarjeta__img tarjeta__img--2" data-src="fotos/remera-negra-detalle-440.webp" width="440" height="550" alt="Remera negra, segunda vista" decoding="async"></span>
+            <span class="tarjeta__texto"><span class="tarjeta__nombre">Remera negra</span><span class="tarjeta__precio mono">Gs. 110.000 (Demo)</span></span>
+          </a>
+        </li>
+        <li class="grilla__item" data-cat="remeras" data-n="3">
+          <a class="tarjeta" href="#prenda-3" aria-label="Ver Remera corta blanca, Gs. 105.000 (Demo)" data-ficha="3">
+            <span class="tarjeta__foto"><img class="tarjeta__img" src="fotos/remera-corta-blanca-440.webp" srcset="fotos/remera-corta-blanca-440.webp 440w" sizes="(min-width: 900px) calc((min(100vw, 1360px) - 128px) / 3), calc(50vw - 22px)" width="440" height="550" alt="Remera corta blanca, sostenida de una percha sobre un fondo negro" loading="lazy" decoding="async" data-foto="Remera corta blanca"><img class="tarjeta__img tarjeta__img--2" data-src="fotos/remera-corta-blanca-detalle-440.webp" width="440" height="550" alt="Remera corta blanca, segunda vista" decoding="async"></span>
+            <span class="tarjeta__texto"><span class="tarjeta__nombre">Remera corta blanca</span><span class="tarjeta__precio mono">Gs. 105.000 (Demo)</span></span>
+          </a>
+        </li>
+        <li class="grilla__item" data-cat="pantalones" data-n="4" id="cat-pantalones">
+          <a class="tarjeta" href="#prenda-4" aria-label="Ver Pantalón de buzo, Gs. 249.000 (Demo)" data-ficha="4">
+            <span class="tarjeta__foto"><img class="tarjeta__img" src="fotos/pantalon-de-buzo-440.webp" srcset="fotos/pantalon-de-buzo-440.webp 440w" sizes="(min-width: 900px) calc((min(100vw, 1360px) - 128px) / 3), calc(50vw - 22px)" width="440" height="550" alt="Pantalón de buzo, tres pantalones de buzo doblados: negro, marrón y gris" loading="lazy" decoding="async" data-foto="Pantalón de buzo"><img class="tarjeta__img tarjeta__img--2" data-src="fotos/pantalon-de-buzo-detalle-440.webp" width="440" height="550" alt="Pantalón de buzo, segunda vista" decoding="async"></span>
+            <span class="tarjeta__texto"><span class="tarjeta__nombre">Pantalón de buzo</span><span class="tarjeta__precio mono">Gs. 249.000 (Demo)</span></span>
+          </a>
+        </li>
+        <li class="grilla__item" data-cat="pantalones" data-n="5" data-doble>
+          <a class="tarjeta" href="#prenda-5" aria-label="Ver Pantalón gris con bolsillos, Gs. 259.000 (Demo)" data-ficha="5">
+            <span class="tarjeta__foto"><picture><source media="(min-width: 900px)" srcset="fotos/pantalon-cargo-gris-ancho-640.webp" width="640" height="400"><img class="tarjeta__img" src="fotos/pantalon-cargo-gris-440.webp" srcset="fotos/pantalon-cargo-gris-440.webp 440w" sizes="(min-width: 900px) calc((min(100vw, 1360px) - 128px) * 2 / 3 + 24px), calc(50vw - 22px)" width="440" height="550" alt="Pantalón gris con bolsillos, puesto por una persona, de medio muslo para abajo, sobre un fondo claro" loading="lazy" decoding="async" data-foto="Pantalón gris con bolsillos"></picture><img class="tarjeta__img tarjeta__img--2" data-src="fotos/pantalon-cargo-gris-detalle-440.webp" width="440" height="550" alt="Pantalón gris con bolsillos, segunda vista" decoding="async"></span>
+            <span class="tarjeta__texto"><span class="tarjeta__nombre">Pantalón gris con bolsillos</span><span class="tarjeta__precio mono">Gs. 259.000 (Demo)</span></span>
+          </a>
+        </li>
+        <li class="grilla__item" data-cat="pantalones" data-n="6">
+          <a class="tarjeta" href="#prenda-6" aria-label="Ver Jean claro, Gs. 279.000 (Demo)" data-ficha="6">
+            <span class="tarjeta__foto"><img class="tarjeta__img" src="fotos/jean-claro-440.webp" srcset="fotos/jean-claro-440.webp 440w" sizes="(min-width: 900px) calc((min(100vw, 1360px) - 128px) / 3), calc(50vw - 22px)" width="440" height="550" alt="Jean claro, jeans en tonos claros y uno azul oscuro, doblados sobre un fondo blanco" loading="lazy" decoding="async" data-foto="Jean claro"><img class="tarjeta__img tarjeta__img--2" data-src="fotos/jean-claro-detalle-440.webp" width="440" height="550" alt="Jean claro, segunda vista" decoding="async"></span>
+            <span class="tarjeta__texto"><span class="tarjeta__nombre">Jean claro</span><span class="tarjeta__precio mono">Gs. 279.000 (Demo)</span></span>
+          </a>
+        </li>
+        <li class="grilla__item" data-cat="abrigos" data-n="7" id="cat-abrigos">
+          <a class="tarjeta" href="#prenda-7" aria-label="Ver Abrigo negro, Gs. 389.000 (Demo), nuevo (ejemplo)" data-ficha="7">
+            <span class="tarjeta__foto"><img class="tarjeta__img" src="fotos/abrigo-negro-440.webp" srcset="fotos/abrigo-negro-440.webp 440w" sizes="(min-width: 900px) calc((min(100vw, 1360px) - 128px) / 3), calc(50vw - 22px)" width="440" height="550" alt="Abrigo negro, colgado de un gancho en una pared clara, con una cartera blanca al lado" loading="lazy" decoding="async" data-foto="Abrigo negro"><img class="tarjeta__img tarjeta__img--2" data-src="fotos/abrigo-negro-detalle-440.webp" width="440" height="550" alt="Abrigo negro, segunda vista" decoding="async"></span>
+            <span class="tarjeta__texto"><span class="tarjeta__nombre">Abrigo negro</span><span class="tarjeta__precio mono">Gs. 389.000 (Demo) <span class="nuevo mono">Nuevo</span></span></span>
+          </a>
+        </li>
+        <li class="grilla__item" data-cat="abrigos" data-n="8">
+          <a class="tarjeta" href="#prenda-8" aria-label="Ver Saco gris, Gs. 429.000 (Demo), nuevo (ejemplo)" data-ficha="8">
+            <span class="tarjeta__foto"><img class="tarjeta__img" src="fotos/saco-gris-440.webp" srcset="fotos/saco-gris-440.webp 440w" sizes="(min-width: 900px) calc((min(100vw, 1360px) - 128px) / 3), calc(50vw - 22px)" width="440" height="550" alt="Saco gris, puesto por una persona sin cara a la vista, abrochando los botones" loading="lazy" decoding="async" data-foto="Saco gris"><img class="tarjeta__img tarjeta__img--2" data-src="fotos/saco-gris-detalle-440.webp" width="440" height="550" alt="Saco gris, segunda vista" decoding="async"></span>
+            <span class="tarjeta__texto"><span class="tarjeta__nombre">Saco gris</span><span class="tarjeta__precio mono">Gs. 429.000 (Demo) <span class="nuevo mono">Nuevo</span></span></span>
+          </a>
+        </li>
+        <li class="grilla__item" data-cat="abrigos" data-n="9">
+          <a class="tarjeta" href="#prenda-9" aria-label="Ver Buzo con capucha, Gs. 319.000 (Demo)" data-ficha="9">
+            <span class="tarjeta__foto"><img class="tarjeta__img" src="fotos/buzo-con-capucha-440.webp" srcset="fotos/buzo-con-capucha-440.webp 440w" sizes="(min-width: 900px) calc((min(100vw, 1360px) - 128px) / 3), calc(50vw - 22px)" width="440" height="550" alt="Buzo con capucha, puesto por una persona de espaldas, sobre un fondo claro" loading="lazy" decoding="async" data-foto="Buzo con capucha"><img class="tarjeta__img tarjeta__img--2" data-src="fotos/buzo-con-capucha-detalle-440.webp" width="440" height="550" alt="Buzo con capucha, segunda vista" decoding="async"></span>
+            <span class="tarjeta__texto"><span class="tarjeta__nombre">Buzo con capucha</span><span class="tarjeta__precio mono">Gs. 319.000 (Demo)</span></span>
+          </a>
+        </li>
+        <li class="grilla__item" data-cat="abrigos" data-n="10" data-doble>
+          <a class="tarjeta" href="#prenda-10" aria-label="Ver Campera de jean, Gs. 299.000 (Demo)" data-ficha="10">
+            <span class="tarjeta__foto"><picture><source media="(min-width: 900px)" srcset="fotos/campera-de-jean-ancho-640.webp" width="640" height="400"><img class="tarjeta__img" src="fotos/campera-de-jean-440.webp" srcset="fotos/campera-de-jean-440.webp 440w" sizes="(min-width: 900px) calc((min(100vw, 1360px) - 128px) * 2 / 3 + 24px), calc(50vw - 22px)" width="440" height="550" alt="Campera de jean, de cerca, colgada contra una pared anaranjada" loading="lazy" decoding="async" data-foto="Campera de jean"></picture><img class="tarjeta__img tarjeta__img--2" data-src="fotos/campera-de-jean-detalle-440.webp" width="440" height="550" alt="Campera de jean, segunda vista" decoding="async"></span>
+            <span class="tarjeta__texto"><span class="tarjeta__nombre">Campera de jean</span><span class="tarjeta__precio mono">Gs. 299.000 (Demo)</span></span>
+          </a>
+        </li>
+    </ul>
+    <div class="vacio" data-vacio hidden role="status"><p>No hay prendas en esta categoría.</p><button class="btn btn--linea btn--s" type="button" data-ver-todo>Ver todo</button></div>
+    <p class="linea-fija">Prendas, precios y talles de ejemplo (Demo). Esto es una demo: no se vende nada.</p>
+  </section>
+
+  <section class="conjuntos" id="conjuntos" aria-labelledby="conj-t">
+    <div class="contenedor conjuntos__cab">
+      <div>
+        <h2 class="h2" id="conj-t">Conjuntos</h2>
+        <p class="bajada mono">Fotos de ejemplo (Demo). Tocá una para ver la prenda.</p>
+      </div>
+      <div class="tira-ctl" data-tira-ctl>
+        <button class="btn btn--linea btn--cuadro" type="button" data-tira-ant aria-label="Conjunto anterior"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-arrow-left"/></svg></button>
+        <button class="btn btn--linea btn--cuadro" type="button" data-tira-sig aria-label="Conjunto siguiente"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-arrow-right"/></svg></button>
+      </div>
+    </div>
+    <ul class="tira" data-tira tabindex="0" role="group" aria-label="Conjuntos: fotos en tira, se mueve con las flechas">
+        <li class="tira__item">
+          <a class="tira__foto" href="#prenda-1" data-ficha="1" aria-label="Conjunto 1: ver Remera blanca"><img src="fotos/conjunto-1-400.webp" srcset="fotos/conjunto-1-400.webp 400w" sizes="(min-width: 900px) 380px, 70vw" width="400" height="500" alt="Persona de espaldas con una remera blanca holgada, frente a una pared de mármol claro" loading="lazy" decoding="async" data-foto="Conjunto 01"></a>
+          <p class="tira__pie mono">Conjunto 01 · Remera blanca (Demo)</p>
+        </li>
+        <li class="tira__item">
+          <a class="tira__foto" href="#prenda-5" data-ficha="5" aria-label="Conjunto 2: ver Pantalón gris con bolsillos"><img src="fotos/conjunto-2-400.webp" srcset="fotos/conjunto-2-400.webp 400w" sizes="(min-width: 900px) 380px, 70vw" width="400" height="500" alt="Persona de espaldas con un buzo azul con capucha y un pantalón gris con bolsillos, sobre un fondo blanco" loading="lazy" decoding="async" data-foto="Conjunto 02"></a>
+          <p class="tira__pie mono">Conjunto 02 · Pantalón gris con bolsillos (Demo)</p>
+        </li>
+        <li class="tira__item">
+          <a class="tira__foto" href="#prenda-7" data-ficha="7" aria-label="Conjunto 3: ver Abrigo negro"><img src="fotos/conjunto-3-400.webp" srcset="fotos/conjunto-3-400.webp 400w" sizes="(min-width: 900px) 380px, 70vw" width="400" height="500" alt="Persona de espaldas con un abrigo negro con capucha, caminando por una vereda" loading="lazy" decoding="async" data-foto="Conjunto 03"></a>
+          <p class="tira__pie mono">Conjunto 03 · Abrigo (Demo)</p>
+        </li>
+        <li class="tira__item">
+          <a class="tira__foto" href="#prenda-8" data-ficha="8" aria-label="Conjunto 4: ver Saco gris"><img src="fotos/conjunto-4-400.webp" srcset="fotos/conjunto-4-400.webp 400w" sizes="(min-width: 900px) 380px, 70vw" width="400" height="500" alt="Torso de una persona con un saco gris, abrochando los botones, en un fondo claro" loading="lazy" decoding="async" data-foto="Conjunto 04"></a>
+          <p class="tira__pie mono">Conjunto 04 · Saco gris (Demo)</p>
+        </li>
+        <li class="tira__item">
+          <a class="tira__foto" href="#prenda-6" data-ficha="6" aria-label="Conjunto 5: ver Jean claro"><img src="fotos/conjunto-5-400.webp" srcset="fotos/conjunto-5-400.webp 400w" sizes="(min-width: 900px) 380px, 70vw" width="400" height="500" alt="Persona de espaldas con un buzo gris y un jean azul, frente a una pared gris oscura" loading="lazy" decoding="async" data-foto="Conjunto 05"></a>
+          <p class="tira__pie mono">Conjunto 05 · Jean (Demo)</p>
+        </li>
+        <li class="tira__item">
+          <a class="tira__foto" href="#prenda-9" data-ficha="9" aria-label="Conjunto 6: ver Buzo con capucha"><img src="fotos/conjunto-6-400.webp" srcset="fotos/conjunto-6-400.webp 400w" sizes="(min-width: 900px) 380px, 70vw" width="400" height="500" alt="Persona de espaldas con un buzo gris con capucha y un jean claro, en un fondo claro" loading="lazy" decoding="async" data-foto="Conjunto 06"></a>
+          <p class="tira__pie mono">Conjunto 06 · Buzo con capucha (Demo)</p>
+        </li>
+    </ul>
+  </section>
+
+  <section class="consulta contenedor" id="consulta" aria-labelledby="chat-t">
+    <div class="consulta__intro">
+      <h2 class="h2" id="chat-t">Una consulta de ejemplo</h2>
+      <p class="bajada">Así podría contestar el asistente de una tienda de ropa.</p>
+    </div>
+    <div class="chat" role="group" aria-label="Conversación de ejemplo">
+      <p class="chat__marco mono">Conversación de ejemplo · se arma para tu negocio</p>
+      <ol class="chat__lista">
+        <li class="burbuja burbuja--cliente"><p class="burbuja__cartel mono">Fuera del horario del negocio</p><p class="sr">Cliente:</p><p class="burbuja__texto">Hola, ¿se puede cambiar una prenda?</p></li>
+        <li class="burbuja burbuja--asistente"><p class="burbuja__quien mono">Asistente de Ceniza</p><p class="burbuja__chip mono">Contesta a cualquier hora</p><p class="burbuja__texto">¡Hola! Soy el asistente de Ceniza. Contame qué te pasó con la prenda y te ayudo.</p></li>
+        <li class="burbuja burbuja--cliente"><p class="sr">Cliente:</p><p class="burbuja__texto">Me quedó chica</p></li>
+        <li class="burbuja burbuja--asistente"><p class="burbuja__quien mono">Asistente de Ceniza</p><p class="burbuja__texto">Entiendo. Las condiciones de cambio las confirma una persona de Ceniza. Se lo paso.</p></li>
+      </ol>
+      <p class="chat__linea">Conversación de ejemplo (Demo). El asistente ayuda con la consulta. Las condiciones de cambio las define la tienda.</p>
+    </div>
+  </section>
+
+  <section class="local contenedor" id="local" aria-labelledby="loc-t">
+    <div class="local__datos">
+      <h2 class="h2" id="loc-t">Local</h2>
+      <p class="bajada mono">Datos de ejemplo (Demo).</p>
+      <p class="local__linea">Zona Centro. Dirección de ejemplo.</p>
+      <p class="local__linea">Lunes a viernes, 10:00 a 19:30; sábados, 10:00 a 17:00 (ejemplo). Domingos cerramos.</p>
+      <div class="local__botones">
+        <button class="btn btn--linea" type="button" data-abrir-mapa aria-haspopup="dialog" aria-label="Cómo llegar. Mapa de ejemplo"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-map-pin"/></svg><span>Cómo llegar</span></button>
+        <div class="wa">
+          <a class="btn btn--tinta" data-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20y%20quiero%20una%20web%20as%C3%AD."><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Consultar por WhatsApp</span></a>
+          <p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p>
+          <p class="wa__estado" data-wa-estado aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+    <figure class="local__mapa">
+      <img src="fotos/mapa-gris.webp" width="600" height="450" alt="Mapa de ejemplo en grises, sin nombres de calles" loading="lazy" decoding="async" data-foto="Mapa">
+      <figcaption class="mono">Mapa de ejemplo (Demo).</figcaption>
+    </figure>
+  </section>
+
+  <section class="fichas" id="fichas" aria-labelledby="fichas-t">
+    <div class="contenedor">
+      <h2 class="h2--s" id="fichas-t">Fichas de las prendas</h2>
+      <div class="fichas__lista" data-fichas-almacen>
+      <article class="ficha" id="prenda-1" data-n="1" data-nombre="Remera blanca" data-rotulo="Pedir por WhatsApp">
+  <div class="ficha__foto ficha__foto--1"><img src="fotos/remera-holgada-blanca-800.webp" width="800" height="1000" alt="Remera blanca, vista 1 de 2: sobre un fondo gris claro, vista de frente" loading="lazy" decoding="async" data-foto="Remera blanca"></div>
+  <div class="ficha__datos">
+    <h2 class="ficha__nombre">Remera blanca</h2>
+    <p class="mono ficha__precio">Gs. 95.000 (Demo)</p>
+    <div class="talles" role="group" aria-labelledby="tl-1">
+      <p class="talles__rotulo" id="tl-1">Talle</p>
+      <ul class="talles__lista"><li><button class="talle" type="button" data-talle="XS" aria-pressed="false" aria-label="Talle XS">XS</button></li><li><button class="talle" type="button" data-talle="S" aria-pressed="false" aria-label="Talle S">S</button></li><li><button class="talle" type="button" data-talle="M" aria-pressed="false" aria-label="Talle M">M</button></li><li><button class="talle" type="button" data-talle="L" aria-pressed="false" aria-label="Talle L">L</button></li><li><button class="talle" type="button" disabled data-talle="XL" aria-label="XL, sin stock">XL<span class="talle__sin"> (sin stock)</span></button></li></ul>
+    </div>
+    <p class="leyenda">Tachado: sin stock (ejemplo).</p>
+    <p class="msg-talle" data-msg-talle aria-live="polite">Elegí un talle.</p>
+    <p class="mono ficha__codigo">Código CZ-001 (ejemplo)</p>
+    <p class="ficha__linea">Manga corta, cuello redondo.</p>
+    <p class="ficha__desc">Descripción de ejemplo (Demo).</p>
+  </div>
+  <div class="ficha__foto ficha__foto--2"><img src="fotos/remera-holgada-blanca-detalle-800.webp" width="800" height="1000" alt="Remera blanca, vista 2 de 2: detalle del cuello y el hombro" loading="lazy" decoding="async" data-foto="Remera blanca"></div>
+  <div class="ficha__wa wa">
+    <a class="btn btn--tinta" data-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20%28prenda%3A%20Remera%20blanca%29%20y%20quiero%20una%20web%20as%C3%AD."><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Pedir por WhatsApp</span></a>
+    <p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p>
+    <p class="wa__estado" data-wa-estado aria-live="polite"></p>
+  </div>
+</article>
+      <article class="ficha" id="prenda-2" data-n="2" data-nombre="Remera negra" data-rotulo="Pedir por WhatsApp">
+  <div class="ficha__foto ficha__foto--1"><img src="fotos/remera-negra-800.webp" width="800" height="1000" alt="Remera negra, vista 1 de 2: colgada de una percha, con sombras de una ventana en la pared" loading="lazy" decoding="async" data-foto="Remera negra"></div>
+  <div class="ficha__datos">
+    <h2 class="ficha__nombre">Remera negra</h2>
+    <p class="mono ficha__precio">Gs. 110.000 (Demo)</p>
+    <div class="talles" role="group" aria-labelledby="tl-2">
+      <p class="talles__rotulo" id="tl-2">Talle</p>
+      <ul class="talles__lista"><li><button class="talle" type="button" disabled data-talle="XS" aria-label="XS, sin stock">XS<span class="talle__sin"> (sin stock)</span></button></li><li><button class="talle" type="button" data-talle="S" aria-pressed="false" aria-label="Talle S">S</button></li><li><button class="talle" type="button" data-talle="M" aria-pressed="false" aria-label="Talle M">M</button></li><li><button class="talle" type="button" data-talle="L" aria-pressed="false" aria-label="Talle L">L</button></li><li><button class="talle" type="button" data-talle="XL" aria-pressed="false" aria-label="Talle XL">XL</button></li></ul>
+    </div>
+    <p class="leyenda">Tachado: sin stock (ejemplo).</p>
+    <p class="msg-talle" data-msg-talle aria-live="polite">Elegí un talle.</p>
+    <p class="mono ficha__codigo">Código CZ-002 (ejemplo)</p>
+    <p class="ficha__linea">Manga corta, cuello redondo.</p>
+    <p class="ficha__desc">Descripción de ejemplo (Demo).</p>
+  </div>
+  <div class="ficha__foto ficha__foto--2"><img src="fotos/remera-negra-detalle-800.webp" width="800" height="1000" alt="Remera negra, vista 2 de 2: detalle del cuello" loading="lazy" decoding="async" data-foto="Remera negra"></div>
+  <div class="ficha__wa wa">
+    <a class="btn btn--tinta" data-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20%28prenda%3A%20Remera%20negra%29%20y%20quiero%20una%20web%20as%C3%AD."><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Pedir por WhatsApp</span></a>
+    <p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p>
+    <p class="wa__estado" data-wa-estado aria-live="polite"></p>
+  </div>
+</article>
+      <article class="ficha" id="prenda-3" data-n="3" data-nombre="Remera corta blanca" data-rotulo="Pedir por WhatsApp">
+  <div class="ficha__foto ficha__foto--1"><img src="fotos/remera-corta-blanca-800.webp" width="800" height="1000" alt="Remera corta blanca, vista 1 de 2: sostenida de una percha sobre un fondo negro" loading="lazy" decoding="async" data-foto="Remera corta blanca"></div>
+  <div class="ficha__datos">
+    <h2 class="ficha__nombre">Remera corta blanca</h2>
+    <p class="mono ficha__precio">Gs. 105.000 (Demo)</p>
+    <div class="talles" role="group" aria-labelledby="tl-3">
+      <p class="talles__rotulo" id="tl-3">Talle</p>
+      <ul class="talles__lista"><li><button class="talle" type="button" disabled data-talle="XS" aria-label="XS, sin stock">XS<span class="talle__sin"> (sin stock)</span></button></li><li><button class="talle" type="button" data-talle="S" aria-pressed="false" aria-label="Talle S">S</button></li><li><button class="talle" type="button" data-talle="M" aria-pressed="false" aria-label="Talle M">M</button></li><li><button class="talle" type="button" data-talle="L" aria-pressed="false" aria-label="Talle L">L</button></li><li><button class="talle" type="button" disabled data-talle="XL" aria-label="XL, sin stock">XL<span class="talle__sin"> (sin stock)</span></button></li></ul>
+    </div>
+    <p class="leyenda">Tachado: sin stock (ejemplo).</p>
+    <p class="msg-talle" data-msg-talle aria-live="polite">Elegí un talle.</p>
+    <p class="mono ficha__codigo">Código CZ-003 (ejemplo)</p>
+    <p class="ficha__linea">Corte corto, cuello redondo.</p>
+    <p class="ficha__desc">Descripción de ejemplo (Demo).</p>
+  </div>
+  <div class="ficha__foto ficha__foto--2"><img src="fotos/remera-corta-blanca-detalle-800.webp" width="800" height="1000" alt="Remera corta blanca, vista 2 de 2: detalle del ruedo y la costura central" loading="lazy" decoding="async" data-foto="Remera corta blanca"></div>
+  <div class="ficha__wa wa">
+    <a class="btn btn--tinta" data-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20%28prenda%3A%20Remera%20corta%20blanca%29%20y%20quiero%20una%20web%20as%C3%AD."><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Pedir por WhatsApp</span></a>
+    <p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p>
+    <p class="wa__estado" data-wa-estado aria-live="polite"></p>
+  </div>
+</article>
+      <article class="ficha" id="prenda-4" data-n="4" data-nombre="Pantalón de buzo" data-rotulo="Pedir por WhatsApp">
+  <div class="ficha__foto ficha__foto--1"><img src="fotos/pantalon-de-buzo-800.webp" width="800" height="1000" alt="Pantalón de buzo, vista 1 de 2: tres pantalones de buzo doblados: negro, marrón y gris" loading="lazy" decoding="async" data-foto="Pantalón de buzo"></div>
+  <div class="ficha__datos">
+    <h2 class="ficha__nombre">Pantalón de buzo</h2>
+    <p class="mono ficha__precio">Gs. 249.000 (Demo)</p>
+    <div class="talles" role="group" aria-labelledby="tl-4">
+      <p class="talles__rotulo" id="tl-4">Talle</p>
+      <ul class="talles__lista"><li><button class="talle" type="button" disabled data-talle="36" aria-label="36, sin stock">36<span class="talle__sin"> (sin stock)</span></button></li><li><button class="talle" type="button" data-talle="38" aria-pressed="false" aria-label="Talle 38">38</button></li><li><button class="talle" type="button" data-talle="40" aria-pressed="false" aria-label="Talle 40">40</button></li><li><button class="talle" type="button" data-talle="42" aria-pressed="false" aria-label="Talle 42">42</button></li><li><button class="talle" type="button" data-talle="44" aria-pressed="false" aria-label="Talle 44">44</button></li></ul>
+    </div>
+    <p class="leyenda">Tachado: sin stock (ejemplo).</p>
+    <p class="msg-talle" data-msg-talle aria-live="polite">Elegí un talle.</p>
+    <p class="mono ficha__codigo">Código CZ-004 (ejemplo)</p>
+    <p class="ficha__linea">Cintura elástica.</p>
+    <p class="ficha__desc">Descripción de ejemplo (Demo).</p>
+  </div>
+  <div class="ficha__foto ficha__foto--2"><img src="fotos/pantalon-de-buzo-detalle-800.webp" width="800" height="1000" alt="Pantalón de buzo, vista 2 de 2: detalle de la cintura del pantalón negro" loading="lazy" decoding="async" data-foto="Pantalón de buzo"></div>
+  <div class="ficha__wa wa">
+    <a class="btn btn--tinta" data-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20%28prenda%3A%20Pantal%C3%B3n%20de%20buzo%29%20y%20quiero%20una%20web%20as%C3%AD."><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Pedir por WhatsApp</span></a>
+    <p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p>
+    <p class="wa__estado" data-wa-estado aria-live="polite"></p>
+  </div>
+</article>
+      <article class="ficha" id="prenda-5" data-n="5" data-nombre="Pantalón gris con bolsillos" data-rotulo="Pedir por WhatsApp">
+  <div class="ficha__foto ficha__foto--1"><img src="fotos/pantalon-cargo-gris-800.webp" width="800" height="1000" alt="Pantalón gris con bolsillos, vista 1 de 2: puesto por una persona, de medio muslo para abajo, sobre un fondo claro" loading="lazy" decoding="async" data-foto="Pantalón gris con bolsillos"></div>
+  <div class="ficha__datos">
+    <h2 class="ficha__nombre">Pantalón gris con bolsillos</h2>
+    <p class="mono ficha__precio">Gs. 259.000 (Demo)</p>
+    <div class="talles" role="group" aria-labelledby="tl-5">
+      <p class="talles__rotulo" id="tl-5">Talle</p>
+      <ul class="talles__lista"><li><button class="talle" type="button" data-talle="36" aria-pressed="false" aria-label="Talle 36">36</button></li><li><button class="talle" type="button" data-talle="38" aria-pressed="false" aria-label="Talle 38">38</button></li><li><button class="talle" type="button" data-talle="40" aria-pressed="false" aria-label="Talle 40">40</button></li><li><button class="talle" type="button" data-talle="42" aria-pressed="false" aria-label="Talle 42">42</button></li><li><button class="talle" type="button" disabled data-talle="44" aria-label="44, sin stock">44<span class="talle__sin"> (sin stock)</span></button></li></ul>
+    </div>
+    <p class="leyenda">Tachado: sin stock (ejemplo).</p>
+    <p class="msg-talle" data-msg-talle aria-live="polite">Elegí un talle.</p>
+    <p class="mono ficha__codigo">Código CZ-005 (ejemplo)</p>
+    <p class="ficha__linea">Bolsillos laterales.</p>
+    <p class="ficha__desc">Descripción de ejemplo (Demo).</p>
+  </div>
+  <div class="ficha__foto ficha__foto--2"><img src="fotos/pantalon-cargo-gris-detalle-800.webp" width="800" height="1000" alt="Pantalón gris con bolsillos, vista 2 de 2: detalle del bolsillo lateral" loading="lazy" decoding="async" data-foto="Pantalón gris con bolsillos"></div>
+  <div class="ficha__wa wa">
+    <a class="btn btn--tinta" data-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20%28prenda%3A%20Pantal%C3%B3n%20gris%20con%20bolsillos%29%20y%20quiero%20una%20web%20as%C3%AD."><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Pedir por WhatsApp</span></a>
+    <p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p>
+    <p class="wa__estado" data-wa-estado aria-live="polite"></p>
+  </div>
+</article>
+      <article class="ficha" id="prenda-6" data-n="6" data-nombre="Jean claro" data-rotulo="Pedir por WhatsApp">
+  <div class="ficha__foto ficha__foto--1"><img src="fotos/jean-claro-800.webp" width="800" height="1000" alt="Jean claro, vista 1 de 2: jeans en tonos claros y uno azul oscuro, doblados sobre un fondo blanco" loading="lazy" decoding="async" data-foto="Jean claro"></div>
+  <div class="ficha__datos">
+    <h2 class="ficha__nombre">Jean claro</h2>
+    <p class="mono ficha__precio">Gs. 279.000 (Demo)</p>
+    <div class="talles" role="group" aria-labelledby="tl-6">
+      <p class="talles__rotulo" id="tl-6">Talle</p>
+      <ul class="talles__lista"><li><button class="talle" type="button" disabled data-talle="36" aria-label="36, sin stock">36<span class="talle__sin"> (sin stock)</span></button></li><li><button class="talle" type="button" disabled data-talle="38" aria-label="38, sin stock">38<span class="talle__sin"> (sin stock)</span></button></li><li><button class="talle" type="button" data-talle="40" aria-pressed="false" aria-label="Talle 40">40</button></li><li><button class="talle" type="button" data-talle="42" aria-pressed="false" aria-label="Talle 42">42</button></li><li><button class="talle" type="button" data-talle="44" aria-pressed="false" aria-label="Talle 44">44</button></li></ul>
+    </div>
+    <p class="leyenda">Tachado: sin stock (ejemplo).</p>
+    <p class="msg-talle" data-msg-talle aria-live="polite">Elegí un talle.</p>
+    <p class="mono ficha__codigo">Código CZ-006 (ejemplo)</p>
+    <p class="ficha__linea">Jean de color claro.</p>
+    <p class="ficha__desc">Descripción de ejemplo (Demo).</p>
+  </div>
+  <div class="ficha__foto ficha__foto--2"><img src="fotos/jean-claro-detalle-800.webp" width="800" height="1000" alt="Jean claro, vista 2 de 2: detalle del dobladillo del jean claro" loading="lazy" decoding="async" data-foto="Jean claro"></div>
+  <div class="ficha__wa wa">
+    <a class="btn btn--tinta" data-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20%28prenda%3A%20Jean%20claro%29%20y%20quiero%20una%20web%20as%C3%AD."><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Pedir por WhatsApp</span></a>
+    <p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p>
+    <p class="wa__estado" data-wa-estado aria-live="polite"></p>
+  </div>
+</article>
+      <article class="ficha" id="prenda-7" data-n="7" data-nombre="Abrigo negro" data-rotulo="Pedir por WhatsApp">
+  <div class="ficha__foto ficha__foto--1"><img src="fotos/abrigo-negro-800.webp" width="800" height="1000" alt="Abrigo negro, vista 1 de 2: colgado de un gancho en una pared clara, con una cartera blanca al lado" loading="lazy" decoding="async" data-foto="Abrigo negro"></div>
+  <div class="ficha__datos">
+    <h2 class="ficha__nombre">Abrigo negro</h2>
+    <p class="mono ficha__precio">Gs. 389.000 (Demo)</p>
+    <div class="talles" role="group" aria-labelledby="tl-7">
+      <p class="talles__rotulo" id="tl-7">Talle</p>
+      <ul class="talles__lista"><li><button class="talle" type="button" data-talle="XS" aria-pressed="false" aria-label="Talle XS">XS</button></li><li><button class="talle" type="button" data-talle="S" aria-pressed="false" aria-label="Talle S">S</button></li><li><button class="talle" type="button" data-talle="M" aria-pressed="false" aria-label="Talle M">M</button></li><li><button class="talle" type="button" data-talle="L" aria-pressed="false" aria-label="Talle L">L</button></li><li><button class="talle" type="button" disabled data-talle="XL" aria-label="XL, sin stock">XL<span class="talle__sin"> (sin stock)</span></button></li></ul>
+    </div>
+    <p class="leyenda">Tachado: sin stock (ejemplo).</p>
+    <p class="msg-talle" data-msg-talle aria-live="polite">Elegí un talle.</p>
+    <p class="mono ficha__codigo">Código CZ-007 (ejemplo)</p>
+    <p class="ficha__linea">Abrigo con botones.</p>
+    <p class="ficha__desc">Descripción de ejemplo (Demo).</p>
+  </div>
+  <div class="ficha__foto ficha__foto--2"><img src="fotos/abrigo-negro-detalle-800.webp" width="800" height="1000" alt="Abrigo negro, vista 2 de 2: detalle de los botones" loading="lazy" decoding="async" data-foto="Abrigo negro"></div>
+  <div class="ficha__wa wa">
+    <a class="btn btn--tinta" data-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20%28prenda%3A%20Abrigo%20negro%29%20y%20quiero%20una%20web%20as%C3%AD."><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Pedir por WhatsApp</span></a>
+    <p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p>
+    <p class="wa__estado" data-wa-estado aria-live="polite"></p>
+  </div>
+</article>
+      <article class="ficha" id="prenda-8" data-n="8" data-nombre="Saco gris" data-rotulo="Pedir por WhatsApp">
+  <div class="ficha__foto ficha__foto--1"><img src="fotos/saco-gris-800.webp" width="800" height="1000" alt="Saco gris, vista 1 de 2: puesto por una persona sin cara a la vista, abrochando los botones" loading="lazy" decoding="async" data-foto="Saco gris"></div>
+  <div class="ficha__datos">
+    <h2 class="ficha__nombre">Saco gris</h2>
+    <p class="mono ficha__precio">Gs. 429.000 (Demo)</p>
+    <div class="talles" role="group" aria-labelledby="tl-8">
+      <p class="talles__rotulo" id="tl-8">Talle</p>
+      <ul class="talles__lista"><li><button class="talle" type="button" disabled data-talle="XS" aria-label="XS, sin stock">XS<span class="talle__sin"> (sin stock)</span></button></li><li><button class="talle" type="button" disabled data-talle="S" aria-label="S, sin stock">S<span class="talle__sin"> (sin stock)</span></button></li><li><button class="talle" type="button" data-talle="M" aria-pressed="false" aria-label="Talle M">M</button></li><li><button class="talle" type="button" data-talle="L" aria-pressed="false" aria-label="Talle L">L</button></li><li><button class="talle" type="button" disabled data-talle="XL" aria-label="XL, sin stock">XL<span class="talle__sin"> (sin stock)</span></button></li></ul>
+    </div>
+    <p class="leyenda">Tachado: sin stock (ejemplo).</p>
+    <p class="msg-talle" data-msg-talle aria-live="polite">Elegí un talle.</p>
+    <p class="mono ficha__codigo">Código CZ-008 (ejemplo)</p>
+    <p class="ficha__linea">Saco con botones.</p>
+    <p class="ficha__desc">Descripción de ejemplo (Demo).</p>
+  </div>
+  <div class="ficha__foto ficha__foto--2"><img src="fotos/saco-gris-detalle-800.webp" width="800" height="1000" alt="Saco gris, vista 2 de 2: detalle de las manos en los botones" loading="lazy" decoding="async" data-foto="Saco gris"></div>
+  <div class="ficha__wa wa">
+    <a class="btn btn--tinta" data-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20%28prenda%3A%20Saco%20gris%29%20y%20quiero%20una%20web%20as%C3%AD."><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Pedir por WhatsApp</span></a>
+    <p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p>
+    <p class="wa__estado" data-wa-estado aria-live="polite"></p>
+  </div>
+</article>
+      <article class="ficha" id="prenda-9" data-n="9" data-nombre="Buzo con capucha" data-rotulo="Pedir por WhatsApp">
+  <div class="ficha__foto ficha__foto--1"><img src="fotos/buzo-con-capucha-800.webp" width="800" height="1000" alt="Buzo con capucha, vista 1 de 2: puesto por una persona de espaldas, sobre un fondo claro" loading="lazy" decoding="async" data-foto="Buzo con capucha"></div>
+  <div class="ficha__datos">
+    <h2 class="ficha__nombre">Buzo con capucha</h2>
+    <p class="mono ficha__precio">Gs. 319.000 (Demo)</p>
+    <div class="talles" role="group" aria-labelledby="tl-9">
+      <p class="talles__rotulo" id="tl-9">Talle</p>
+      <ul class="talles__lista"><li><button class="talle" type="button" data-talle="XS" aria-pressed="false" aria-label="Talle XS">XS</button></li><li><button class="talle" type="button" data-talle="S" aria-pressed="false" aria-label="Talle S">S</button></li><li><button class="talle" type="button" disabled data-talle="M" aria-label="M, sin stock">M<span class="talle__sin"> (sin stock)</span></button></li><li><button class="talle" type="button" data-talle="L" aria-pressed="false" aria-label="Talle L">L</button></li><li><button class="talle" type="button" data-talle="XL" aria-pressed="false" aria-label="Talle XL">XL</button></li></ul>
+    </div>
+    <p class="leyenda">Tachado: sin stock (ejemplo).</p>
+    <p class="msg-talle" data-msg-talle aria-live="polite">Elegí un talle.</p>
+    <p class="mono ficha__codigo">Código CZ-009 (ejemplo)</p>
+    <p class="ficha__linea">Buzo gris con capucha.</p>
+    <p class="ficha__desc">Descripción de ejemplo (Demo).</p>
+  </div>
+  <div class="ficha__foto ficha__foto--2"><img src="fotos/buzo-con-capucha-detalle-800.webp" width="800" height="1000" alt="Buzo con capucha, vista 2 de 2: detalle de la capucha" loading="lazy" decoding="async" data-foto="Buzo con capucha"></div>
+  <div class="ficha__wa wa">
+    <a class="btn btn--tinta" data-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20%28prenda%3A%20Buzo%20con%20capucha%29%20y%20quiero%20una%20web%20as%C3%AD."><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Pedir por WhatsApp</span></a>
+    <p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p>
+    <p class="wa__estado" data-wa-estado aria-live="polite"></p>
+  </div>
+</article>
+      <article class="ficha" id="prenda-10" data-n="10" data-nombre="Campera de jean" data-rotulo="Consultar por WhatsApp" data-sin-datos>
+  <div class="ficha__foto ficha__foto--1"><img src="fotos/campera-de-jean-800.webp" width="800" height="1000" alt="Campera de jean, vista 1 de 2: de cerca, colgada contra una pared anaranjada" loading="lazy" decoding="async" data-foto="Campera de jean"></div>
+  <div class="ficha__datos">
+    <h2 class="ficha__nombre">Campera de jean</h2>
+    <p class="mono ficha__precio">Gs. 299.000 (Demo)</p>
+    <p class="talles__rotulo" id="tl-10">Talle</p>
+    <p class="talles__nodato">Consultá disponibilidad.</p>
+    <p class="mono ficha__codigo">Código CZ-010 (ejemplo)</p>
+    <p class="ficha__linea">Campera de jean con botones.</p>
+    <p class="ficha__desc">Descripción de ejemplo (Demo).</p>
+  </div>
+  <div class="ficha__foto ficha__foto--2"><img src="fotos/campera-de-jean-detalle-800.webp" width="800" height="1000" alt="Campera de jean, vista 2 de 2: detalle del bolsillo del pecho" loading="lazy" decoding="async" data-foto="Campera de jean"></div>
+  <div class="ficha__wa wa">
+    <a class="btn btn--tinta" data-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20%28prenda%3A%20Campera%20de%20jean%29%20y%20quiero%20una%20web%20as%C3%AD."><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span>Consultar por WhatsApp</span></a>
+    <p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p>
+    <p class="wa__estado" data-wa-estado aria-live="polite"></p>
+  </div>
+</article>
+      </div>
+    </div>
+  </section>
 </main>
-<footer class="pie"><div class="ancho">
-<p>© 2026 Casa Jazmín (Demo). Negocio de ejemplo.</p>
-<p>Fotos de Pexels (licencia Pexels, uso libre): <a href="https://www.pexels.com/photo/clothes-hanged-on-clothes-rack-3965545/" rel="noopener" target="_blank">Ksenia Chernaya<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/trendy-red-top-and-denim-jeans-on-display-38194952/" rel="noopener" target="_blank">Daniel Mauricio Bertoli<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/gray-and-black-striped-crew-neck-top-45982/" rel="noopener" target="_blank">Dom J<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/wool-sweater-and-jeans-15667095/" rel="noopener" target="_blank">solod_sha<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/flat-lay-of-clothes-3998648/" rel="noopener" target="_blank">Hana Brannigan<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/folded-clothes-on-brown-wooden-table-7445133/" rel="noopener" target="_blank">Katrin Bolovtsova<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/fashion-clothing-paper-box-9594426/" rel="noopener" target="_blank">Ron Lach<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/colorful-dresses-on-display-in-boutique-35741388/" rel="noopener" target="_blank">himanshu lanjekar<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/beige-trench-coat-hanging-on-clothes-rack-5418892/" rel="noopener" target="_blank">Arina Krasnikova<span class="solo-lector"> (se abre en otra pestaña)</span></a>, <a href="https://www.pexels.com/photo/pink-and-white-long-sleeve-shirt-hanging-on-gold-and-white-clothing-rack-8386654/" rel="noopener" target="_blank">Ron Lach<span class="solo-lector"> (se abre en otra pestaña)</span></a>.</p>
-<p>Letras: Outfit (licencia SIL OFL 1.1), alojadas en este sitio.</p>
-<p>Web hecha con Presencia Multitec</p>
-<div class="enlaces"><a href="../privacidad.html">Privacidad</a><a href="../">Ver otros rubros</a></div>
-</div></footer>
-<div class="barra-wa"><a class="btn btn-grande" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20tienda%20de%20ropa%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Escribinos por WhatsApp</span></a><small>En esta demo, el botón te comunica con Multitec.</small></div>
-<dialog id="hoja" aria-labelledby="hoja-t"><h2 id="hoja-t" style="font-size:1.25rem">Así le llega a tu WhatsApp</h2><p class="hoja-msg" id="hoja-msg"></p><div class="acciones"><a class="btn" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Presencia%20Multitec%20de%20tienda%20de%20ropa%20y%20quiero%20una%20para%20mi%20negocio" rel="noopener">Quiero una web así</a><button class="btn btn-borde" type="button" data-cerrar>Cerrar</button></div></dialog>
-<script src="../js/pro.js" defer></script>
-<script src="../js/chat.js?v=20261122" defer></script>
+
+<footer class="pie contenedor">
+  <p class="pie__linea">Fotos (Pexels):</p>
+  <ul class="pie__creditos"><li><a href="https://www.pexels.com/photo/grayscale-photography-of-assorted-shirts-hanged-on-clothes-rack-1884584/" target="_blank" rel="noopener">Tembela Bohle</a></li><li><a href="https://www.pexels.com/photo/a-blank-white-shirt-12025472/" target="_blank" rel="noopener">Mr. Mockup</a></li><li><a href="https://www.pexels.com/photo/a-black-shirt-hanging-on-the-wall-8532616/" target="_blank" rel="noopener">Hanna Pad</a></li><li><a href="https://www.pexels.com/photo/white-shirt-on-a-black-hanger-8148576/" target="_blank" rel="noopener">Vie Studio</a></li><li><a href="https://www.pexels.com/photo/three-folded-sweatpants-in-neutral-tones-31961168/" target="_blank" rel="noopener">Ebenezer Idowu</a></li><li><a href="https://www.pexels.com/photo/model-in-a-navy-blue-hoodie-and-faded-black-denim-cargo-pants-from-behind-19461567/" target="_blank" rel="noopener">addy bronzzz</a></li><li><a href="https://www.pexels.com/photo/pairs-of-jeans-lying-on-white-surface-17720471/" target="_blank" rel="noopener">Dmitriy Steinke</a></li><li><a href="https://www.pexels.com/photo/white-leather-crossbody-bag-and-black-parka-coat-1476055/" target="_blank" rel="noopener">Lisa Fotios</a></li><li><a href="https://www.pexels.com/photo/photo-of-a-person-buttoning-a-blazer-8250101/" target="_blank" rel="noopener">PNW Production</a></li><li><a href="https://www.pexels.com/photo/faceless-woman-in-casual-wear-in-studio-6995872/" target="_blank" rel="noopener">Alena Shekhovtcova</a></li><li><a href="https://www.pexels.com/photo/denim-jacket-hanging-on-the-wall-in-close-up-photography-13662505/" target="_blank" rel="noopener">Arturo A</a></li><li><a href="https://www.pexels.com/photo/black-man-in-white-t-shirt-6311141/" target="_blank" rel="noopener">Monstera Production</a></li><li><a href="https://www.pexels.com/photo/a-man-wearing-black-jacket-walking-on-the-sidewalk-pavement-11911842/" target="_blank" rel="noopener">Mathias Reding</a></li><li><a href="https://www.pexels.com/photo/young-woman-in-casual-outfit-posing-against-gray-background-31677088/" target="_blank" rel="noopener">REYES CUEVAS JENNIFER ESMERALDA</a></li><li><a href="https://www.pexels.com/photo/clothes-hanging-on-hooks-18189949/" target="_blank" rel="noopener">Steve A Johnson</a></li><li><a href="https://www.pexels.com/photo/stack-of-jeans-on-white-marble-surface-4210857/" target="_blank" rel="noopener">kaboompics</a></li></ul>
+  <p class="pie__linea">Letras: Encode Sans y DM Mono (SIL OFL 1.1), alojadas en este sitio. Íconos: Phosphor Icons (MIT). Mapa: © colaboradores de OpenStreetMap.</p>
+  <p class="pie__linea">(Demo) Los datos de esta página son de ejemplo.</p>
+  <ul class="pie__enlaces"><li><a href="CREDITOS.md">Créditos</a></li><li><a href="https://fabian-acu.github.io/presencia-multitec-demo/" target="_blank" rel="noopener">Web de Multitec</a></li></ul>
+</footer>
+
+<dialog class="hoja hoja--ficha" id="hoja-ficha" aria-label="Ficha de la prenda" data-hoja="ficha">
+  <div class="hoja__panel" data-panel>
+    <div class="hoja__cabeza">
+      <span class="hoja__asa" aria-hidden="true"></span>
+      <button class="hoja__volver" type="button" data-cerrar aria-label="Volver a la colección"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-arrow-left"/></svg><span>Volver a la colección</span></button>
+    </div>
+    <div class="hoja__cuerpo" data-cuerpo></div>
+    <div class="hoja__pie ficha-pie">
+      <p class="mono ficha-pie__resumen" data-resumen></p>
+      <div class="wa ficha-pie__wa">
+        <a class="btn btn--tinta" data-wa data-ficha-wa target="_blank" rel="noopener" href="https://wa.me/595981601211?text=Hola%2C%20vi%20la%20demo%20de%20Ceniza%20y%20quiero%20una%20web%20as%C3%AD."><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-whatsapp-logo"/></svg><span data-rotulo>Pedir por WhatsApp</span></a>
+        <p class="nota-wa">(Demo) Te lleva al WhatsApp de Multitec</p>
+        <p class="wa__estado" data-wa-estado aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="hoja hoja--mapa" id="hoja-mapa" aria-labelledby="mapa-t" data-hoja="mapa">
+  <div class="hoja__panel" data-panel>
+    <div class="hoja__cabeza">
+      <span class="hoja__asa" aria-hidden="true"></span>
+      <h2 class="hoja__titulo" id="mapa-t">Cómo llegar</h2>
+      <button class="hoja__x" type="button" data-cerrar aria-label="Cerrar mapa"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-x"/></svg></button>
+    </div>
+    <div class="hoja__cuerpo">
+      <figure class="hoja__foto" data-mapa-foto>
+        <div class="hoja__mapa"><img data-mapa-img src="fotos/mapa-gris.webp" width="600" height="450" alt="Mapa de ejemplo en grises, sin nombres de calles" loading="lazy" decoding="async"></div>
+        <figcaption class="mono">Mapa de ejemplo (Demo). © colaboradores de OpenStreetMap</figcaption>
+      </figure>
+      <div class="hoja__error" data-mapa-error hidden role="status"><svg class="ico" aria-hidden="true" focusable="false"><use href="iconos.svg#i-warning-circle"/></svg><span>No pudimos cargar el mapa. Probá de nuevo en un rato.</span><button class="btn btn--linea btn--s" type="button" data-reintentar-mapa>Reintentar</button></div>
+      <div class="hoja__texto">
+        <p>Zona Centro. Dirección de ejemplo.</p>
+        <p>Lunes a viernes, 10:00 a 19:30; sábados, 10:00 a 17:00 (ejemplo). Domingos cerramos.</p>
+      </div>
+    </div>
+    <div class="hoja__pie hoja__pie--mapa">
+      <p class="hoja__demo mono">(Demo) Sitio de ejemplo. No se vende nada.</p>
+    </div>
+  </div>
+</dialog>
+
+<p class="pie-fijo">(Demo) Sitio de ejemplo. No se vende nada.</p>
+<script src="cinta/cinta.js?v=20261123"></script>
+<script src="js/nucleo.js?v=20261123" defer></script>
+<script src="js/hoja.js?v=20261123" defer></script>
+<script src="js/ficha.js?v=20261123" defer></script>
+<script src="js/coleccion.js?v=20261123" defer></script>
+<script src="js/conjuntos.js?v=20261123" defer></script>
+<script src="js/chat.js?v=20261123" defer></script>
+<script src="js/estados.js?v=20261123" defer></script>
 </body>
 </html>

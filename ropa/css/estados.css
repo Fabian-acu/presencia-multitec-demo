@@ -1,0 +1,27 @@
+/* Ceniza (Demo): estados. Sin conexion, fotos que fallan, cargando (?estado=cargando), foto faltante, filtro sin prendas. */
+
+/* sin conexion: aviso fijo arriba, debajo de la barra (no tapa el titular ni el pie) */
+.aviso-red { position: fixed; left: 16px; right: 16px; top: calc(var(--alto-cinta) + var(--alto-barra) + 8px); z-index: var(--z-red); display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; max-width: 520px; margin: 0 auto; padding: 14px 16px; background: var(--ink); color: var(--page); }
+.aviso-red span { flex: 1 1 12rem; min-width: 0; }
+.aviso-red .btn--linea { color: var(--page); border-color: var(--page); }
+@media (hover: hover) { .aviso-red .btn--linea:hover { background: var(--velo-claro); } }
+.aviso-red:focus-within .btn { outline-color: var(--page); box-shadow: 0 0 0 5px var(--ink); }
+
+/* fotos que fallan */
+.aviso-fotos { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; margin: 0 0 24px; padding: 14px 16px; border: 1px solid var(--ink); font-weight: 500; }
+.aviso-fotos span { flex: 1 1 14rem; min-width: 0; }
+
+/* foto faltante: un bloque con el nombre, nunca la foto de otra prenda */
+.foto-vacia { display: grid; place-items: center; width: 100%; height: 100%; padding: 12px; background: var(--hueco); color: var(--ink-2); font-family: var(--m); font-size: 0.8125rem; text-align: center; overflow-wrap: anywhere; }
+
+/* cargando: tarjetas rectangulares con la proporcion de la foto, sin texto */
+.esqueleto { display: none; }
+html[data-estado="cargando"] .esqueleto { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 12px; }
+html[data-estado="cargando"] .grilla { display: none; }
+.esqueleto li { aspect-ratio: 4 / 5; background: var(--hueco); }
+@media (min-width: 600px) { html[data-estado="cargando"] .esqueleto { gap: 40px 20px; } }
+@media (min-width: 900px) { html[data-estado="cargando"] .esqueleto { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px 24px; } }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-estado="cargando"] .esqueleto li { animation: respirar 1.3s ease-in-out infinite alternate; }
+  @keyframes respirar { from { opacity: 1; } to { opacity: 0.45; } }
+}
