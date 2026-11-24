@@ -1,3 +1,4 @@
 :HL["/presencia-multitec-demo/oficial-v3/_next/static/css/526b0047a6a7f117.css","style"]
-:HL["/presencia-multitec-demo/oficial-v3/_next/static/css/62de27da8842743d.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"l2Log7OLB_drqCeeWjTH3"}
+:HL["/presencia-multitec-demo/oficial-v3/_next/static/css/e3b9891ac63880be.css","style"]
+:HL["/presencia-multitec-demo/oficial-v3/_next/static/css/cb67202a8746e077.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"8Niy-WJRu1ch4hX_k-OxW"}
